@@ -1,6 +1,6 @@
 import React from "react";
 
-import {CampusLogo} from '../../../assets/img'
+import {CampusLogo} from '@img/';
 
 import {Main, Logo, Nav, Divisor} from './styles';
 
