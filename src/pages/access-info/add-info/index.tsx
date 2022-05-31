@@ -5,7 +5,7 @@ import {Main, WrapperContainer, TypesContainer, FormContainer, Tab, TypeLabel} f
 import {Professor} from './professor'
 import {Classroom} from './classroom'
 import {Course} from './course'
-import { CurricularComponent } from "./CurricularComponent";
+import { CurricularComponent } from "./curricularComponent";
 
 enum TypeLabeEnuml {
     classroom = 'Sala de Aula',
