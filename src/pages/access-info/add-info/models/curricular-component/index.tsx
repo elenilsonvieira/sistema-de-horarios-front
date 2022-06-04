@@ -1,8 +1,9 @@
 import React from "react";
-import {InputArea, ButtonAction, InputContent} from '../../../../../components'
-import {Main, Form} from '../form-styles/styles';
+import {InputArea, ButtonAction, InputContent, SelectArea} from '../../../../../components'
+import {Main, Form} from '../../form-styles/styles';
 
 export const CurricularComponent = () => {
+
     return (
         <Main>
             <Form>
@@ -15,7 +16,12 @@ export const CurricularComponent = () => {
                 </InputContent>
 
                 <InputContent labelText='Curso:' htmlFor="curso">
-                    <InputArea placeholder="Curso" id="curso"></InputArea>
+
+                    <SelectArea id="curso">
+                        <option value="">ADS</option>
+                        <option value="">Construção de Edifícios</option>
+                    </SelectArea>
+
                 </InputContent>
             </Form>
 

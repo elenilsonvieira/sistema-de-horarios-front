@@ -1,6 +1,6 @@
 import React, {useState} from "react";
-import {InputArea, ButtonAction, InputContent} from '../../../../components';
-import {Main, Form} from '../form-styles/styles';
+import {InputArea, ButtonAction, InputContent} from '../../../../../components';
+import {Main, Form} from '../../form-styles/styles';
 import {courseControllerView} from "./courseControllerView";
 
 const Course: React.FC = () => {

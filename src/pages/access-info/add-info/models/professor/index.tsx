@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import {InputArea, ButtonAction, InputContent, SelectArea} from '../../../../../components'
-import { Form, Main } from '../form-styles/styles';
+import { Form, Main } from '../../form-styles/styles';
 import {professorControllerView} from "./professorControllerView";
 
 export const Professor = () => {

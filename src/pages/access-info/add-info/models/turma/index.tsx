@@ -1,6 +1,6 @@
 import React from "react";
 import {InputArea, ButtonAction, InputContent} from '../../../../../components';
-import {Main, Form} from '../form-styles/styles';
+import {Main, Form} from '../../form-styles/styles';
 
 export const Turma = () => {
     return (
