@@ -1,4 +1,4 @@
-import {ButtonMenu, InputArea, ButtonAction} from './access-info';
+import {ButtonMenu, InputArea, ButtonAction, SelectArea} from './access-info';
 
 import {InputContent} from './add-info';
 
@@ -7,4 +7,5 @@ export {
     InputArea,
     ButtonAction,
     InputContent,
+    SelectArea,
 };

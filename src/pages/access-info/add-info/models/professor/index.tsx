@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import {InputArea, ButtonAction, InputContent} from '../../../../components'
+import {InputArea, ButtonAction, InputContent, SelectArea} from '../../../../../components'
 import { Form, Main } from '../form-styles/styles';
 import {professorControllerView} from "./professorControllerView";
 
@@ -21,25 +21,34 @@ export const Professor = () => {
             <Form>
                 <InputContent labelText='Nome:' htmlFor="nome">
 
-                    <InputArea placeholder="Nome" id="nome" change={(event: any) => {
-    setName(event.target.value);
-}}/>
+                    <InputArea placeholder="Nome do professor" id="nome" change={(event:any) => {
+                        setName(event.target.value);
+                    }}></InputArea>
 
                 </InputContent>
 
                 <InputContent labelText='Área:' htmlFor="area">
 
-                    <InputArea placeholder="Área" id="area" change={(event: any) => {
-    setArea(event.target.value);
-}}/>
+                    <InputArea placeholder="Área" id="area" change={(event:any) => {
+                        setArea(event.target.value);
+                    }}></InputArea>
 
                 </InputContent>
 
+                {/* <InputContent labelText='Curso:' htmlFor="curso">
+
+                    <InputArea placeholder="Curso" id="curso" change={(event:any) => {
+                        setcourseUuid(event.target.value);
+                    }}></InputArea>
+
+                </InputContent> */}
+                {/* INTEGRAR ISSO AQUI  */}
                 <InputContent labelText='Curso:' htmlFor="curso">
 
-                    <InputArea placeholder="Curso" id="curso" change={(event: any) => {
-    setcourseUuid(event.target.value);
-}}/>
+                    <SelectArea id="curso">
+                        <option value="">ADS</option>
+                        <option value="">Construção de Edifícios</option>
+                    </SelectArea>
 
                 </InputContent>
             </Form>
