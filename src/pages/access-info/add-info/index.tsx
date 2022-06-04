@@ -2,10 +2,14 @@ import React, {useState} from "react";
 
 import {Main, WrapperContainer, TypesContainer, FormContainer, Tab, TypeLabel} from './styles'
 
-import {Professor} from './professor'
-import {Classroom} from './classroom'
-import {Course} from './course'
-import { CurricularComponent } from "./CurricularComponent";
+import {Calendar,
+    Classroom,
+    Course,
+    CurricularComponent,
+    Professor,
+    Turma,
+    Lesson} from './models'
+
 
 enum TypeLabeEnuml {
     classroom = 'Sala de Aula',
@@ -13,7 +17,8 @@ enum TypeLabeEnuml {
     calendar = 'Calendário',
     course = 'Curso',
     turma = 'Turma',
-    curricularComponent = 'Disciplina'
+    curricularComponent = 'Disciplina',
+    lesson = 'Aula',
 }
 
 const types = [
@@ -48,6 +53,11 @@ const types = [
         value: 'classroom',
         title: 'Sala de aula',
     },
+    {
+        id: '99119',
+        value: 'lesson',
+        title: 'Aula',
+    },
 ]
 
 export const AddInfo = () => {
@@ -78,6 +88,15 @@ export const AddInfo = () => {
                     }
                     {type === 'curricularComponent' &&
                         <CurricularComponent />
+                    }
+                    {type === 'calendar' &&
+                        <Calendar />
+                    }
+                    {type === 'turma' &&
+                        <Turma />
+                    }
+                    {type === 'lesson' &&
+                        <Lesson />
                     }
                 </FormContainer>
                 <TypesContainer>

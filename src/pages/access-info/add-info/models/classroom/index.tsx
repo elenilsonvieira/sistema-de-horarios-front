@@ -1,5 +1,5 @@
 import React from "react";
-import {InputArea, ButtonAction, InputContent} from '../../../../components';
+import {InputArea, ButtonAction, InputContent} from '../../../../../components';
 import {Main, Form} from '../form-styles/styles';
 
 export const Classroom = () => {
@@ -7,7 +7,7 @@ export const Classroom = () => {
         <Main>
             <Form>
                 <InputContent labelText="Nome:" htmlFor="nome">
-                    <InputArea placeholder="Nome" id="nome"></InputArea>
+                    <InputArea placeholder="Ex: Sala 1" id="nome"></InputArea>
                 </InputContent>
 
                 <InputContent labelText="Bloco:" htmlFor="bloco">

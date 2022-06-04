@@ -1,5 +1,5 @@
 import React from "react";
-import {InputArea, ButtonAction, InputContent} from '../../../../components';
+import {InputArea, ButtonAction, InputContent} from '../../../../../components';
 import {Main, Form} from '../form-styles/styles';
 
 const Course: React.FC = () => {
@@ -7,7 +7,7 @@ const Course: React.FC = () => {
         <Main>
             <Form>
                 <InputContent labelText="Nome:" htmlFor="nome">
-                    <InputArea placeholder="Nome do curso" id="nome"></InputArea>
+                    <InputArea placeholder="Ex: Construção de Edifícios" id="nome"></InputArea>
                 </InputContent>
 
             </Form>

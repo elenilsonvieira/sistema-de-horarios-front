@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import {InputArea, ButtonAction, InputContent} from '../../../../components'
+import {InputArea, ButtonAction, InputContent, SelectArea} from '../../../../../components'
 import { Form, Main } from '../form-styles/styles';
-import {ProfessorController} from "../../../../api/controller/ProfessorController";
-import {ProfessorModel} from "../../../../api/model/ProfessorModel";
+import {ProfessorController} from "../../../../../api/controller/ProfessorController";
+import {ProfessorModel} from "../../../../../api/model/ProfessorModel";
 
 export const Professor = () => {
     const [name, setName] = useState<string>();
@@ -22,7 +22,7 @@ export const Professor = () => {
             <Form>
                 <InputContent labelText='Nome:' htmlFor="nome">
 
-                    <InputArea placeholder="Nome" id="nome" change={(event:any) => {
+                    <InputArea placeholder="Nome do professor" id="nome" change={(event:any) => {
                         setName(event.target.value);
                     }}></InputArea>
 
@@ -36,11 +36,20 @@ export const Professor = () => {
 
                 </InputContent>
 
-                <InputContent labelText='Curso:' htmlFor="curso">
+                {/* <InputContent labelText='Curso:' htmlFor="curso">
 
                     <InputArea placeholder="Curso" id="curso" change={(event:any) => {
                         setcourseUuid(event.target.value);
                     }}></InputArea>
+
+                </InputContent> */}
+                {/* INTEGRAR ISSO AQUI  */}
+                <InputContent labelText='Curso:' htmlFor="curso">
+
+                    <SelectArea id="curso">
+                        <option value="">ADS</option>
+                        <option value="">Construção de Edifícios</option>
+                    </SelectArea>
 
                 </InputContent>
             </Form>
