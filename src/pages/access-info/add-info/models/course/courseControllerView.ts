@@ -3,7 +3,7 @@ import {CourseController} from "../../../../../api/controller/CourseController";
 
 export async function courseControllerView(data: any): Promise<void> {
     const course =  data as CourseModel;
-    const controller = new CourseController();
+    const controller = CourseController.getInstance();
     const response = await controller.create(course);
     if(response){
         alert("Criado com sucesso");

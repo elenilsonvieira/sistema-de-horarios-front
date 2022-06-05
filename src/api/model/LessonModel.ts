@@ -1,7 +1,9 @@
 export interface LessonModel {
-    calendarModel: string;
-    classroom: string;
-    corricularComponent: string;
-    professor: string;
-    turma: string;
+    uuid: string;
+    calendar: any;
+    classroom: any;
+    curricularComponent: any;
+    professor: any;
+    turma: any;
+    interval?: any
 }

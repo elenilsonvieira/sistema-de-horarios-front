@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {InputArea, ButtonAction, InputContent} from '../../../../../components';
-import {Main, Form} from '../../form-styles/styles';
+import {Main, Form} from '../styles/styles';
+import {calendarControllerView} from "./calendarControllerView";
 
 export const Calendar = () => {
     const [semester, setSemester] = useState<string>();
@@ -20,8 +21,9 @@ export const Calendar = () => {
                 </InputContent>
             </Form>
 
-            <ButtonAction textButton="adicionar calendário" onClickFunction={() => {
-
+            <ButtonAction textButton="adicionar calendário" onClickFunction={ async () => {
+                const data = getDataObject();
+                await calendarControllerView(data);
             }}/>
         </ Main>
     );

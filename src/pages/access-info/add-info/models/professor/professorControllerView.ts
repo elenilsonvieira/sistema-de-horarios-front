@@ -3,7 +3,7 @@ import {ProfessorController} from '../../../../../api/controller/ProfessorContro
 
 export async function professorControllerView(data: any):Promise<void>{
     const professor = data as ProfessorModel;
-    const controller = new ProfessorController();
+    const controller = ProfessorController.getInstance();
     const response = await controller.create(professor);
     if(response) {
         alert("Criado com sucesso");

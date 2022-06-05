@@ -3,7 +3,7 @@ import {ClassroomController} from "../../../../../api/controller/ClassroomContro
 
 export async function classroomControllerView(data: any): Promise<void> {
     const classroom =  data as ClassroomModel;
-    const controller = new ClassroomController();
+    const controller = ClassroomController.getInstance();
     const response = await controller.create(classroom);
     if(response){
         alert("Criado com sucesso");

@@ -3,7 +3,7 @@ import {CalendarController} from "../../../../../api/controller/CalendarControll
 
 export async function calendarControllerView(data: any): Promise<void> {
     const calendar =  data as CalendarModel;
-    const controller = new CalendarController();
+    const controller = CalendarController.getInstance();
     const response = await controller.create(calendar);
     if(response){
         alert("Criado com sucesso");

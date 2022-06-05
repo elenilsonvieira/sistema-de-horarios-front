@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {InputArea, ButtonAction, InputContent} from '../../../../../components';
-import {Main, Form} from '../../form-styles/styles';
+import {Main, Form} from '../styles/styles';
 import {classroomControllerView} from "./classroomControllerView";
 
 export const Classroom = () => {

@@ -3,7 +3,7 @@ import {CurricularComponentController} from "../../../../../api/controller/Curri
 
 export async function curricularComponentControllerView(data: any){
     const course =  data as CurricularComponentModel;
-    const controller = new CurricularComponentController();
+    const controller = CurricularComponentController.getInstance();
     const response = await controller.create(course);
     if(response){
         alert("Criado com sucesso");
