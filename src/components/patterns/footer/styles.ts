@@ -4,8 +4,8 @@ export const Main = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 150px;
-    padding: 20px 90px;
+    height: 100px;
+    padding: 10px 45px;
     background-color: #D0D0D0;
 `;
 
@@ -15,7 +15,7 @@ export const Divisor = styled.span`
 
 export const Nav = styled.nav`
     color: white;
-    font-size: 22px;
+    font-size: 18px;
     > ul {
         list-style: none;
         display: flex;

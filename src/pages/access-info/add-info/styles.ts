@@ -8,7 +8,7 @@ export const Main = styled.div`
     justify-content: center;
     align-items: center;
     color: white;
-    min-height: calc(100vh - 300px);
+    min-height: calc(100vh - 200px);
     padding: 95px 50px 50px 50px;
 `;
 
@@ -17,7 +17,7 @@ export const WrapperContainer = styled('div')`
     padding: 0 50px;
     max-width: 940px;
     width: 100%;
-    height: 465px;
+    height: 420px;
     border-radius: 5px;
     display: flex;
 `;
@@ -45,7 +45,7 @@ export const TypesContainer = styled('div')`
 
     input[type="radio"]:checked+label{
         transition: 0.5s all ease-out;
-        font-size: 30px;
+        font-size: 25px;
         color: #CF3034;
 
         & > div {
@@ -69,11 +69,11 @@ export const TypesContainer = styled('div')`
 // `;}
 
 export const TypeLabel = styled('label')`
-    font-size: 20px;
+    font-size: 16px;
     text-align: center;
 
     & > div {
-        margin-top: 10px;
+        margin-top: 5px;
         border-bottom: solid 1px white;
     } 
 

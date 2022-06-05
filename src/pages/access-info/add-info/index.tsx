@@ -64,8 +64,7 @@ export const AddInfo = () => {
     const [type, setType] = useState('professor');
 
     function handleChangeType(event:any) {
-        setType(event.target.value); 
-        console.log(event.target.value)
+        setType(event.target.value);
     }
 
     return (

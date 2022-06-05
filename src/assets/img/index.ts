@@ -1,6 +1,6 @@
 import  {CampusLogo} from "./header";
 
-import {AddInfo, Horario, Editar, Ver} from "./access-info";
+import {AddInfo, Horario, Editar, Ver, Expandir} from "./access-info";
 
 export {
     CampusLogo,
@@ -8,4 +8,5 @@ export {
     Horario,
     Editar,
     Ver,
+    Expandir,
 };

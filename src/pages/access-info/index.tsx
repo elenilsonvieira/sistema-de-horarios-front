@@ -30,7 +30,7 @@ export const AccessInfo = () => {
                         tittle="EDITAR INFORMAÇÕES" 
                         icon={Editar} 
                         discription="Editar ou excluir dados."
-                        to={"/access-info"}
+                        to={"/edit-info"}
                     />
                     <ButtonMenu 
                         tittle="VISUALIZAR INFORMAÇÕES" 
