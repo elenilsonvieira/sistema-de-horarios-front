@@ -4,7 +4,7 @@ export const Main = styled.div`
     background-color: #3FA14C;
     display: flex;
     justify-content: center;
-    min-height: calc(100vh - 300px);
+    min-height: calc(100vh - 200px);
     width: 100vw;
 `;
 

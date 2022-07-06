@@ -32,13 +32,7 @@ export const AccessInfo = () => {
                         discription="Editar ou excluir dados."
                         to={"/edit-info"}
                     />
-                    <ButtonMenu 
-                        tittle="VISUALIZAR INFORMAÇÕES" 
-                        icon={Ver} 
-                        discription="Veja com detalhes todos os dados 
-                            inseridos de acordo com seu tipo."
-                            to={"/access-info"}
-                    />
+
                 </Col>
             </Container>
         </Main>
