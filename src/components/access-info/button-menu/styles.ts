@@ -3,8 +3,8 @@ import styled from 'styled-components';
 export const Main = styled.div`
     padding: 50px;
 
-    @media screen and (max-width: 600px) {
-        padding: 20px;
+    @media screen and (max-width: 700px) {
+        padding: 20px 0;
     }
 `;
 

@@ -10,32 +10,34 @@ export const AccessInfo = () => {
     return (
         <SuperDiv>
         <Main>
-            <Container>
-                <Col>
-                    <ButtonMenu 
-                        tittle="ADICIONAR INFORMAÇÕES" 
-                        icon={AddInfo} 
-                        discription="Ex: Turma, salas, disciplinas, professores..."
-                        to={"/add-info"}
-                    />
-                    <ButtonMenu 
-                        tittle="MONTAR HORÁRIOS" 
-                        icon={Horario} 
-                        discription="De acordo com as informações inseridas
-                            no sistema."
-                        to={"/access-info"}
-                    />
-                </Col>
-                <Col>
-                    <ButtonMenu 
-                        tittle="EDITAR INFORMAÇÕES" 
-                        icon={Editar} 
-                        discription="Editar ou excluir dados."
-                        to={"/edit-info"}
-                    />
-
-                </Col>
-            </Container>
+            <Sidebar></Sidebar>
+            <Menu>
+                <Container>
+                    <Col>
+                        <ButtonMenu 
+                            tittle="ADICIONAR INFORMAÇÕES" 
+                            icon={AddInfo} 
+                            discription="Ex: Turma, salas, disciplinas, professores..."
+                            to={"/add-info"}
+                        />
+                        <ButtonMenu 
+                            tittle="MONTAR HORÁRIOS" 
+                            icon={Horario} 
+                            discription="De acordo com as informações inseridas
+                                no sistema."
+                            to={"/access-info"}
+                        />
+                    </Col>
+                    <Col>
+                        <ButtonMenu 
+                            tittle="EDITAR INFORMAÇÕES" 
+                            icon={Editar} 
+                            discription="Editar ou excluir dados."
+                            to={"/edit-info"}
+                        />
+                    </Col>
+                </Container>
+            </Menu>
         </Main>
         </SuperDiv>
     )
