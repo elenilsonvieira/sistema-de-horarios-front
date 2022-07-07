@@ -83,7 +83,7 @@ export const EditInfo = () => {
                     )
                 })}
             </TabsBar>
-            <div>
+            <div className="list-items">
                 {type === 'classroom' && 
                     <Classroom />
                 }

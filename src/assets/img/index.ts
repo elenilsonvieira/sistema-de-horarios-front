@@ -1,5 +1,7 @@
 import  {CampusLogo} from "./header";
 
+import InfoIcon from "./info.svg";
+
 import {AddInfo, Horario, Editar, Ver, Expandir} from "./access-info";
 
 export {
@@ -9,4 +11,5 @@ export {
     Editar,
     Ver,
     Expandir,
+    InfoIcon,
 };

@@ -11,17 +11,22 @@ export const Main = styled.div`
     min-height: calc(100vh - 200px);
     padding: 95px 50px 50px 50px;
 
-    & > select {
+    & > .select-label {
         display: none;
-        max-width: 380px;
-        margin-bottom: 70px;
+        width: 100%;
+        max-width: 450px;
+        margin-bottom: 50px;
+
+        & > select {
+            margin-top: 5px;
+        }
     }
 
     @media screen and (max-width: 600px){
         padding: 15px;
         flex-direction: column-reverse;
 
-        & > select {
+        & > .select-label {
             display: block;
         }
     }

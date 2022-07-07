@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {SelectArea} from '../../../components';
+import {SelectArea, InputContent} from '../../../components';
 
 import {Main, WrapperContainer, TypesContainer, FormContainer, Tab, TypeLabel} from './styles'
 
@@ -116,13 +116,15 @@ export const AddInfo = () => {
                     </div>
                 </TypesContainer>
             </WrapperContainer>
-            <SelectArea id="type-select" value={typeSelected} change={(e) => setType(e.target.value)}>
-                {types.map((type) => {
-                    return(
-                        <option value={type.value}>{type.title}</option>
-                    )
-                })}
-            </SelectArea>
+            <InputContent labelText='Selecione o tipo de dado para inserir:' className="select-label">
+                <SelectArea id="type-select" value={typeSelected} change={(e) => setType(e.target.value)}>
+                    {types.map((type) => {
+                        return(
+                            <option value={type.value}>{type.title}</option>
+                        )
+                    })}
+                </SelectArea>
+            </InputContent>
         </Main>
     )
 }

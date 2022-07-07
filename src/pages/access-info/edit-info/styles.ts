@@ -4,6 +4,14 @@ export const Main = styled('div')`
     width: 100%;
     min-height: calc(100vh - 200px);
     background-color: #3FA14C;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & > .list-items {
+        width: 100%;
+        max-width: 1200px;
+    }
 `;
 
 export const TabsBar = styled('div')`
