@@ -18,7 +18,7 @@ export const Home = () => {
                         <InputContent labelText="Senha:" htmlFor='pass'>
                             <InputArea type="password" placeholder="Senha" id="pass"/>
                         </InputContent>
-                        <ButtonAction textButton={"Entrar"} />
+                        <ButtonAction textButton={"login"} />
                     </Form>
                     <LoginSpan onClick={() => setShowLogin(false)}>
                         Voltar

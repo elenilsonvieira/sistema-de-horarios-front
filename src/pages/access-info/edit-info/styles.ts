@@ -10,12 +10,13 @@ export const TabsBar = styled('div')`
     width: 100%;
     background-color: #656565;
     display: flex;
-    flex-wrap: wrap;
+    overflow: auto;
     padding-left: 20px;
 `;
 
 export const Tab = styled('div')`
     padding: 10px 15px;
+    white-space: nowrap;
     & > input {
         display: none;
     }

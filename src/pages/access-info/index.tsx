@@ -25,7 +25,7 @@ export const AccessInfo = () => {
                             icon={Horario} 
                             discription="De acordo com as informações inseridas
                                 no sistema."
-                            to={"/access-info"}
+                            to={"/set-schedules"}
                         />
                     </Col>
                     <Col>
