@@ -20,7 +20,6 @@ export const CurricularComponent = () => {
     const load =  async () => {
         try {
             const result  = await curricularComponentReadView();
-            console.log(result)
             setCurricularComponentList(result);
         }catch (Error:any){
 

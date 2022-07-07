@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {SelectArea} from '../../../components';
 
 import {Main, WrapperContainer, TypesContainer, FormContainer, Tab, TypeLabel} from './styles'
 
@@ -61,7 +62,7 @@ const types = [
 ]
 
 export const AddInfo = () => {
-    const [type, setType] = useState('professor');
+    const [typeSelected, setType] = useState('professor');
 
     function handleChangeType(event:any) {
         setType(event.target.value);
@@ -73,28 +74,28 @@ export const AddInfo = () => {
                 <FormContainer>
                     <Tab>
                         <h1>
-                            {(TypeLabeEnuml as any)[type]}
+                            {(TypeLabeEnuml as any)[typeSelected]}
                         </h1>
                     </Tab>
-                    {type === 'classroom' && 
+                    {typeSelected === 'classroom' && 
                         <Classroom />
                     }
-                    {type === 'professor' && 
+                    {typeSelected === 'professor' && 
                         <Professor />
                     }
-                    {type === 'course' && 
+                    {typeSelected === 'course' && 
                         <Course />
                     }
-                    {type === 'curricularComponent' &&
+                    {typeSelected === 'curricularComponent' &&
                         <CurricularComponent />
                     }
-                    {type === 'calendar' &&
+                    {typeSelected === 'calendar' &&
                         <Calendar />
                     }
-                    {type === 'turma' &&
+                    {typeSelected === 'turma' &&
                         <Turma />
                     }
-                    {type === 'lesson' &&
+                    {typeSelected === 'lesson' &&
                         <Lesson />
                     }
                 </FormContainer>
@@ -115,6 +116,13 @@ export const AddInfo = () => {
                     </div>
                 </TypesContainer>
             </WrapperContainer>
+            <SelectArea id="type-select" value={typeSelected} change={(e) => setType(e.target.value)}>
+                {types.map((type) => {
+                    return(
+                        <option value={type.value}>{type.title}</option>
+                    )
+                })}
+            </SelectArea>
         </Main>
     )
 }

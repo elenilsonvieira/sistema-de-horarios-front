@@ -91,7 +91,6 @@ export const Turma = () => {
                                     }
                                     {!editMode ?
                                         <ButtonDelete onClickFunction={ async () => {
-                                            console.log(turma)
                                             const response  = confirm("Deseja confirmar a operação?");
                                             if(response){
                                                  await turmaDeleteControllerView(turma.uuid);

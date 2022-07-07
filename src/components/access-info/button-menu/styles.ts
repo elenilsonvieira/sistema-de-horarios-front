@@ -2,6 +2,10 @@ import styled from 'styled-components';
 
 export const Main = styled.div`
     padding: 50px;
+
+    @media screen and (max-width: 600px) {
+        padding: 20px;
+    }
 `;
 
 export const StyledButton = styled.button`

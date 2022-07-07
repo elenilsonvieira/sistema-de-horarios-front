@@ -10,6 +10,22 @@ export const Main = styled.div`
     color: white;
     min-height: calc(100vh - 200px);
     padding: 95px 50px 50px 50px;
+
+    & > select {
+        display: none;
+        max-width: 380px;
+        margin-bottom: 70px;
+    }
+
+    @media screen and (max-width: 600px){
+        padding: 15px;
+        flex-direction: column-reverse;
+
+        & > select {
+            display: block;
+        }
+    }
+
 `;
 
 export const WrapperContainer = styled('div')`
@@ -20,6 +36,11 @@ export const WrapperContainer = styled('div')`
     height: 420px;
     border-radius: 5px;
     display: flex;
+
+    @media screen and (max-width: 600px){
+        justify-content: center;
+        padding: 0 5px;
+    }
 `;
 
 export const TypesContainer = styled('div')`
@@ -57,6 +78,10 @@ export const TypesContainer = styled('div')`
                 color: #CF3034;
             }
         }
+    }
+
+    @media screen and (max-width: 600px){
+        display: none;
     }
 
 `;

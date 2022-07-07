@@ -63,7 +63,6 @@ export const CurricularComponent = () => {
                             courseModelList?.map((item) =>(
 
                                 <option key={item.uuid} onChange={()=>{
-                                    console.log(item.name)
                                 }}>{item.name}</option>
                             ))
                         }

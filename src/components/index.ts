@@ -2,7 +2,11 @@ import {ButtonMenu, InputArea, ButtonAction, SelectArea} from './access-info';
 
 import {InputContent} from './add-info';
 
+import {ButtonHome} from './home';
+
 import {ButtonEdit, ButtonCancel, ButtonDelete, ButtonConcluir} from './edit-info';
+
+import {Sidebar} from './auth';
 
 export {
     ButtonMenu,
@@ -14,4 +18,6 @@ export {
     ButtonCancel,
     ButtonDelete,
     ButtonConcluir,
+    Sidebar,
+    ButtonHome,
 };

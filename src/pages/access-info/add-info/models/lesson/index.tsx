@@ -73,8 +73,8 @@ export const Lesson = () => {
     return (
         <Main>
             <Form>
-                <InputContent labelText='Calendário:' htmlFor="calendario">
-                    <SelectArea id="calendario" change={(event)=>{
+                <InputContent labelText='Calendário:' htmlFor="calendario-s">
+                    <SelectArea id="calendario-s" change={(event)=>{
                         const select  = event.target;
                         if (calendarList) {
                             const uuid = calendarList[select.selectedIndex].uuid;
@@ -89,8 +89,8 @@ export const Lesson = () => {
                         }
                     </SelectArea>
                 </InputContent>
-                <InputContent labelText='Sala de aula:' htmlFor="classroom">
-                    <SelectArea id="classroom" change={(event)=>{
+                <InputContent labelText='Sala de aula:' htmlFor="classroom-s">
+                    <SelectArea id="classroom-s" change={(event)=>{
                         const select  = event.target;
                         if (classroomList) {
                             const uuid = classroomList[select.selectedIndex].uuid;
@@ -104,8 +104,8 @@ export const Lesson = () => {
                         }
                     </SelectArea>
                 </InputContent>
-                <InputContent labelText='Disciplina:' htmlFor="disciplina">
-                    <SelectArea id="disciplina" change={(event)=>{
+                <InputContent labelText='Disciplina:' htmlFor="disciplina-s">
+                    <SelectArea id="disciplina-s" change={(event)=>{
                         const select  = event.target;
                         if (curricularComponentList) {
                             const uuid = curricularComponentList[select.selectedIndex].uuid;
@@ -118,8 +118,8 @@ export const Lesson = () => {
                         }
                     </SelectArea>
                 </InputContent>
-                <InputContent labelText='Professor:' htmlFor="professor">
-                    <SelectArea id="professor" change={(event)=>{
+                <InputContent labelText='Professor:' htmlFor="professor-s">
+                    <SelectArea id="professor-s" change={(event)=>{
                         const select  = event.target;
                         if (professorList) {
                             const uuid = professorList[select.selectedIndex].uuid;
@@ -132,8 +132,8 @@ export const Lesson = () => {
                         }
                     </SelectArea>
                 </InputContent>
-                <InputContent labelText='Turma:' htmlFor="turma">
-                    <SelectArea id="turma" change={(event)=>{
+                <InputContent labelText='Turma:' htmlFor="turma-s">
+                    <SelectArea id="turma-s" change={(event)=>{
                         const select  = event.target;
                         if (turmaList) {
                             const uuid = turmaList[select.selectedIndex].uuid;
@@ -150,7 +150,6 @@ export const Lesson = () => {
 
             <ButtonAction textButton="adicionar aula" onClickFunction={ async ()=>{
                 const data = getDataObject();
-                console.log(data);
                 await lessonControllerView(data);
             }}/>
         </ Main>

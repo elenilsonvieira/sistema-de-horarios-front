@@ -14,7 +14,7 @@ export const Main = styled.div`
 export const Form = styled.form`
     width: 100%;
     max-height: 370px;
-    overflow: scroll;
+    overflow: auto;
     margin-bottom: 10px;
     padding-bottom: 10px;
 `;

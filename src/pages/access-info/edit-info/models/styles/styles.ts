@@ -24,7 +24,6 @@ export const RowVisualizer = styled('div')`
     & >.expand {
         height: 0;
         transform:scaleY(0);
-        
     }
 
     & > div {
@@ -36,6 +35,11 @@ export const RowVisualizer = styled('div')`
             cursor: pointer; 
         }
 
+        &:last-child {
+            @media screen and (max-width: 600px){
+                align-items: flex-start;
+            }
+        }
     }
     input[type="radio"]{
         display: none;
@@ -50,10 +54,9 @@ export const RowVisualizer = styled('div')`
 
     input[type="radio"]:checked+div{
         color: #CF3034;
-            img {
-                display: none;
-            }
-        
+        img {
+            display: none;
+        }
     }
 `;
 
@@ -64,6 +67,10 @@ export const ExpandDetails = styled('div')`
     font-size: 18px;
     display: flex;
     flex-direction: column;
+
+    @media screen and (max-width: 600px){
+        padding-top: 10px;
+    }
 
     & > div {
         display: flex;
@@ -83,8 +90,15 @@ export const ExpandDetails = styled('div')`
     input, select {
         width: 250px;
     }
+
 `;
 
 export const ActionContainer = styled('div')`
     padding-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    @media screen and (max-width: 600px){
+        justify-content: end;
+    }
 `;

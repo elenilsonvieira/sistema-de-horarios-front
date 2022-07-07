@@ -5,6 +5,8 @@ import {professorControllerView} from "./professorControllerView";
 import {CourseController} from "../../../../../api/controller/CourseController";
 import {CourseModel} from "../../../../../api/model/CourseModel";
 
+import {showMessage} from '../../../../../components/libs/Toastr';
+
 const courseController = CourseController.getInstance()
 export const Professor = () => {
     const [name, setName] = useState<string>();

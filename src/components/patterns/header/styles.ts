@@ -7,6 +7,10 @@ export const Main = styled.div`
     height: 100px;
     padding: 10px 45px;
     background-color: #D0D0D0;
+
+    @media screen and (max-width: 600px){
+        padding: 10px 20px;
+    }
 `;
 
 export const Logo = styled.div`
@@ -36,6 +40,20 @@ export const Nav = styled.nav`
 
                 :hover{
                     color: #CF3034;
+                }
+            }
+        }
+
+        @media screen and (max-width: 600px){
+            flex-direction: column;
+            align-items: end;
+            & > span {
+                display: none;
+            }
+
+            > li {
+                a {
+                    font-size: 16px;
                 }
             }
         }

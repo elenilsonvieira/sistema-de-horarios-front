@@ -14,8 +14,8 @@ export class CalendarController {
         }
 
         return CalendarController.instance;
-
     }
+    
     public async create(calendar: CalendarModel):Promise<boolean>{
         const response = await axios.post("/calendar", calendar);
         return response.status === 201
