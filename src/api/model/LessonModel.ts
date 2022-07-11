@@ -5,5 +5,6 @@ export interface LessonModel {
     curricularComponent: any;
     professor: any;
     turma: any;
-    interval?: any
+    course: any
+    interval?: any;
 }

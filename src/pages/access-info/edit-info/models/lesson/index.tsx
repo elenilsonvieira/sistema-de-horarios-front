@@ -64,7 +64,7 @@ export const Lesson = () => {
                                             <option value="">Sala 3</option>
                                         </SelectArea>
                                         :
-                                        <span className='info'>{lesson.classroom.nome} - {lesson.classroom.block}</span>
+                                        <span className='info'>{lesson.classroom.name} - {lesson.classroom.block}</span>
                                     }
                                 </div>
                                 <div className={editMode? 'edit-mode' : ''}>

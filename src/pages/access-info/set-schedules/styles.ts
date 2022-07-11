@@ -25,6 +25,7 @@ export const ContainerLessons = styled.div`
     flex-direction: column;
     max-width: 1200px;
     width: 100%;
+    
     justify-content: center;
 `;
 

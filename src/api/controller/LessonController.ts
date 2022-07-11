@@ -25,6 +25,14 @@ export class LessonController {
         return response.data as LessonModel[];
     }
 
+    public async getByCourseByBlockAndClassName(data: any): Promise<LessonModel[]> {
+        const response = await axios.get("/lesson/getWithFilters",{
+            headers: data
+        })
+
+        return response.data as LessonModel[];
+    }
+
     public async delete(uuid: string): Promise<boolean> {
         const response = await axios.delete(`/lesson/${uuid}`);
         return response.status === 200;

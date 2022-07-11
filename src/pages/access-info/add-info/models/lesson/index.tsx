@@ -6,18 +6,21 @@ import {ClassroomModel} from "../../../../../api/model/ClassroomModel";
 import {CurricularComponentModel} from "../../../../../api/model/CurricularComponentModel";
 import {ProfessorModel} from "../../../../../api/model/ProfessorModel";
 import {TurmaModel} from "../../../../../api/model/TurmaModel";
+import {CourseModel} from "../../../../../api/model/CourseModel";
 import {CalendarController} from "../../../../../api/controller/CalendarController";
 import {ClassroomController} from "../../../../../api/controller/ClassroomController";
 import {CurricularComponentController} from "../../../../../api/controller/CurricularComponentController";
 import {ProfessorController} from "../../../../../api/controller/ProfessorController";
 import {TurmaController} from "../../../../../api/controller/TurmaController";
 import {lessonControllerView} from "./lessonControllerView";
+import {CourseController} from "../../../../../api/controller/CourseController";
 
 const calendarController = CalendarController.getInstance();
 const classroomController = ClassroomController.getInstance();
 const curricularComponentController = CurricularComponentController.getInstance();
 const professorController = ProfessorController.getInstance();
 const turmaController =  TurmaController.getInstance();
+const courseController = CourseController.getInstance();
 
 export const Lesson = () => {
 
@@ -26,12 +29,14 @@ export const Lesson = () => {
     const [curricularComponentUuid, setCurricularComponentUuid] = useState<string>();
     const [professorUuid, setProfessorUuid] = useState<string>();
     const [turmaUuid, setTurmaUuid] = useState<string>();
+    const [courseUuid, setCourseUuid] = useState<string>()
 
     const [calendarList, setCalendarList] = useState<CalendarModel[]>();
     const [classroomList, setClassroomList] = useState<ClassroomModel[]>();
     const [curricularComponentList, setCurricularComponentList] = useState<CurricularComponentModel[]>();
     const [professorList, setProfessorList] = useState<ProfessorModel[]>();
     const [turmaList, setTurmaList] = useState<TurmaModel[]>();
+    const [courseList, setCourseList] = useState<CourseModel[]>();
 
     function getDataObject(): any{
         return {
@@ -39,7 +44,8 @@ export const Lesson = () => {
             classroomUuid,
             curricularComponentUuid,
             professorUuid,
-            turmaUuid
+            turmaUuid,
+            courseUuid
         }
     }
     const load =  async () => {
@@ -49,18 +55,21 @@ export const Lesson = () => {
             const curricularComponent  = await curricularComponentController.list();
             const professor = await professorController.list();
             const turma  = await turmaController.list();
+            const course =  await courseController.list();
 
             setCalendarList(calendar);
             setClassroomList(classroom);
             setCurricularComponentList(curricularComponent);
             setProfessorList(professor);
             setTurmaList(turma);
+            setCourseList(course);
 
             setCalendarUuid(calendar[0].uuid);
             setClassroomUuid(classroom[0].uuid);
             setCurricularComponentUuid(curricularComponent[0].uuid);
             setProfessorUuid(professor[0].uuid);
             setTurmaUuid(turma[0].uuid);
+            setCourseUuid(course[0].uuid);
         }catch (Error:any){
 
         }
@@ -132,6 +141,20 @@ export const Lesson = () => {
                         }
                     </SelectArea>
                 </InputContent>
+                <InputContent labelText='Curso:' htmlFor="Curso-s">
+                    <SelectArea id="Curso-s" change={(event)=>{
+                        const select  = event.target;
+                        if (courseList) {
+                            const uuid = courseList[select.selectedIndex].uuid;
+                            setCourseUuid(uuid);
+                        }}}>
+                        {
+                            courseList?.map((item) =>(
+                                <option key={item.uuid}>{item.name}</option>
+                            ))
+                        }
+                    </SelectArea>
+                </InputContent>
                 <InputContent labelText='Turma:' htmlFor="turma-s">
                     <SelectArea id="turma-s" change={(event)=>{
                         const select  = event.target;
@@ -141,7 +164,7 @@ export const Lesson = () => {
                         }}}>
                         {
                             turmaList?.map((item) =>(
-                                <option key={item.uuid}>{item.name}</option>
+                                <option key={item.uuid}>{item.name} - {item.course.name}</option>
                             ))
                         }
                     </SelectArea>
@@ -150,6 +173,7 @@ export const Lesson = () => {
 
             <ButtonAction textButton="adicionar aula" onClickFunction={ async ()=>{
                 const data = getDataObject();
+                console.log(data)
                 await lessonControllerView(data);
             }}/>
         </ Main>

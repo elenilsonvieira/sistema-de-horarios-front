@@ -7,7 +7,6 @@ import {Main,
     ActionContainer} from '../styles/styles';
 import {ProfessorModel} from "../../../../../api/model/ProfessorModel";
 import {professorReadControllerView} from "./professorReadControllerView";
-import {turmaDeleteControllerView} from "../turma/turmaDeleteControllerView";
 import {professorDeleteControllerView} from "./professorDeleteControllerView";
 
 export const Professor = () => {

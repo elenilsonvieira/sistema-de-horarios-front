@@ -3,341 +3,141 @@ import {InfoIcon, Expandir} from '../../../assets/img';
 import {SelectArea, InputContent, ButtonEdit, ButtonCancel, ButtonDelete, ButtonConcluir} from '../../../components';
 import {ActionContainer, ExpandDetails, RowVisualizer} from '../edit-info/models/styles/styles';
 import {Main, SelectContainer, Info, Title, ContainerFilters, ContainerLessons, IntervalContainer} from './styles';
+import {LessonModel} from "../../../api/model/LessonModel";
+import {classroomReadControllerView, courseReadControllerView, lessonReadControllerView} from "./readControllerView"
+import {CourseModel} from "../../../api/model/CourseModel";
+import {ClassroomModel} from "../../../api/model/ClassroomModel";
 
-//vetores para exemplos
-const turmasADS = [
-    {
-        id: 'uhiu',
-        nome: '1º Período',
-    },
-    {
-        id: 'saae',
-        nome: '2º Período',
-    },
-    {
-        id: 'qwdd',
-        nome: '3º Período',
-    },
-    {
-        id: 'gghf',
-        nome: '4º Período',
-    },
-]
-
-const turmasTCE = [
-    {
-        id: 'uhqu',
-        nome: '1º Período',
-    },
-    {
-        id: 'yrtd',
-        nome: '2º Período',
-    },
-    {
-        id: 'drgn',
-        nome: '3º Período',
-    },
-]
-
-const tce1 =[
-    {
-        id: '1-1p',
-        semester: '2022.2',
-        classroom: 'Sala1 - Bloco A',
-        disciplina: 'engenharia 1',
-        professor: 'aaa',
-        interval: null
-    },
-    {
-        id: '2-1p',
-        semester: '2022.2',
-        classroom: 'Sala2 - Bloco A',
-        disciplina: 'concreto 1',
-        professor: 'aaa',
-        interval: null
-    },
-    {
-        id: '3-1p',
-        semester: '2022.2',
-        classroom: 'Sala3 - Bloco A',
-        disciplina: 'seguranca 1',
-        professor: 'aaa',
-        interval: null
-    },
-]
-
-const tce2 =[
-    {
-        id: '1-2p',
-        semester: '2022.2',
-        classroom: 'Sala1 - Bloco A',
-        disciplina: 'engenharia 2',
-        professor: 'bbb',
-        interval: null
-    },
-    {
-        id: '2-2p',
-        semester: '2022.2',
-        classroom: 'Sala2 - Bloco A',
-        disciplina: 'concreto 2',
-        professor: 'bbb',
-        interval: null
-    },
-    {
-        id: '3-2p',
-        semester: '2022.2',
-        classroom: 'Sala3 - Bloco A',
-        disciplina: 'seguranca 2',
-        professor: 'bbb',
-        interval: null
-    },
-]
-
-const tce3 =[
-    {
-        id: '1-3p',
-        semester: '2022.2',
-        classroom: 'Sala1 - Bloco A',
-        disciplina: 'engenharia 3',
-        professor: 'bbb',
-        interval: null
-    },
-    {
-        id: '2-3p',
-        semester: '2022.2',
-        classroom: 'Sala2 - Bloco A',
-        disciplina: 'concreto 3',
-        professor: 'bbb',
-        interval: 'informações do intervalo'
-    },
-    {
-        id: '3-3p',
-        semester: '2022.2',
-        classroom: 'Sala3 - Bloco A',
-        disciplina: 'seguranca 3',
-        professor: 'bbb',
-        interval: null
-    },
-]
-
-const ads1 =[
-    {
-        id: '1-1p',
-        semester: '2022.2',
-        classroom: 'Sala1 - Bloco A',
-        disciplina: 'programacao 1',
-        professor: 'aaa',
-        interval: null
-    },
-    {
-        id: '2-1p',
-        semester: '2022.2',
-        classroom: 'Sala2 - Bloco A',
-        disciplina: 'metodologia',
-        professor: 'aaa',
-        interval: null
-    },
-    {
-        id: '3-1p',
-        semester: '2022.2',
-        classroom: 'Sala3 - Bloco A',
-        disciplina: 'inglês',
-        professor: 'aaa',
-        interval: null
-    },
-]
-
-const ads2 =[
-    {
-        id: '1-2p',
-        semester: '2022.2',
-        classroom: 'Sala1 - Bloco A',
-        disciplina: 'bd1',
-        professor: 'bbb',
-        interval: 'informações do intervalo'
-    },
-    {
-        id: '2-2p',
-        semester: '2022.2',
-        classroom: 'Sala2 - Bloco A',
-        disciplina: 'programacao 2',
-        professor: 'bbb',
-        interval: null
-    },
-    {
-        id: '3-2p',
-        semester: '2022.2',
-        classroom: 'Sala3 - Bloco A',
-        disciplina: 'portugues 2',
-        professor: 'bbb',
-        interval: null
-    },
-]
-
-const ads3 =[
-    {
-        id: '1-3p',
-        semester: '2022.2',
-        classroom: 'Sala1 - Bloco A',
-        disciplina: 'eda',
-        professor: 'bbb',
-        interval: null
-    },
-    {
-        id: '2-3p',
-        semester: '2022.2',
-        classroom: 'Sala2 - Bloco A',
-        disciplina: 'bd2',
-        professor: 'bbb',
-        interval: null
-    },
-    {
-        id: '3-3p',
-        semester: '2022.2',
-        classroom: 'Sala3 - Bloco A',
-        disciplina: 'aps',
-        professor: 'bbb',
-        interval: 'informações do intervalo'
-    },
-]
-
-const ads4 =[
-    {
-        id: '1-4p',
-        semester: '2022.2',
-        classroom: 'Sala1 - Bloco A',
-        disciplina: 'pj2',
-        professor: 'bbb',
-        interval: 'informações do intervalo'
-    },
-    {
-        id: '2-4p',
-        semester: '2022.2',
-        classroom: 'Sala2 - Bloco A',
-        disciplina: 'tcc',
-        professor: 'bbb',
-        interval: null
-    },
-]
-
-interface LessonProps {
-    id: string;
-    semester: string;
-    classroom: string;
-    disciplina: string;
-    professor: string;
-    interval: any;
-}
-
-interface TurmasProps {
-    id: string;
-    nome: string;
-}
 
 const SetSchedules = () => {
-    const [course, setCourse] = useState<string>('');
-    const [turmas, setTurmas] = useState<TurmasProps[]>();
-    const [turmaAtual, setTurmaAtual] = useState<string>(turmas ? turmas[0].nome : '');
-    const [lessons, setLessons] = useState<LessonProps[]>();
 
-    const handleShowLessons = (course: string) => {
-        if(course==='ads'){
-            switch(turmaAtual){
-                case '1º Período':
-                    setLessons(ads1);
-                    break;
-                case '2º Período':
-                    setLessons(ads2);
-                    break;
-                case '3º Período':
-                    setLessons(ads3);
-                    break;
-                case '4º Período':
-                    setLessons(ads4);
-                    break;
-                default:
-                    setLessons(undefined);
-            }
-        } else if (course==='tce') {
-            switch(turmaAtual){
-                case '1º Período':
-                    setLessons(tce1);
-                    break;
-                case '2º Período':
-                    setLessons(tce2);
-                    break;
-                case '3º Período':
-                    setLessons(tce3);
-                    break;
-                default:
-                    setLessons(undefined);
-            }
+    const [lessonList, setLessonList] = useState<LessonModel[]>();
+    const [courseList, setCourseList] = useState<CourseModel[]>();
+    const [classroomList, setClassroomList] = useState<ClassroomModel[]>()
+
+    const [course, setCourse] = useState<string>();
+    const [className, setClassName] = useState<string>();
+    const [block, setBlock] = useState<string>();
+
+    const load =  async () => {
+        try {
+            const resultLesson  = await lessonReadControllerView({});
+            const resultCourse  = await courseReadControllerView();
+            const resultClassroom = await classroomReadControllerView();
+
+            setLessonList(resultLesson);
+            setCourseList(resultCourse);
+            setClassroomList(resultClassroom);
+
+            setCourse(undefined);
+            setClassName(undefined);
+            setBlock(undefined)
+        }catch (Error:any){
+
         }
     }
 
-    const handleSelectedCourse = () => {
-        if(course==='ads'){
-            setTurmas(turmasADS);
-        } else if (course==='tce') {
-            setTurmas(turmasTCE);
-        } else {
-            setTurmas(undefined);
-        }
-        setTurmaAtual(turmas ? turmas[0].nome : '');
+    const reload = async (data: any) => {
+        const resultLesson  = await lessonReadControllerView(data);
+        setLessonList(resultLesson);
     }
 
-    useEffect(() => {
-        handleSelectedCourse();
-    }, [course, turmas]);
 
     useEffect(() => {
-        handleShowLessons(course);
-    }, [turmaAtual, course, turmas]);
+        load();
+    },[])
 
-    
+    useEffect(() => {
+        const filters: any = {}
+        if(course !== undefined){
+            filters.courseUuid = course;
+        }
+        if(className !== undefined){
+            filters.className = className;
+        }
+        if(block !== undefined) {
+            filters.block = block;
+        }
+        reload(filters);
+    },[course, className, block])
+
+
     return (
         <Main>
             <Title>
                 Montar horários
             </Title>
             <ContainerFilters>
-                {course==="" &&
-                    <Info>
-                        <img src={InfoIcon} alt="" />
-                        <span>
-                            Filtre por curso e turma para acessar as aulas.
-                        </span>
-                    </Info>
-                }
+                <Info>
+                    <img src={InfoIcon} alt="" />
+                    <span>
+                        Filtre por curso, sala e bloco para montar horarios
+                    </span>
+                </Info>
+
                 <SelectContainer>
                     <InputContent labelText="Selecione o curso:">
-                        <SelectArea id={"course"} change={(e) => setCourse(e.target.value)}>
-                            {course === '' &&
-                                <option value="">Selecione um curso</option>
+                        <SelectArea id={"course"} change={ async (event) => {
+
+                            const select  = event.target;
+                            if (courseList) {
+                                const courseUuid = courseList[select.selectedIndex-1];
+                                try {
+                                    setCourse(courseUuid.uuid);
+                                }catch (error) {
+                                    setCourse(undefined);
+                                }
                             }
-                            <option value="ads">ADS</option>
-                            <option value="tce">TCE</option>
+                        }}>
+                            <option value="undefined">Selecione um curso</option>
+                            {
+                                courseList?.map((turma) => (
+                                    <option key={turma.uuid}>{turma.name}</option>))
+                            }
                         </SelectArea>
                     </InputContent>
-                    <InputContent labelText="Selecione a turma:">
-                        <SelectArea id={`turma-${course}`} change={(e) => setTurmaAtual(e.target.value)}>
-                            {turmas ? turmas.map((turma) => (
-                                <option key={turma.id} value={turma.nome}>{turma.nome}</option>
-                            )) :
-                                <option value="">Selecione um curso</option>
+                    <InputContent labelText="Selecione a Sala:">
+                        <SelectArea id={`turma-${course}`} change={(event) => {
+                            const className = event.target.value;
+                            if(className != "undefined"){
+                                setClassName(event.target.value);
+                            }else{
+                                setClassName(undefined);
+                            }
+                        }}>
+                            <option value="undefined">Selecione uma sala</option>
+                            {
+                                classroomList?.map((turma) => (
+                                    <option key={turma.uuid} value={turma.name}>{turma.name}</option>))
+                            }
+                        </SelectArea>
+                    </InputContent>
+                    <InputContent labelText="Selecione o bloco:">
+                        <SelectArea id={`turma-${course}`} change={(event) => {
+                            const block = event.target.value;
+                            if(block != "undefined"){
+                                setBlock(event.target.value);
+                            }else{
+                                setBlock(undefined);
+                            }
+                        }}>
+                            <option value="undefined">Selecione um bloco</option>
+                            {
+                                classroomList?.map((turma) => (
+                                    <option key={turma.uuid} value={turma.block}>{turma.block}</option>))
                             }
                         </SelectArea>
                     </InputContent>
                 </SelectContainer>
             </ContainerFilters>
             <ContainerLessons>
-            {lessons != null ? (
-                lessons.map((lesson, index) => {
+            {lessonList != null ? (
+                lessonList.map((lesson, index) => {
                     return (
-                        <RowVisualizer key={lesson.id}>
+                        <RowVisualizer key={lesson.uuid}>
                             <input type="radio" name='view-info' id={'expand-radio'+index}/>
                             <div>
-                                <span>Aula {index+1} - {lesson.disciplina}</span>
+                                <span>Aula {index+1} - {lesson.curricularComponent.name}</span>
                                 <label htmlFor={'expand-radio'+index}>
                                     <img src={Expandir} alt=""/>
                                 </label>
@@ -346,15 +146,15 @@ const SetSchedules = () => {
                             <ExpandDetails className='expand'>
                                 <div>
                                     <span className='title'>Semestre:</span>
-                                    <span className='info'>{lesson.semester}</span>
+                                    <span className='info'>{lesson.calendar.semester}</span>
                                 </div>
                                 <div>
                                     <span className='title'>Sala de aula:</span>
-                                    <span className='info'>{lesson.classroom}</span>
+                                    <span className='info'>{lesson.classroom.name} - {lesson.classroom.block}</span>
                                 </div>
                                 <div>
                                     <span className='title'>Disciplina:</span>
-                                    <span className='info'>{lesson.disciplina}</span>
+                                    <span className='info'>{lesson.curricularComponent.name}</span>
                                 </div>
                                 <div>
                                     {lesson.interval !== null ? 
