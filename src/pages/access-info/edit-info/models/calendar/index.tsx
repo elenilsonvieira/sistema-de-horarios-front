@@ -8,13 +8,23 @@ import {Main,
 import {CalendarModel} from "../../../../../api/model/CalendarModel";
 import {calendarReadControllerView} from "./calendarReadControllerView";
 import {calendarDeleteControllerView} from "./calendarDeleteControllerView";
+import {errorMessage} from '../../../../../components/libs/Toastr';
 
 export const Calendar = () => {
+    const [semester, setSemester] = useState<string>();
     const [editMode, setEditMode] = useState<boolean>(true);
     const [caledarList, setCaledarList] = useState<CalendarModel[]>();
+
     const handleEditMode = () => {
         setEditMode(false);
     }
+
+    function getDataObject(){
+        return{
+            semester
+        }
+    }
+
     const load =  async () => {
         try {
             const result  = await calendarReadControllerView();
@@ -45,7 +55,9 @@ export const Calendar = () => {
                                 <div className={editMode? 'edit-mode' : ''}>
                                     <span className='title'>Semestre:</span>
                                     {editMode ?
-                                        <InputArea placeholder={calendar.semester} id={'a'+index}></InputArea>
+                                        <InputArea placeholder={calendar.semester} id={'a'+index} change={(event) => {
+                                            setSemester(event.target.value);
+                                        }}/>
                                         :
                                         <span className='info'>{calendar.semester}</span>
                                     }

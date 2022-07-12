@@ -6,9 +6,4 @@ export async function calendarControllerView(data: any): Promise<void> {
     const calendar =  data as CalendarModel;
     const controller = CalendarController.getInstance();
     const response = await controller.create(calendar);
-    if(response){
-        successMessage("Criado com sucesso");
-    }else{
-        errorMessage("Não criado com sucesso");
-    }
 }

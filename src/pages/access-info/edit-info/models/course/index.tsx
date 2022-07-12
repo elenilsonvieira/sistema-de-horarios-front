@@ -10,8 +10,15 @@ import {courseReadControllerView} from "./courseReadControllerView";
 import {courseDeleteControllerView} from "./courseDeleteControllerView";
 
 export const Course = () => {
+    const [name, setName] = useState<string>();
     const [editMode, setEditMode] = useState<boolean>(true);
     const [courseList, setCourseList] = useState<CourseModel[]>();
+
+    function getDataObject(){
+        return{
+            name
+        }
+    }
 
     const handleEditMode = () => {
         setEditMode(false);
@@ -45,7 +52,9 @@ export const Course = () => {
                                 <div className={editMode? 'edit-mode' : ''}>
                                     <span className='title'>Nome:</span>
                                     {editMode ?
-                                        <InputArea placeholder={course.name} id={'a'+index}></InputArea>
+                                        <InputArea placeholder={course.name} id={'a'+index} change={(event: any) => {
+                                            setName(event.target.value);
+                                            }}></InputArea>
                                         :
                                         <span className='info'>{course.name}</span>
                                     }

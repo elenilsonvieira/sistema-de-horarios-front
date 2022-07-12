@@ -6,9 +6,4 @@ export async function classroomControllerView(data: any): Promise<void> {
     const classroom =  data as ClassroomModel;
     const controller = ClassroomController.getInstance();
     const response = await controller.create(classroom);
-    if(response){
-        successMessage("Criado com sucesso");
-    }else{
-        errorMessage("Não criado com sucesso");
-    }
 }

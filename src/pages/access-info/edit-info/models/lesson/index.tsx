@@ -8,8 +8,42 @@ import {Main,
 import {lessonReadControllerView} from "./lessonReadControllerView";
 import {LessonModel} from "../../../../../api/model/LessonModel";
 import {lessonDeleteControllerView} from "./lessonDeleteControllerView";
+import { CalendarModel } from '../../../../../api/model/CalendarModel';
+import { CurricularComponentModel } from '../../../../../api/model/CurricularComponentModel';
+import { ProfessorModel } from '../../../../../api/model/ProfessorModel';
+import { ClassroomModel } from '../../../../../api/model/ClassroomModel';
+import { CourseModel } from '../../../../../api/model/CourseModel';
+import { TurmaModel } from '../../../../../api/model/TurmaModel';
+import { CalendarController } from '../../../../../api/controller/CalendarController';
+import { ClassroomController } from '../../../../../api/controller/ClassroomController';
+import { CurricularComponentController } from '../../../../../api/controller/CurricularComponentController';
+import { ProfessorController } from '../../../../../api/controller/ProfessorController';
+import { TurmaController } from '../../../../../api/controller/TurmaController';
+import { CourseController } from '../../../../../api/controller/CourseController';
+
+const calendarController = CalendarController.getInstance();
+const classroomController = ClassroomController.getInstance();
+const curricularComponentController = CurricularComponentController.getInstance();
+const professorController = ProfessorController.getInstance();
+const turmaController =  TurmaController.getInstance();
+const courseController = CourseController.getInstance();
 
 export const Lesson = () => {
+
+    const [calendarUuid, setCalendarUuid] = useState<string>();
+    const [classroomUuid, setClassroomUuid] = useState<string>();
+    const [curricularComponentUuid, setCurricularComponentUuid] = useState<string>();
+    const [professorUuid, setProfessorUuid] = useState<string>();
+    const [turmaUuid, setTurmaUuid] = useState<string>();
+    const [courseUuid, setCourseUuid] = useState<string>();
+
+    const [calendarList, setCalendarList] = useState<CalendarModel[]>();
+    const [classroomList, setClassroomList] = useState<ClassroomModel[]>();
+    const [curricularComponentList, setCurricularComponentList] = useState<CurricularComponentModel[]>();
+    const [professorList, setProfessorList] = useState<ProfessorModel[]>();
+    const [turmaList, setTurmaList] = useState<TurmaModel[]>();
+    const [courseList, setCourseList] = useState<CourseModel[]>();
+    
     const [editMode, setEditMode] = useState<boolean>(true);
     const [lessonList, setLessonList] = useState<LessonModel[]>();
 
@@ -20,6 +54,20 @@ export const Lesson = () => {
         try {
             const result  = await lessonReadControllerView();
             setLessonList(result);
+
+            const calendar  = await calendarController.list();
+            const classroom  = await classroomController.list();
+            const curricularComponent  = await curricularComponentController.list();
+            const professor = await professorController.list();
+            const turma  = await turmaController.list();
+            const course =  await courseController.list();
+
+            setCalendarList(calendar);
+            setClassroomList(classroom);
+            setCurricularComponentList(curricularComponent);
+            setProfessorList(professor);
+            setTurmaList(turma);
+            setCourseList(course);
         }catch (Error:any){
 
         }
@@ -28,6 +76,7 @@ export const Lesson = () => {
     useEffect(() => {
         load();
     },[])
+
     return (
         <Main>
             {lessonList != null ? (
@@ -44,12 +93,20 @@ export const Lesson = () => {
                             </div>
                             <ExpandDetails className='expand'>
                                 <div className={editMode? 'edit-mode' : ''}>
-                                    <span className='title'>Semestre:</span>
+                                    <span className='title'>Calendário:</span>
                                     {editMode ?
-                                        <SelectArea id={'c'+index}>
-                                            <option value="">2020.1</option>
-                                            <option value="">2020.2</option>
-                                            <option value="">2021.1</option>
+                                        <SelectArea id={'calendar'+index} change={(event)=>{
+                                            const select  = event.target;
+                                            if (calendarList) {
+                                                const uuid = calendarList[select.selectedIndex].uuid;
+                                                setCalendarUuid(uuid);
+                                            }}}>
+                                            {
+                                                calendarList?.map((item) =>(
+
+                                                    <option key={item.uuid}>{item.semester}</option>
+                                                ))
+                                            }
                                         </SelectArea>
                                         :
                                         <span className='info'>{lesson.calendar.semester}</span>
@@ -58,10 +115,18 @@ export const Lesson = () => {
                                 <div className={editMode? 'edit-mode' : ''}>
                                     <span className='title'>Sala de aula:</span>
                                     {editMode ?
-                                        <SelectArea id={'c'+index}>
-                                            <option value="">Sala 1</option>
-                                            <option value="">Sala 2</option>
-                                            <option value="">Sala 3</option>
+                                        <SelectArea id={'classroom'+index} change={(event)=>{
+                                            const select  = event.target;
+                                            if (classroomList) {
+                                                const uuid = classroomList[select.selectedIndex].uuid;
+                                                setClassroomUuid(uuid);
+                                            }}}>
+                                            {
+                                                classroomList?.map((item) =>(
+
+                                                    <option key={item.uuid}>{item.name} - {item.block}</option>
+                                                ))
+                                            }
                                         </SelectArea>
                                         :
                                         <span className='info'>{lesson.classroom.name} - {lesson.classroom.block}</span>
@@ -70,10 +135,17 @@ export const Lesson = () => {
                                 <div className={editMode? 'edit-mode' : ''}>
                                     <span className='title'>Disciplina:</span>
                                     {editMode ?
-                                        <SelectArea id={'c'+index}>
-                                            <option value="">DAC</option>
-                                            <option value="">P1</option>
-                                            <option value="">BD1</option>
+                                        <SelectArea id={'curricularComponent'+index} change={(event)=>{
+                                            const select  = event.target;
+                                            if (curricularComponentList) {
+                                                const uuid = curricularComponentList[select.selectedIndex].uuid;
+                                                setCurricularComponentUuid(uuid);
+                                            }}}>
+                                            {
+                                                curricularComponentList?.map((item) =>(
+                                                    <option key={item.uuid}>{item.name}</option>
+                                                ))
+                                            }
                                         </SelectArea>
                                         :
                                         <span className='info'>{lesson.curricularComponent.name}</span>
@@ -82,10 +154,17 @@ export const Lesson = () => {
                                 <div className={editMode? 'edit-mode' : ''}>
                                     <span className='title'>Professor:</span>
                                     {editMode ?
-                                        <SelectArea id={'c'+index}>
-                                            <option value="">Cleyton</option>
-                                            <option value="">Elenilson</option>
-                                            <option value="">Thiago</option>
+                                        <SelectArea id={'professor'+index} change={(event)=>{
+                                            const select  = event.target;
+                                            if (professorList) {
+                                                const uuid = professorList[select.selectedIndex].uuid;
+                                                setProfessorUuid(uuid);
+                                            }}}>
+                                            {
+                                                professorList?.map((item) =>(
+                                                    <option key={item.uuid}>{item.name}</option>
+                                                ))
+                                            }
                                         </SelectArea>
                                         :
                                         <span className='info'>{lesson.professor.name}</span>
@@ -94,10 +173,17 @@ export const Lesson = () => {
                                 <div className={editMode? 'edit-mode' : ''}>
                                     <span className='title'>Turma:</span>
                                     {editMode ?
-                                        <SelectArea id={'c'+index}>
-                                            <option value="">Turma 1</option>
-                                            <option value="">Turma 2</option>
-                                            <option value="">Turma 3</option>
+                                        <SelectArea id={'turm'+index} change={(event)=>{
+                                            const select  = event.target;
+                                            if (turmaList) {
+                                                const uuid = turmaList[select.selectedIndex].uuid;
+                                                setTurmaUuid(uuid);
+                                            }}}>
+                                            {
+                                                turmaList?.map((item) =>(
+                                                    <option key={item.uuid}>{item.name} - {item.course.name}</option>
+                                                ))
+                                            }
                                         </SelectArea>
                                         :
                                         <span className='info'>{lesson.turma.name}</span>
@@ -105,7 +191,22 @@ export const Lesson = () => {
                                 </div>
                                 <div className={editMode? 'edit-mode' : ''}>
                                     <span className='title'>Curso:</span>
+                                    {editMode ?
+                                        <SelectArea id={'course'+index} change={(event)=>{
+                                            const select  = event.target;
+                                            if (courseList) {
+                                                const uuid = courseList[select.selectedIndex].uuid;
+                                                setCourseUuid(uuid);
+                                            }}}>
+                                            {
+                                                courseList?.map((item) =>(
+                                                    <option key={item.uuid}>{item.name}</option>
+                                                ))
+                                            }
+                                        </SelectArea>
+                                        :
                                         <span className='info'>{lesson.curricularComponent.course.name}</span>
+                                    }
 
                                 </div>
                                 <ActionContainer>

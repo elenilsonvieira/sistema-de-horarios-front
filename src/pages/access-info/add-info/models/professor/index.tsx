@@ -5,7 +5,7 @@ import {professorControllerView} from "./professorControllerView";
 import {CourseController} from "../../../../../api/controller/CourseController";
 import {CourseModel} from "../../../../../api/model/CourseModel";
 
-import {showMessage} from '../../../../../components/libs/Toastr';
+import {errorMessage} from '../../../../../components/libs/Toastr';
 
 const courseController = CourseController.getInstance()
 export const Professor = () => {
@@ -30,6 +30,34 @@ export const Professor = () => {
             setCourseModelList(result);
         }catch (Error:any){
 
+        }
+    }
+
+    const validate = () => {
+        const errors = [];
+
+        if (!name) {
+            errors.push('Nome é obrigatório');
+        }
+        if (!area) {
+            errors.push('Área é obrigatória');
+        }
+        if (!courseUuid) {
+            errors.push('Curso é obrigatório');
+        }
+        return errors;
+    }
+
+    const onSubmit = async () => {
+        const errors = validate();
+
+        if(errors.length > 0) {
+            errors.forEach((message) => {
+                errorMessage(message);
+            })
+        } else {
+            const data = getDataObject();
+            await professorControllerView(data);
         }
     }
 
@@ -75,10 +103,7 @@ export const Professor = () => {
                 </InputContent>
             </Form>
 
-            <ButtonAction textButton="adicionar professor" onClickFunction={ async ()=>{
-                const data = getDataObject();
-                await professorControllerView(data);
-            }}/>
+            <ButtonAction textButton="adicionar professor" onClickFunction={onSubmit}/>
         </ Main>
     );
 }

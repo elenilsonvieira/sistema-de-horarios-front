@@ -14,6 +14,7 @@ import {ProfessorController} from "../../../../../api/controller/ProfessorContro
 import {TurmaController} from "../../../../../api/controller/TurmaController";
 import {lessonControllerView} from "./lessonControllerView";
 import {CourseController} from "../../../../../api/controller/CourseController";
+import {errorMessage} from '../../../../../components/libs/Toastr';
 
 const calendarController = CalendarController.getInstance();
 const classroomController = ClassroomController.getInstance();
@@ -29,7 +30,7 @@ export const Lesson = () => {
     const [curricularComponentUuid, setCurricularComponentUuid] = useState<string>();
     const [professorUuid, setProfessorUuid] = useState<string>();
     const [turmaUuid, setTurmaUuid] = useState<string>();
-    const [courseUuid, setCourseUuid] = useState<string>()
+    const [courseUuid, setCourseUuid] = useState<string>();
 
     const [calendarList, setCalendarList] = useState<CalendarModel[]>();
     const [classroomList, setClassroomList] = useState<ClassroomModel[]>();
@@ -48,6 +49,44 @@ export const Lesson = () => {
             courseUuid
         }
     }
+
+    const validate = () => {
+        const errors = [];
+
+        if (!calendarUuid) {
+            errors.push('Calendário é obrigatório');
+        }
+        if (!classroomUuid) {
+            errors.push('Sala de aula é obrigatória');
+        }
+        if (!curricularComponentUuid) {
+            errors.push('Disciplina é obrigatória');
+        }
+        if (!professorUuid) {
+            errors.push('Professor é obrigatório');
+        }
+        if (!turmaUuid) {
+            errors.push('Turma é obrigatória');
+        }
+        if (!courseUuid) {
+            errors.push('Curso é obrigatório');
+        }
+        return errors;
+    }
+
+    const onSubmit = async () => {
+        const errors = validate();
+
+        if(errors.length > 0) {
+            errors.forEach((message) => {
+                errorMessage(message);
+            })
+        } else {
+            const data = getDataObject();
+            await lessonControllerView(data);
+        }
+    }
+
     const load =  async () => {
         try {
             const calendar  = await calendarController.list();
@@ -171,11 +210,7 @@ export const Lesson = () => {
                 </InputContent>
             </Form>
 
-            <ButtonAction textButton="adicionar aula" onClickFunction={ async ()=>{
-                const data = getDataObject();
-                console.log(data)
-                await lessonControllerView(data);
-            }}/>
+            <ButtonAction textButton="adicionar aula" onClickFunction={onSubmit}/>
         </ Main>
     );
 }

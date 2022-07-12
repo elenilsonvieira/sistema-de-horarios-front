@@ -9,18 +9,40 @@ import {CurricularComponentModel} from "../../../../../api/model/CurricularCompo
 import {curricularComponentReadView} from "./curricularComponentReadView";
 import {lessonDeleteControllerView} from "../lesson/lessonDeleteControllerView";
 import {curricularComponentDeleteControllerView} from "./curricularComponentDeleteControllerView";
+import { CourseModel } from '../../../../../api/model/CourseModel';
+import {CourseController} from "../../../../../api/controller/CourseController";
+
+const courseController = CourseController.getInstance();
 
 export const CurricularComponent = () => {
+    const [name, setName] = useState<string>();
+    const [workload, setWorkload] = useState<number>();
+    const [courseUuid, setCourseUuid] = useState<string>();
+    const [courseModelList, setCourseModelList] = useState<CourseModel[]>();
+    
     const [editMode, setEditMode] = useState<boolean>(true);
     const [curricularComponentList, setCurricularComponentList] = useState<CurricularComponentModel[]>();
 
     const handleEditMode = () => {
         setEditMode(false);
     }
+
+    function getDataObject(): any{
+        return {
+            name,
+            workload,
+            courseUuid
+        }
+    }
+
     const load =  async () => {
         try {
             const result  = await curricularComponentReadView();
             setCurricularComponentList(result);
+
+            const resultCourse  = await courseController.list();
+            setCourseUuid(result[0].uuid);
+            setCourseModelList(result);
         }catch (Error:any){
 
         }
@@ -47,7 +69,9 @@ export const CurricularComponent = () => {
                                 <div className={editMode? 'edit-mode' : ''}>
                                     <span className='title'>Nome:</span>
                                     {editMode ?
-                                        <InputArea placeholder={curricularComponent.name} id={'a'+index}></InputArea>
+                                        <InputArea placeholder={curricularComponent.name} id={'a'+index} change={(event) => {
+                                            setName(event.target.value)
+                                        }}></InputArea>
                                         :
                                         <span className='info'>{curricularComponent.name}</span>
                                     }
@@ -55,7 +79,9 @@ export const CurricularComponent = () => {
                                 <div className={editMode? 'edit-mode' : ''}>
                                     <span className='title'>Carga horária:</span>
                                     {editMode ?
-                                        <InputArea placeholder={curricularComponent.workload.toString()} id={'a'+index}></InputArea>
+                                        <InputArea placeholder={curricularComponent.workload.toString()} id={'a'+index} change={(event) => {
+                                            setWorkload(event.target.value);
+                                        }}></InputArea>
                                         :
                                         <span className='info'>{curricularComponent.workload}</span>
                                     }
@@ -63,9 +89,19 @@ export const CurricularComponent = () => {
                                 <div className={editMode? 'edit-mode' : ''}>
                                     <span className='title'>Curso:</span>
                                     {editMode ?
-                                        <SelectArea id={'c'+index}>
-                                            <option value="ads">ADS</option>
-                                            <option value="tce">TCE</option>
+                                        <SelectArea id={'c'+index} change={(event)=>{
+                                            const select  = event.target;
+                                            if (courseModelList) {
+                                                const courseUuid = courseModelList[select.selectedIndex].uuid;
+                                                setCourseUuid(courseUuid);
+                                            }}}>
+                                            {
+                                                courseModelList?.map((item) =>(
+
+                                                    <option key={item.uuid} onChange={()=>{
+                                                    }}>{item.name}</option>
+                                                ))
+                                            }
                                         </SelectArea>
                                         :
                                         <span className='info'>{curricularComponent.course.name}</span>

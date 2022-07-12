@@ -10,10 +10,22 @@ import {classroomReadControllerView} from "./classroomReadControllerView";
 import {classroomDeleteControllerView} from "./classroomDeleteControllerView";
 
 export const Classroom = () => {
+
+    const [name, setName] = useState<string>();
+    const [block, setBlock] = useState<string>();
+    const [capacity, setCapacity] = useState<number>();
     const [editMode, setEditMode] = useState<boolean>(true);
     const [classroomList, setClassroomList] = useState<ClassroomModel[]>();
     const handleEditMode = () => {
         setEditMode(false);
+    }
+
+    function getDataObject(){
+        return{
+            name,
+            block,
+            capacity
+        }
     }
 
     const load =  async () => {
@@ -48,7 +60,9 @@ export const Classroom = () => {
                                 <div className={editMode? 'edit-mode' : ''}>
                                     <span className='title'>Nome:</span>
                                     {editMode ?
-                                        <InputArea placeholder={classroom.name} id={'a'+index}></InputArea>
+                                        <InputArea placeholder={classroom.name} id={'a'+index}change={(event) => {
+                                            setName(event.target.value);
+                                        }}></InputArea>
                                         :
                                         <span className='info'>{classroom.name}</span>
                                     }
@@ -56,7 +70,9 @@ export const Classroom = () => {
                                 <div className={editMode? 'edit-mode' : ''}>
                                     <span className='title'>Bloco:</span>
                                     {editMode ?
-                                        <InputArea placeholder={classroom.block} id={'b'+index}></InputArea>
+                                        <InputArea placeholder={classroom.block} id={'b'+index} change={(event) => {
+                                            setBlock(event.target.value)
+                                        }}></InputArea>
                                         :
                                         <span className='info'>{classroom.block}</span>
                                     }
@@ -64,7 +80,9 @@ export const Classroom = () => {
                                 <div className={editMode? 'edit-mode' : ''}>
                                     <span className='title'>Capacidade:</span>
                                     {editMode ?
-                                        <InputArea type='number' placeholder={classroom.capacity.toString()} id={'c'+index}></InputArea>
+                                        <InputArea type='number' placeholder={classroom.capacity.toString()} id={'c'+index} change={(event) => {
+                                            setCapacity(event.target.value)
+                                        }}></InputArea>
                                         :
                                         <span className='info'>{classroom.capacity}</span>
                                     }

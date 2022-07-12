@@ -6,9 +6,4 @@ export async function curricularComponentControllerView(data: any){
     const course =  data as CurricularComponentModel;
     const controller = CurricularComponentController.getInstance();
     const response = await controller.create(course);
-    if(response){
-        successMessage("Criado com sucesso");
-    }else{
-        errorMessage("Não criado com sucesso");
-    }
 }

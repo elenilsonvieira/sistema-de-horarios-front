@@ -4,6 +4,7 @@ import {Main, Form} from '../styles/styles';
 import {CourseModel} from "../../../../../api/model/CourseModel";
 import {CourseController} from "../../../../../api/controller/CourseController";
 import {curricularComponentControllerView} from "./curricularComponentControllerView";
+import {errorMessage} from '../../../../../components/libs/Toastr';
 
 const courseController = CourseController.getInstance();
 
@@ -19,6 +20,34 @@ export const CurricularComponent = () => {
             name,
             workload,
             courseUuid
+        }
+    }
+
+    const validate = () => {
+        const errors = [];
+
+        if (!name) {
+            errors.push('Nome é obrigatório');
+        }
+        if (!workload) {
+            errors.push('Carga horária é obrigatória');
+        }
+        if (!courseUuid) {
+            errors.push('Curso é obrigatório');
+        }
+        return errors;
+    }
+
+    const onSubmit = async () => {
+        const errors = validate();
+
+        if(errors.length > 0) {
+            errors.forEach((message) => {
+                errorMessage(message);
+            })
+        } else {
+            const data = getDataObject();
+            await curricularComponentControllerView(data);
         }
     }
 
