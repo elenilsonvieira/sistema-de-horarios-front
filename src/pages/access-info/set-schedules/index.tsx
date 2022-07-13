@@ -4,16 +4,23 @@ import {SelectArea, InputContent, ButtonEdit, ButtonCancel, ButtonDelete, Button
 import {ActionContainer, ExpandDetails, RowVisualizer} from '../edit-info/models/styles/styles';
 import {Main, SelectContainer, Info, Title, ContainerFilters, ContainerLessons, IntervalContainer} from './styles';
 import {LessonModel} from "../../../api/model/LessonModel";
-import {classroomReadControllerView, courseReadControllerView, lessonReadControllerView} from "./readControllerView"
+import {
+    classBlockReadControllerView, classNameReadControllerView,
+    courseReadControllerView,
+    lessonReadControllerView
+} from "./readControllerView"
 import {CourseModel} from "../../../api/model/CourseModel";
 import {ClassroomModel} from "../../../api/model/ClassroomModel";
+import {ClassNameModel} from "../../../api/model/ClassNameModel";
+import {ClassBlockModel} from "../../../api/model/ClassBlockModel";
 
 
 const SetSchedules = () => {
 
     const [lessonList, setLessonList] = useState<LessonModel[]>();
     const [courseList, setCourseList] = useState<CourseModel[]>();
-    const [classroomList, setClassroomList] = useState<ClassroomModel[]>()
+    const [classNameList, setClassNameList] = useState<ClassNameModel[]>();
+    const [classBlockList, setClassBlockList] = useState<ClassBlockModel[]>()
 
     const [course, setCourse] = useState<string>();
     const [className, setClassName] = useState<string>();
@@ -23,11 +30,13 @@ const SetSchedules = () => {
         try {
             const resultLesson  = await lessonReadControllerView({});
             const resultCourse  = await courseReadControllerView();
-            const resultClassroom = await classroomReadControllerView();
+            const className = await classNameReadControllerView();
+            const classBlock = await classBlockReadControllerView();
 
             setLessonList(resultLesson);
             setCourseList(resultCourse);
-            setClassroomList(resultClassroom);
+            setClassNameList(className);
+            setClassBlockList(classBlock);
 
             setCourse(undefined);
             setClassName(undefined);
@@ -107,8 +116,8 @@ const SetSchedules = () => {
                         }}>
                             <option value="undefined">Selecione uma sala</option>
                             {
-                                classroomList?.map((turma) => (
-                                    <option key={turma.uuid} value={turma.name}>{turma.name}</option>))
+                                classNameList?.map((className) => (
+                                    <option key={className.uuid} value={className.name}>{className.name}</option>))
                             }
                         </SelectArea>
                     </InputContent>
@@ -123,8 +132,8 @@ const SetSchedules = () => {
                         }}>
                             <option value="undefined">Selecione um bloco</option>
                             {
-                                classroomList?.map((turma) => (
-                                    <option key={turma.uuid} value={turma.block}>{turma.block}</option>))
+                                classBlockList?.map((classBlock) => (
+                                    <option key={classBlock.uuid} value={classBlock.block}>{classBlock.block}</option>))
                             }
                         </SelectArea>
                     </InputContent>
@@ -150,7 +159,7 @@ const SetSchedules = () => {
                                 </div>
                                 <div>
                                     <span className='title'>Sala de aula:</span>
-                                    <span className='info'>{lesson.classroom.name} - {lesson.classroom.block}</span>
+                                    <span className='info'>{lesson.classroom.classNameDTO.name} - {lesson.classroom.classBlockDTO.block}</span>
                                 </div>
                                 <div>
                                     <span className='title'>Disciplina:</span>

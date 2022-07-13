@@ -31,7 +31,7 @@ export class ClassroomController{
     
     public async delete(uuid: string): Promise<void> {
         try {
-            const response = await axios.delete(`/classroom/${uuid}`);
+            await axios.delete(`/classroom/${uuid}`);
             successMessage('Sala de aula deletada.')
         } catch (error) {
             errorMessage('Não foi possível deletar.')
