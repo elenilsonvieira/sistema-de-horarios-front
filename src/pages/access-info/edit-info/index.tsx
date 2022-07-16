@@ -2,7 +2,9 @@ import React, {useState} from "react"
 import {Main,
     TabsBar,
     Tab,
-    TabLabel,} from './styles';
+    TabLabel,
+    SelectContainer,
+    Title} from './styles';
 
 import {Calendar,
     Classroom,
@@ -11,6 +13,7 @@ import {Calendar,
     Professor,
     Turma,
     Lesson} from './models';
+import { InputContent, SelectArea } from "../../../components";
 
 enum TypeLabeEnuml {
     classroom = 'Sala de Aula',
@@ -62,11 +65,20 @@ const models = [
 ]
 
 export const EditInfo = () => {
+    const [editMode, setEditMode] = useState(false);
     const [type, setType] = useState('professor');
 
     function handleChangeType(event:any) {
         setType(event.target.value); 
         console.log(event.target.value)
+    }
+
+    const handleSelectEdit = (value: string) => {
+        if (value === 'edit') {
+            setEditMode(true);
+        } else {
+            setEditMode(false);
+        }
     }
 
     return (
@@ -83,27 +95,42 @@ export const EditInfo = () => {
                     )
                 })}
             </TabsBar>
+            <Title>
+                Editar informações
+            </Title>
+            <SelectContainer>
+                <InputContent labelText="Selecione o modo:">
+                    <SelectArea id={"mode"} change={ async (event) => {
+                        const select  = event.target.value;
+                        handleSelectEdit(select);
+                    }}>
+                        <option value="read">Visualização</option>
+                        <option value="edit">Edição</option>
+                    </SelectArea>
+                </InputContent>
+            </SelectContainer>
+
             <div className="list-items">
                 {type === 'classroom' && 
-                    <Classroom />
+                    <Classroom editMode={editMode}/>
                 }
                 {type === 'professor' && 
-                    <Professor />
+                    <Professor editMode={editMode} />
                 }
                 {type === 'course' && 
-                    <Course />
+                    <Course editMode={editMode}/>
                 }
                 {type === 'curricular_component' &&
-                    <CurricularComponent />
+                    <CurricularComponent editMode={editMode}/>
                 }
                 {type === 'calendar' &&
-                    <Calendar />
+                    <Calendar editMode={editMode}/>
                 }
                 {type === 'turma' &&
-                    <Turma />
+                    <Turma editMode={editMode}/>
                 }
                 {type === 'lesson' &&
-                    <Lesson />
+                    <Lesson editMode={editMode}/>
                 }
             </div>
         </Main>

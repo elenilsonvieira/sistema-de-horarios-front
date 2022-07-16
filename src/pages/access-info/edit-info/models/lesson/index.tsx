@@ -1,10 +1,9 @@
 import {useEffect, useState} from 'react';
-import {SelectArea, ButtonEdit, ButtonCancel, ButtonDelete, ButtonConcluir} from '../../../../../components';
-import {Expandir} from '../../../../../assets/img';
+import {SelectArea, Row, ButtonDelete, ButtonConcluir} from '../../../../../components';
 import {Main,
-    RowVisualizer, 
     ExpandDetails,
-    ActionContainer} from '../styles/styles';
+    ActionContainer,
+    EditButtons} from '../styles/styles';
 import {lessonReadControllerView} from "./lessonReadControllerView";
 import {LessonModel} from "../../../../../api/model/LessonModel";
 import {lessonDeleteControllerView} from "./lessonDeleteControllerView";
@@ -20,6 +19,7 @@ import { CurricularComponentController } from '../../../../../api/controller/Cur
 import { ProfessorController } from '../../../../../api/controller/ProfessorController';
 import { TurmaController } from '../../../../../api/controller/TurmaController';
 import { CourseController } from '../../../../../api/controller/CourseController';
+import {ModelProps} from '../interfaces';
 
 const calendarController = CalendarController.getInstance();
 const classroomController = ClassroomController.getInstance();
@@ -28,7 +28,7 @@ const professorController = ProfessorController.getInstance();
 const turmaController =  TurmaController.getInstance();
 const courseController = CourseController.getInstance();
 
-export const Lesson = () => {
+export const Lesson: React.FC<ModelProps> = ({editMode}: ModelProps) => {
 
     const [calendarUuid, setCalendarUuid] = useState<string>();
     const [classroomUuid, setClassroomUuid] = useState<string>();
@@ -44,12 +44,9 @@ export const Lesson = () => {
     const [turmaList, setTurmaList] = useState<TurmaModel[]>();
     const [courseList, setCourseList] = useState<CourseModel[]>();
     
-    const [editMode, setEditMode] = useState<boolean>(true);
+
     const [lessonList, setLessonList] = useState<LessonModel[]>();
 
-    const handleEditMode = () => {
-        setEditMode(false);
-    }
     const load =  async () => {
         try {
             const result  = await lessonReadControllerView();
@@ -82,15 +79,7 @@ export const Lesson = () => {
             {lessonList != null ? (
                 lessonList.map((lesson, index) => {
                     return (
-                        <RowVisualizer key={lesson.uuid}>
-                            <input type="radio" name='view-info' id={'expand-radio'+index}/>
-                            <div>
-                                <span>Aula {index+1} - {lesson.curricularComponent.name}</span>
-                                <label htmlFor={'expand-radio'+index} onClick={handleEditMode}>
-                                    <img src={Expandir} alt=""/>
-                                </label>
-
-                            </div>
+                        <Row propertyName={`Aula ${index+1} - ${lesson.curricularComponent.name}`}>
                             <ExpandDetails className='expand'>
                                 <div className={editMode? 'edit-mode' : ''}>
                                     <span className='title'>Calendário:</span>
@@ -124,7 +113,7 @@ export const Lesson = () => {
                                             {
                                                 classroomList?.map((item) =>(
 
-                                                    <option key={item.uuid}>{item.name} - {item.block}</option>
+                                                    <option key={item.uuid}>{item.classNameDTO} - {item.classBlockDTO}</option>
                                                 ))
                                             }
                                         </SelectArea>
@@ -210,25 +199,22 @@ export const Lesson = () => {
 
                                 </div>
                                 <ActionContainer>
-                                    {!editMode ?
-                                        <ButtonEdit onClickFunction={() => setEditMode(true)}/>
-                                        :
-                                        <ButtonCancel onClickFunction={() => setEditMode(false)}/>
-                                    }
-                                    {!editMode ?
-                                        <ButtonDelete  onClickFunction={ async () => {
-                                            const response  = confirm("Deseja confirmar a operação?");
-                                            if(response){
-                                                await lessonDeleteControllerView(lesson.uuid);
-                                                await load();
-                                            }
-                                        }}/>
-                                        :
-                                        <ButtonConcluir />
+                                    {editMode &&
+                                        <EditButtons>
+                                            <ButtonDelete  onClickFunction={ async () => {
+                                                const response  = confirm("Deseja confirmar a operação?");
+                                                if(response){
+                                                    await lessonDeleteControllerView(lesson.uuid);
+                                                    await load();
+                                                }
+                                            }}/>
+                                            
+                                            <ButtonConcluir />
+                                        </EditButtons>
                                     }
                                 </ActionContainer>
                             </ExpandDetails>
-                        </RowVisualizer>
+                        </Row>
                     )
                 })
             ) : (

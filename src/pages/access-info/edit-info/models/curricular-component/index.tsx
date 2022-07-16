@@ -1,31 +1,25 @@
 import {useEffect, useState} from 'react';
-import {InputArea, SelectArea, ButtonEdit, ButtonCancel, ButtonDelete, ButtonConcluir} from '../../../../../components';
-import {Expandir} from '../../../../../assets/img';
+import {InputArea, SelectArea, Row, ButtonDelete, ButtonConcluir} from '../../../../../components';
 import {Main,
-    RowVisualizer, 
     ExpandDetails,
-    ActionContainer} from '../styles/styles';
+    ActionContainer,
+    EditButtons} from '../styles/styles';
 import {CurricularComponentModel} from "../../../../../api/model/CurricularComponentModel";
 import {curricularComponentReadView} from "./curricularComponentReadView";
 import {lessonDeleteControllerView} from "../lesson/lessonDeleteControllerView";
 import {curricularComponentDeleteControllerView} from "./curricularComponentDeleteControllerView";
 import { CourseModel } from '../../../../../api/model/CourseModel';
 import {CourseController} from "../../../../../api/controller/CourseController";
-
+import {ModelProps} from '../interfaces';
 const courseController = CourseController.getInstance();
 
-export const CurricularComponent = () => {
+export const CurricularComponent: React.FC<ModelProps> = ({editMode}: ModelProps) => {
     const [name, setName] = useState<string>();
     const [workload, setWorkload] = useState<number>();
     const [courseUuid, setCourseUuid] = useState<string>();
     const [courseModelList, setCourseModelList] = useState<CourseModel[]>();
-    
-    const [editMode, setEditMode] = useState<boolean>(true);
-    const [curricularComponentList, setCurricularComponentList] = useState<CurricularComponentModel[]>();
 
-    const handleEditMode = () => {
-        setEditMode(false);
-    }
+    const [curricularComponentList, setCurricularComponentList] = useState<CurricularComponentModel[]>();
 
     function getDataObject(): any{
         return {
@@ -51,20 +45,13 @@ export const CurricularComponent = () => {
     useEffect(() => {
         load();
     },[])
+
     return (
         <Main>
             {curricularComponentList != null ? (
                 curricularComponentList.map((curricularComponent, index) => {
                     return (
-                        <RowVisualizer key={curricularComponent.uuid}>
-                            <input type="radio" name='view-info' id={'expand-radio'+index}/>
-                            <div>
-                                <span>{curricularComponent.name}</span>
-                                <label htmlFor={'expand-radio'+index} onClick={handleEditMode}>
-                                    <img src={Expandir} alt=""/>
-                                </label>
-
-                            </div>
+                        <Row key={curricularComponent.uuid} propertyName={curricularComponent.name}>
                             <ExpandDetails className='expand'>
                                 <div className={editMode? 'edit-mode' : ''}>
                                     <span className='title'>Nome:</span>
@@ -108,25 +95,22 @@ export const CurricularComponent = () => {
                                     }
                                 </div>
                                 <ActionContainer>
-                                    {!editMode ?
-                                        <ButtonEdit onClickFunction={() => setEditMode(true)}/>
-                                        :
-                                        <ButtonCancel onClickFunction={() => setEditMode(false)}/>
-                                    }
-                                    {!editMode ?
-                                        <ButtonDelete  onClickFunction={ async () => {
-                                            const response  = confirm("Deseja confirmar a operação?");
-                                            if(response){
-                                                await curricularComponentDeleteControllerView(curricularComponent.uuid);
-                                                await load();
-                                            }
-                                        }}/>
-                                        :
-                                        <ButtonConcluir />
+                                    {editMode &&
+                                        <EditButtons>
+                                            <ButtonDelete  onClickFunction={ async () => {
+                                                const response  = confirm("Deseja confirmar a operação?");
+                                                if(response){
+                                                    await curricularComponentDeleteControllerView(curricularComponent.uuid);
+                                                    await load();
+                                                }
+                                            }}/>
+                                            
+                                            <ButtonConcluir />
+                                        </EditButtons>
                                     }
                                 </ActionContainer>
                             </ExpandDetails>
-                        </RowVisualizer>
+                        </Row>
                     )
                 })
             ): (

@@ -10,56 +10,6 @@ export const Main = styled('div')`
     height: 100%;
 `;
 
-export const RowVisualizer = styled('div')`
-    width: 100%;
-    padding: 10px 20px;
-    background-color: #D9D9D9;
-    border-radius: 5px;
-    font-size: 18px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 25px;
-    & >.expand {
-        height: 0;
-        transform:scaleY(0);
-    }
-
-    & > div {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        img {
-            cursor: pointer; 
-        }
-
-        &:last-child {
-            @media screen and (max-width: 600px){
-                align-items: flex-start;
-            }
-        }
-    }
-    input[type="radio"]{
-        display: none;
-    }
-
-    input[type="radio"]:checked~.expand{
-        transition:transform 0.3s ease-out;
-        height: auto;
-        transform:scaleY(1); // implicit, but good to specify explicitly
-        transform-origin:top;
-    }
-
-    input[type="radio"]:checked+div{
-        color: #CF3034;
-        img {
-            display: none;
-        }
-    }
-`;
-
 export const ExpandDetails = styled('div')`
     width: 100%;
     background-color: #D9D9D9;
@@ -100,5 +50,12 @@ export const ActionContainer = styled('div')`
     justify-content: center;
     @media screen and (max-width: 600px){
         justify-content: end;
+    }
+`;
+
+export const EditButtons = styled('div')`
+    display: flex;
+    &> :first-child {
+        margin-right: 10px;
     }
 `;

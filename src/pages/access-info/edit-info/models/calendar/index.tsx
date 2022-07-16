@@ -1,23 +1,18 @@
 import {useEffect, useState} from 'react';
-import {InputArea, ButtonEdit, ButtonCancel, ButtonDelete, ButtonConcluir} from '../../../../../components';
-import {Expandir} from '../../../../../assets/img';
+import {InputArea, Row, ButtonDelete, ButtonConcluir} from '../../../../../components';
 import {Main,
-    RowVisualizer, 
     ExpandDetails,
-    ActionContainer} from '../styles/styles';
+    ActionContainer,
+    EditButtons} from '../styles/styles';
 import {CalendarModel} from "../../../../../api/model/CalendarModel";
 import {calendarReadControllerView} from "./calendarReadControllerView";
 import {calendarDeleteControllerView} from "./calendarDeleteControllerView";
 import {errorMessage} from '../../../../../components/libs/Toastr';
+import {ModelProps} from '../interfaces';
 
-export const Calendar = () => {
+export const Calendar: React.FC<ModelProps> = ({editMode}: ModelProps) => {
     const [semester, setSemester] = useState<string>();
-    const [editMode, setEditMode] = useState<boolean>(true);
     const [caledarList, setCaledarList] = useState<CalendarModel[]>();
-
-    const handleEditMode = () => {
-        setEditMode(false);
-    }
 
     function getDataObject(){
         return{
@@ -42,15 +37,7 @@ export const Calendar = () => {
             {caledarList != null ? (
                 caledarList.map((calendar, index) => {
                     return (
-                        <RowVisualizer key={calendar.uuid}>
-                            <input type="radio" name='view-info' id={'expand-radio'+index}/>
-                            <div>
-                                <span>{calendar.semester} </span>
-                                <label htmlFor={'expand-radio'+index} onClick={handleEditMode}>
-                                    <img src={Expandir} alt=""/>
-                                </label>
-
-                            </div>
+                        <Row key={calendar.uuid} propertyName={calendar.semester}>
                             <ExpandDetails className='expand'>
                                 <div className={editMode? 'edit-mode' : ''}>
                                     <span className='title'>Semestre:</span>
@@ -63,25 +50,22 @@ export const Calendar = () => {
                                     }
                                 </div>
                                 <ActionContainer>
-                                    {!editMode ?
-                                        <ButtonEdit onClickFunction={() => setEditMode(true)}/>
-                                        :
-                                        <ButtonCancel onClickFunction={() => setEditMode(false)}/>
-                                    }
-                                    {!editMode ?
-                                        <ButtonDelete  onClickFunction={ async () => {
-                                            const response  = confirm("Deseja confirmar a operação?");
-                                            if(response){
-                                                await calendarDeleteControllerView(calendar.uuid);
-                                                await load();
-                                            }
-                                        }}/>
-                                        :
-                                        <ButtonConcluir />
+                                    {editMode &&
+                                        <EditButtons>
+                                            <ButtonDelete  onClickFunction={ async () => {
+                                                const response  = confirm("Deseja confirmar a operação?");
+                                                if(response){
+                                                    await calendarDeleteControllerView(calendar.uuid);
+                                                    await load();
+                                                }
+                                            }}/>
+                                            
+                                            <ButtonConcluir />
+                                        </EditButtons>
                                     }
                                 </ActionContainer>
                             </ExpandDetails>
-                        </RowVisualizer>
+                        </Row>
                     )
                 })
             ): (

@@ -1,24 +1,20 @@
 import {useEffect, useState} from 'react';
-import {InputArea, ButtonEdit, ButtonCancel, ButtonDelete, ButtonConcluir} from '../../../../../components';
-import {Expandir} from '../../../../../assets/img';
+import {InputArea, Row, ButtonDelete, ButtonConcluir} from '../../../../../components';
 import {Main,
-    RowVisualizer, 
     ExpandDetails,
-    ActionContainer} from '../styles/styles';
+    ActionContainer,
+    EditButtons} from '../styles/styles';
 import {ClassroomModel} from "../../../../../api/model/ClassroomModel";
 import {classroomReadControllerView} from "./classroomReadControllerView";
 import {classroomDeleteControllerView} from "./classroomDeleteControllerView";
+import {ModelProps} from '../interfaces';
 
-export const Classroom = () => {
+export const Classroom: React.FC<ModelProps> = ({editMode}: ModelProps) => {
 
     const [name, setName] = useState<string>();
     const [block, setBlock] = useState<string>();
     const [capacity, setCapacity] = useState<number>();
-    const [editMode, setEditMode] = useState<boolean>(true);
     const [classroomList, setClassroomList] = useState<ClassroomModel[]>();
-    const handleEditMode = () => {
-        setEditMode(false);
-    }
 
     function getDataObject(){
         return{
@@ -47,34 +43,26 @@ export const Classroom = () => {
             classroomList != null ? (
                 classroomList.map((classroom, index) => {
                     return (
-                        <RowVisualizer key={classroom.uuid}>
-                            <input type="radio" name='view-info' id={'expand-radio'+index}/>
-                            <div>
-                                <span>{classroom.name} - {classroom.block}</span>
-                                <label htmlFor={'expand-radio'+index} onClick={handleEditMode}>
-                                    <img src={Expandir} alt=""/>
-                                </label>
-
-                            </div>
+                        <Row key={classroom.uuid} propertyName={`${classroom.classNameDTO} - ${classroom.classBlockDTO}`}>
                             <ExpandDetails className='expand'>
                                 <div className={editMode? 'edit-mode' : ''}>
                                     <span className='title'>Nome:</span>
                                     {editMode ?
-                                        <InputArea placeholder={classroom.name} id={'a'+index}change={(event) => {
+                                        <InputArea placeholder={classroom.classNameDTO} id={'a'+index}change={(event) => {
                                             setName(event.target.value);
                                         }}></InputArea>
                                         :
-                                        <span className='info'>{classroom.name}</span>
+                                        <span className='info'>{classroom.classNameDTO}</span>
                                     }
                                 </div>
                                 <div className={editMode? 'edit-mode' : ''}>
                                     <span className='title'>Bloco:</span>
                                     {editMode ?
-                                        <InputArea placeholder={classroom.block} id={'b'+index} change={(event) => {
+                                        <InputArea placeholder={classroom.classNameDTO} id={'b'+index} change={(event) => {
                                             setBlock(event.target.value)
                                         }}></InputArea>
                                         :
-                                        <span className='info'>{classroom.block}</span>
+                                        <span className='info'>{classroom.classNameDTO}</span>
                                     }
                                 </div>
                                 <div className={editMode? 'edit-mode' : ''}>
@@ -88,25 +76,22 @@ export const Classroom = () => {
                                     }
                                 </div>
                                 <ActionContainer>
-                                    {!editMode ?
-                                        <ButtonEdit onClickFunction={() => setEditMode(true)}/>
-                                        :
-                                        <ButtonCancel onClickFunction={() => setEditMode(false)}/>
-                                    }
-                                    {!editMode ?
-                                        <ButtonDelete  onClickFunction={ async () => {
-                                            const response  = confirm("Deseja confirmar a operação?");
-                                            if(response){
-                                                await classroomDeleteControllerView(classroom.uuid);
-                                                await load();
-                                            }
-                                        }}/>
-                                        :
-                                        <ButtonConcluir />
+                                    {editMode &&
+                                        <EditButtons>
+                                            <ButtonDelete  onClickFunction={ async () => {
+                                                const response  = confirm("Deseja confirmar a operação?");
+                                                if(response){
+                                                    await classroomDeleteControllerView(classroom.uuid);
+                                                    await load();
+                                                }
+                                            }}/>
+                                            
+                                            <ButtonConcluir />
+                                        </EditButtons>
                                     }
                                 </ActionContainer>
                             </ExpandDetails>
-                        </RowVisualizer>
+                        </Row>
                     )
                 })
             ) : (

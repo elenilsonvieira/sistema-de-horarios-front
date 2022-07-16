@@ -1,15 +1,15 @@
 import {useEffect, useState} from 'react';
-import {InputArea, ButtonEdit, ButtonCancel, ButtonDelete, ButtonConcluir, SelectArea} from '../../../../../components';
-import {Expandir} from '../../../../../assets/img';
+import {InputArea, Row, ButtonDelete, ButtonConcluir, SelectArea} from '../../../../../components';
 import {Main,
-    RowVisualizer, 
     ExpandDetails,
-    ActionContainer} from '../styles/styles';
+    ActionContainer,
+    EditButtons} from '../styles/styles';
 import {ProfessorModel} from "../../../../../api/model/ProfessorModel";
 import {professorReadControllerView} from "../professor/professorReadControllerView";
 import {turmaReadControllerView} from "./turmaReadControllerView";
 import {TurmaModel} from "../../../../../api/model/TurmaModel";
 import {turmaDeleteControllerView} from "./turmaDeleteControllerView";
+import {ModelProps} from '../interfaces';
 
 const turmas = [
     {
@@ -30,13 +30,10 @@ const turmas = [
     },
 ]
 
-export const Turma = () => {
-    const [editMode, setEditMode] = useState<boolean>(true);
+export const Turma: React.FC<ModelProps> = ({editMode}: ModelProps) => {
+
     const [turmaList, setTurmaList] = useState<TurmaModel[]>();
 
-    const handleEditMode = () => {
-        setEditMode(false);
-    }
     const load =  async () => {
         try {
             const result  = await turmaReadControllerView();
@@ -54,15 +51,7 @@ export const Turma = () => {
             {turmaList != null ? (
                 turmaList.map((turma, index) => {
                     return (
-                        <RowVisualizer key={turma.uuid}>
-                            <input type="radio" name='view-info' id={'expand-radio'+index}/>
-                            <div>
-                                <span>{turma.name} - {turma.course.name}</span>
-                                <label htmlFor={'expand-radio'+index} onClick={handleEditMode}>
-                                    <img src={Expandir} alt=""/>
-                                </label>
-
-                            </div>
+                        <Row key={turma.uuid} propertyName={`${turma.name} - ${turma.course.name}`}>
                             <ExpandDetails className='expand'>
                                 <div className={editMode? 'edit-mode' : ''}>
                                     <span className='title'>Nome:</span>
@@ -84,26 +73,23 @@ export const Turma = () => {
                                     }
                                 </div>
                                 <ActionContainer>
-                                    {!editMode ?
-                                        <ButtonEdit onClickFunction={() => setEditMode(true)}/>
-                                        :
-                                        <ButtonCancel onClickFunction={() => setEditMode(false)}/>
-                                    }
-                                    {!editMode ?
-                                        <ButtonDelete onClickFunction={ async () => {
+
+                                    {editMode &&
+                                        <EditButtons>
+                                        <ButtonDelete  onClickFunction={ async () => {
                                             const response  = confirm("Deseja confirmar a operação?");
                                             if(response){
-                                                 await turmaDeleteControllerView(turma.uuid);
-                                                 await load();
+                                                await turmaDeleteControllerView(turma.uuid);
+                                                await load();
                                             }
-                                        }
-                                        }/>
-                                        :
+                                        }}/>
+                                        
                                         <ButtonConcluir />
+                                        </EditButtons>
                                     }
                                 </ActionContainer>
                             </ExpandDetails>
-                        </RowVisualizer>
+                        </Row>
                     )
                 })
             ) : (

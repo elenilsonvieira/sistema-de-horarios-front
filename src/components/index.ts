@@ -1,4 +1,4 @@
-import {ButtonMenu, InputArea, ButtonAction, SelectArea} from './access-info';
+import {ButtonMenu, InputArea, ButtonAction, SelectArea, Row} from './access-info';
 
 import {InputContent} from './add-info';
 
@@ -20,4 +20,5 @@ export {
     ButtonConcluir,
     Sidebar,
     ButtonHome,
+    Row,
 };

@@ -39,6 +39,7 @@ export const SelectContainer = styled.div`
 
 export const Title = styled.h1`
     text-align: center;
+    cursor: default;
     padding-bottom: 20px;
 `;
 

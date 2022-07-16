@@ -1,22 +1,19 @@
 import {useEffect, useState} from 'react';
-import {InputArea, SelectArea, ButtonEdit, ButtonCancel, ButtonDelete, ButtonConcluir} from '../../../../../components';
-import {Expandir} from '../../../../../assets/img';
+import {InputArea, Row, SelectArea, ButtonDelete, ButtonConcluir} from '../../../../../components';
 import {Main,
-    RowVisualizer, 
     ExpandDetails,
-    ActionContainer} from '../styles/styles';
+    ActionContainer,
+    EditButtons
+    } from '../styles/styles';
 import {ProfessorModel} from "../../../../../api/model/ProfessorModel";
 import {professorReadControllerView} from "./professorReadControllerView";
 import {professorDeleteControllerView} from "./professorDeleteControllerView";
+import {ModelProps} from '../interfaces';
 
-export const Professor = () => {
+export const Professor: React.FC<ModelProps> = ({editMode}: ModelProps) => {
 
-    const [editMode, setEditMode] = useState<boolean>(true);
     const [professorList, setProfessorList] = useState<ProfessorModel[]>();
 
-    const handleEditMode = () => {
-        setEditMode(false);
-    }
     const load =  async () => {
         try {
             const result  = await professorReadControllerView();
@@ -35,16 +32,10 @@ export const Professor = () => {
             {professorList != null ? (
 
                 professorList.map((prof, index) => {
+                    const idx = index + 1;
                     return (
-                        <RowVisualizer key={prof.uuid}>
-                            <input type="radio" name='view-info' id={'expand-radio'+index}/>
-                            <div>
-                                <span>{prof.name}</span>
-                                <label htmlFor={'expand-radio'+index} onClick={handleEditMode}>
-                                    <img src={Expandir} alt=""/>
-                                </label>
-
-                            </div>
+                        <Row key={prof.uuid}
+                        propertyName={prof.name}>
                             <ExpandDetails className='expand'>
                                 <div className={editMode? 'edit-mode' : ''}>
                                     <span className='title'>Nome:</span>
@@ -74,26 +65,25 @@ export const Professor = () => {
                                     }
                                 </div>
                                 <ActionContainer>
-                                    {!editMode ?
-                                        <ButtonEdit onClickFunction={() => setEditMode(true)}/>
-                                        :
-                                        <ButtonCancel onClickFunction={() => setEditMode(false)}/>
-                                    }
-                                    {!editMode ?
-                                        <ButtonDelete  onClickFunction={ async () => {
-                                            const response  = confirm("Deseja confirmar a operação?");
-                                            if(response){
-                                                await professorDeleteControllerView(prof.uuid);
-                                                await load();
-                                            }
-                                        }}/>
-                                        :
-                                        <ButtonConcluir />
+
+                                    {editMode &&
+                                        <EditButtons>
+                                            <ButtonDelete  onClickFunction={ async () => {
+                                                const response  = confirm("Deseja confirmar a operação?");
+                                                if(response){
+                                                    await professorDeleteControllerView(prof.uuid);
+                                                    await load();
+                                                }
+                                            }}/>
+                                            
+                                            <ButtonConcluir />
+                                        </EditButtons>
                                     }
                                 </ActionContainer>
                             </ExpandDetails>
+                            
 
-                        </RowVisualizer>
+                        </Row>
                     )
                 })
             ):(

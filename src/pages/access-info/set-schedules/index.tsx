@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {InfoIcon, Expandir} from '../../../assets/img';
-import {SelectArea, InputContent, ButtonEdit, ButtonCancel, ButtonDelete, ButtonConcluir} from '../../../components';
-import {ActionContainer, ExpandDetails, RowVisualizer} from '../edit-info/models/styles/styles';
+import {SelectArea, InputContent, ButtonCancel, ButtonConcluir, Row} from '../../../components';
+import {ActionContainer, ExpandDetails} from '../edit-info/models/styles/styles';
 import {Main, SelectContainer, Info, Title, ContainerFilters, ContainerLessons, IntervalContainer} from './styles';
 import {LessonModel} from "../../../api/model/LessonModel";
 import {
@@ -143,15 +143,7 @@ const SetSchedules = () => {
             {lessonList != null ? (
                 lessonList.map((lesson, index) => {
                     return (
-                        <RowVisualizer key={lesson.uuid}>
-                            <input type="radio" name='view-info' id={'expand-radio'+index}/>
-                            <div>
-                                <span>Aula {index+1} - {lesson.curricularComponent.name}</span>
-                                <label htmlFor={'expand-radio'+index}>
-                                    <img src={Expandir} alt=""/>
-                                </label>
-
-                            </div>
+                        <Row key={lesson.uuid} propertyName={`Aula ${index+1} - ${lesson.curricularComponent.name}`}>
                             <ExpandDetails className='expand'>
                                 <div>
                                     <span className='title'>Semestre:</span>
@@ -208,7 +200,7 @@ const SetSchedules = () => {
                                     }
                                 </ActionContainer>
                             </ExpandDetails>
-                        </RowVisualizer>
+                        </Row>
                     )
                 })
             ) : (
