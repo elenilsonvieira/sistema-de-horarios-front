@@ -13,7 +13,8 @@ Das Tecnologias:
  - **JavaSript;
  - **HTML e CSS3;
  - **Styled-components;
- - **Toastr.
+ - **Toastr;
+ - **Vite.
  
  # Para executar
 
