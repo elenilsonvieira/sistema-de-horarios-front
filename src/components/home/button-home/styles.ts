@@ -10,9 +10,24 @@ export const Main = styled.button`
     border-radius: 20px;
     font-size: 30px;
     text-transform: uppercase;
-    color: white;
-    padding: 30px 10px;
+    height: 95px;
     cursor: pointer;
+    
+    & > a {
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        text-decoration: none;
+        height: 100%;
+        width: 100%;
+
+        :hover{
+            transition: 1s all ease;
+            color: #3FA14C;
+        }
+    }
 
     @media screen and (max-width: 600px){
         font-size: 22px;
