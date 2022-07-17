@@ -19,7 +19,7 @@ export class CalendarController {
     
     public async create(calendar: CalendarModel):Promise<void>{
         try {
-            const response = await axios.post("/calendar", calendar);
+            await axios.post("/calendar", calendar);
             successMessage('Calendário adicionado ao banco.')
         } catch (error) {
             errorMessage('Verifique os campos ou a conexão.')
@@ -31,7 +31,7 @@ export class CalendarController {
     }
     public async delete(uuid: string): Promise<void> {
         try {
-            const response = await axios.delete(`/calendar/${uuid}`);
+            await axios.delete(`/calendar/${uuid}`);
             successMessage('Calendário deletado.')
         } catch (error) {
             errorMessage('Não foi possível deletar.')

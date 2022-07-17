@@ -6,13 +6,17 @@ import {Main, SelectContainer, Info, Title, ContainerFilters, ContainerLessons, 
 import {LessonModel} from "../../../api/model/LessonModel";
 import {
     classBlockReadControllerView, classNameReadControllerView,
-    courseReadControllerView,
-    lessonReadControllerView
+    courseReadControllerView, gapReadControllerView,
+    lessonReadControllerView, shiftReadControllerView, weekDayReadControllerView
 } from "./readControllerView"
 import {CourseModel} from "../../../api/model/CourseModel";
-import {ClassroomModel} from "../../../api/model/ClassroomModel";
 import {ClassNameModel} from "../../../api/model/ClassNameModel";
 import {ClassBlockModel} from "../../../api/model/ClassBlockModel";
+import {GapModel} from "../../../api/model/GapModel";
+import {ShiftModel} from "../../../api/model/ShiftModel";
+import {WeekDayModel} from "../../../api/model/WeekDayModel";
+import {IntervalModel} from "../../../api/model/IntervalModel";
+import {intervalCreateControllerView} from "./createControllerView";
 
 
 const SetSchedules = () => {
@@ -21,26 +25,49 @@ const SetSchedules = () => {
     const [courseList, setCourseList] = useState<CourseModel[]>();
     const [classNameList, setClassNameList] = useState<ClassNameModel[]>();
     const [classBlockList, setClassBlockList] = useState<ClassBlockModel[]>()
+    const [gapList, setGapList] = useState<GapModel[]>();
+    const [shiftList, setShiftList] = useState<ShiftModel[]>();
+    const [weekDayList, setWeekDayList] = useState<WeekDayModel[]>();
 
     const [course, setCourse] = useState<string>();
     const [className, setClassName] = useState<string>();
     const [block, setBlock] = useState<string>();
+    const [gap, setGap] = useState<string>();
+    const [shift, setShift] = useState<string>();
+    const [weekDay, setWeekDay] = useState<string>();
 
+    const buildIntervalModel = () => {
+        return {
+            gapUuid:gap,
+            weekDayUuid:shift,
+            shiftUuid:weekDay
+        };
+    }
     const load =  async () => {
         try {
             const resultLesson  = await lessonReadControllerView({});
             const resultCourse  = await courseReadControllerView();
-            const className = await classNameReadControllerView();
-            const classBlock = await classBlockReadControllerView();
+            const resultClassName = await classNameReadControllerView();
+            const resultClassBlock = await classBlockReadControllerView();
+
+            const resultGap  = await gapReadControllerView();
+            const resultShift = await shiftReadControllerView();
+            const resultWeekDay = await weekDayReadControllerView();
 
             setLessonList(resultLesson);
             setCourseList(resultCourse);
-            setClassNameList(className);
-            setClassBlockList(classBlock);
+            setClassNameList(resultClassName);
+            setClassBlockList(resultClassBlock);
+            setGapList(resultGap);
+            setShiftList(resultShift);
+            setWeekDayList(resultWeekDay);
 
             setCourse(undefined);
             setClassName(undefined);
-            setBlock(undefined)
+            setBlock(undefined);
+            setGap(resultGap[0].uuid);
+            setShift(resultShift[0].uuid);
+            setWeekDay(resultWeekDay[0].uuid);
         }catch (Error:any){
 
         }
@@ -167,26 +194,59 @@ const SetSchedules = () => {
                                         <IntervalContainer>
                                             <div>
                                                 <span className='title'>Dia da semana:</span>
-                                                <SelectArea id={'c'+index}>
-                                                    <option value="">segunda</option>
-                                                    <option value="">terca</option>
-                                                    <option value="">quarta</option>
+                                                <SelectArea id={'c'+index} change={(event) => {
+                                                    const select  = event.target;
+                                                    if (weekDayList) {
+                                                        const weekDay = weekDayList[select.selectedIndex];
+                                                        try {
+                                                            setWeekDay(weekDay.uuid);
+                                                        }catch (error) {
+                                                            setWeekDay(undefined);
+                                                        }
+                                                    }
+                                                }}>
+                                                    {
+                                                        weekDayList?.map((turma) => (
+                                                            <option key={turma.uuid}>{turma.weekDay}</option>))
+                                                    }
                                                 </SelectArea>
                                             </div>
                                             <div>
                                                 <span className='title'>Turno:</span>
-                                                <SelectArea id={'c'+index}>
-                                                    <option value="">manhâ</option>
-                                                    <option value="">tarde</option>
-                                                    <option value="">noite</option>
+                                                <SelectArea id={'c'+index} change={(event) => {
+                                                    const select  = event.target;
+                                                    if (shiftList) {
+                                                        const shift = shiftList[select.selectedIndex];
+                                                        try {
+                                                            setShift(shift.uuid);
+                                                        }catch (error) {
+                                                            setShift(undefined);
+                                                        }
+                                                    }
+                                                }}>
+                                                    {
+                                                        shiftList?.map((turma) => (
+                                                            <option key={turma.uuid}>{turma.shift}</option>))
+                                                    }
                                                 </SelectArea>
                                             </div>
                                             <div>
                                                 <span className='title'>Horário:</span>
-                                                <SelectArea id={'c'+index}>
-                                                    <option value="">07:00</option>
-                                                    <option value="">13:00</option>
-                                                    <option value="">18:00</option>
+                                                <SelectArea id={'c'+index} change={(event) => {
+                                                    const select  = event.target;
+                                                    if (gapList) {
+                                                        const gap = gapList[select.selectedIndex];
+                                                        try {
+                                                            setGap(gap.uuid);
+                                                        }catch (error) {
+                                                            setGap(undefined);
+                                                        }
+                                                    }
+                                                }}>
+                                                    {
+                                                        gapList?.map((turma) => (
+                                                            <option key={turma.uuid}>{turma.gap}</option>))
+                                                    }
                                                 </SelectArea>
                                             </div>
                                         </IntervalContainer>
@@ -194,7 +254,10 @@ const SetSchedules = () => {
                                 </div>
                                 <ActionContainer>
                                     {lesson.interval === null ?
-                                        <ButtonConcluir />
+                                        <ButtonConcluir onClickFunction={ async () => {
+                                            const data  = buildIntervalModel();
+                                            await intervalCreateControllerView(data);
+                                        }} />
                                         :
                                         <ButtonCancel /> //seta o intervalo da aula atual como null
                                     }
