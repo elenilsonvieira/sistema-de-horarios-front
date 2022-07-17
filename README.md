@@ -4,7 +4,7 @@
 
 *O sistema de horários traz consigo o propósito de simplificar o gerenciamento de horários das turmas e disciplinas presentes na Instituição.
 A ideia do sistema partiu graças à visão de oportunidades, pois o que era obtido apenas através de e-mails ou quadros de aviso pelos corredores, agora,
-através da ferramenta, poderá ser visualizado a partir de qualquer dispositivo. *
+através da ferramenta, poderá ser visualizado a partir de qualquer dispositivo.*
 
 Das Tecnologias:  
  - **React;
