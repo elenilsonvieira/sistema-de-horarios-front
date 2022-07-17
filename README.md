@@ -9,6 +9,7 @@ através da ferramenta, poderá ser visualizado a partir de qualquer dispositivo
 Das Tecnologias:  
  - **React;
  - **Yarn;
+ - **Npm;
  - **TypeScript;
  - **JavaSript;
  - **HTML e CSS3;
@@ -20,6 +21,14 @@ Das Tecnologias:
 
 Com o projeto na máquina, abra terminal do sistema, na IDE, e realize os seguintes comandos:
 
-- yarn (para instalação das dependências que compõem o sistema);
+*Para yarn:*
+
+- yarn npm i (para instalação das dependências que compõem o sistema);
 - yarn dev (para startar o sistema no navegador http://localhost:3000/);
-- E acessar https://sistema-de-horario.herokuapp.com/swagger-ui.html#/ (para dispor da base de dados).
+
+*Para npm:*
+
+- npm i (para instalação das dependências que compõem o sistema);
+- npm run dev (para startar o sistema no navegador http://localhost:3000/);
+
+E acessar https://sistema-de-horario.herokuapp.com/swagger-ui.html#/ (para dispor da base de dados).
