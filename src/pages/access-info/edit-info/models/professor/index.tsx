@@ -53,17 +53,6 @@ export const Professor: React.FC<ModelProps> = ({editMode}: ModelProps) => {
                                         <span className='info'>{prof.area}</span>
                                     }
                                 </div>
-                                <div className={editMode? 'edit-mode' : ''}>
-                                    <span className='title'>Curso:</span>
-                                    {editMode ?
-                                        <SelectArea id={'c'+index}>
-                                            <option value="ads">ADS</option>
-                                            <option value="tce">TCE</option>
-                                        </SelectArea>
-                                        :
-                                        <span className='info'>{prof.course.name}</span>
-                                    }
-                                </div>
                                 <ActionContainer>
 
                                     {editMode &&
@@ -71,7 +60,7 @@ export const Professor: React.FC<ModelProps> = ({editMode}: ModelProps) => {
                                             <ButtonDelete  onClickFunction={ async () => {
                                                 const response  = confirm("Deseja confirmar a operação?");
                                                 if(response){
-                                                    await professorDeleteControllerView(prof.uuid);
+                                                    await professorDeleteControllerView(prof.uuid? prof.uuid : "");
                                                     await load();
                                                 }
                                             }}/>

@@ -203,7 +203,7 @@ export const Lesson = () => {
                         }}}>
                         {
                             turmaList?.map((item) =>(
-                                <option key={item.uuid}>{item.name} - {item.course.name}</option>
+                                <option key={item.uuid}>{item.name}</option>
                             ))
                         }
                     </SelectArea>

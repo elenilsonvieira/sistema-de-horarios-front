@@ -18,14 +18,14 @@ export default class ClassNameController{
 
     }
 
-    // public async create(classBlock: ClassBlockModel):Promise<void>{
-    //     try {
-    //         await axios.post("/classBlock", classBlock);
-    //         successMessage('Sala de aula adicionada ao banco.')
-    //     } catch (error) {
-    //         errorMessage('Verifique os campos ou a conexão.')
-    //     }
-    // }
+    public async create(classNameModel: ClassNameModel):Promise<any>{
+        try {
+            const result = await axios.post("/className", classNameModel);
+            return result.data;
+        } catch (error) {
+            errorMessage('Verifique os campos ou a conexão.')
+        }
+    }
 
     public async list(): Promise<ClassNameModel[]> {
         const response = await axios.get("/className");

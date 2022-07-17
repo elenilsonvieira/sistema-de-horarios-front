@@ -31,7 +31,7 @@ export const Lesson: React.FC<ModelProps> = ({editMode}: ModelProps) => {
             {lessonList != null ? (
                 lessonList.map((lesson, index) => {
                     return (
-                        <Row propertyName={`Aula ${index+1} - ${lesson.curricularComponent.name}`}>
+                        <Row propertyName={`Aula ${index+1} - ${lesson.curricularComponent.name} - ${lesson.course.name}`}>
                             <ExpandDetails className='expand'>
                                 <div className={''}>
                                     <span className='title'>Calendário:</span>

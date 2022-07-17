@@ -1,5 +1,4 @@
 export interface TurmaModel {
-    uuid:string;
+    uuid?:string;
     name: string;
-    course: any;
 }

@@ -16,9 +16,9 @@ export class ClassroomController{
         return ClassroomController.instance;
 
     }
-    public async create(classroom: ClassroomModel):Promise<void>{
+    public async create(classroom: any):Promise<void>{
         try {
-            const response = await axios.post("/classroom", classroom);
+            await axios.post("/classroom", classroom);
             successMessage('Sala de aula adicionada ao banco.')
         } catch (error) {
             errorMessage('Verifique os campos ou a conexão.')

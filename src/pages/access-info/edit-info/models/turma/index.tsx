@@ -4,31 +4,10 @@ import {Main,
     ExpandDetails,
     ActionContainer,
     EditButtons} from '../styles/styles';
-import {ProfessorModel} from "../../../../../api/model/ProfessorModel";
-import {professorReadControllerView} from "../professor/professorReadControllerView";
 import {turmaReadControllerView} from "./turmaReadControllerView";
 import {TurmaModel} from "../../../../../api/model/TurmaModel";
 import {turmaDeleteControllerView} from "./turmaDeleteControllerView";
 import {ModelProps} from '../interfaces';
-
-const turmas = [
-    {
-        id: 'kaka',
-        nome: '2º Período',
-    },
-    {
-        id: 'fsfs',
-        nome: '3º Período',
-    },
-    {
-        id: 'tsts',
-        nome: '4º Período',
-    },
-    {
-        id: 'dsds',
-        nome: '5º Período',
-    },
-]
 
 export const Turma: React.FC<ModelProps> = ({editMode}: ModelProps) => {
 
@@ -51,7 +30,7 @@ export const Turma: React.FC<ModelProps> = ({editMode}: ModelProps) => {
             {turmaList != null ? (
                 turmaList.map((turma, index) => {
                     return (
-                        <Row key={turma.uuid} propertyName={`${turma.name} - ${turma.course.name}`}>
+                        <Row key={turma.uuid} propertyName={`${turma.name}`}>
                             <ExpandDetails className='expand'>
                                 <div className={editMode? 'edit-mode' : ''}>
                                     <span className='title'>Nome:</span>
@@ -61,17 +40,6 @@ export const Turma: React.FC<ModelProps> = ({editMode}: ModelProps) => {
                                         <span className='info'>{turma.name}</span>
                                     }
                                 </div>
-                                <div className={editMode? 'edit-mode' : ''}>
-                                    <span className='title'>Curso:</span>
-                                    {editMode ?
-                                        <SelectArea id={'c'+index}>
-                                            <option value="ads">ADS</option>
-                                            <option value="tce">TCE</option>
-                                        </SelectArea>
-                                        :
-                                        <span className='info'>{turma.course.name}</span>
-                                    }
-                                </div>
                                 <ActionContainer>
 
                                     {editMode &&
@@ -79,7 +47,7 @@ export const Turma: React.FC<ModelProps> = ({editMode}: ModelProps) => {
                                         <ButtonDelete  onClickFunction={ async () => {
                                             const response  = confirm("Deseja confirmar a operação?");
                                             if(response){
-                                                await turmaDeleteControllerView(turma.uuid);
+                                                await turmaDeleteControllerView(turma.uuid ? turma.uuid : "");
                                                 await load();
                                             }
                                         }}/>

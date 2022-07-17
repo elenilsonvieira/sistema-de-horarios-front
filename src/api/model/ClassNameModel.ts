@@ -1,4 +1,5 @@
 export interface ClassNameModel {
+    uuid?: string;
     name: string;
-    uuid: string;
+    capacity:string;
 }

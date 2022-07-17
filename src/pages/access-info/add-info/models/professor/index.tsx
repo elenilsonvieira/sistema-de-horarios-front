@@ -10,28 +10,15 @@ import {errorMessage} from '../../../../../components/libs/Toastr';
 const courseController = CourseController.getInstance()
 export const Professor = () => {
     const [name, setName] = useState<string>();
-    const [area, setArea] = useState<string>();
-    const [courseUuid, setCourseUuid] = useState<string>();
-
-    const [courseModelList, setCourseModelList] = useState<CourseModel[]>();
+    const [area, setArea] = useState<string>()
 
     function getDataObject(): any{
         return {
             name,
-            area,
-            courseUuid
+            area
         }
     }
 
-    const load =  async () => {
-        try {
-            const result  = await courseController.list();
-            setCourseUuid(result[0].uuid);
-            setCourseModelList(result);
-        }catch (Error:any){
-
-        }
-    }
 
     const validate = () => {
         const errors = [];
@@ -41,9 +28,6 @@ export const Professor = () => {
         }
         if (!area) {
             errors.push('Área é obrigatória');
-        }
-        if (!courseUuid) {
-            errors.push('Curso é obrigatório');
         }
         return errors;
     }
@@ -61,10 +45,6 @@ export const Professor = () => {
         }
     }
 
-    useEffect(() => {
-        load();
-    },[])
-
     return (
         <Main>
             <Form>
@@ -81,24 +61,6 @@ export const Professor = () => {
                     <InputArea placeholder="Área" id="area" change={(event:any) => {
                         setArea(event.target.value);
                     }}></InputArea>
-
-                </InputContent>
-                <InputContent labelText='Curso:' htmlFor="curso">
-
-                    <SelectArea id="curso" change={(event)=>{
-                        const select  = event.target;
-                        if (courseModelList) {
-                            const courseUuid = courseModelList[select.selectedIndex].uuid;
-                            setCourseUuid(courseUuid);
-                        }}}>
-
-                        {
-                            courseModelList?.map((item) =>(
-
-                                <option key={item.uuid}>{item.name}</option>
-                            ))
-                        }
-                    </SelectArea>
 
                 </InputContent>
             </Form>
