@@ -8,8 +8,29 @@ export const Main = styled.div`
     justify-content: center;
     align-items: center;
     color: white;
-    min-height: calc(100vh - 300px);
+    min-height: calc(100vh - 200px);
     padding: 95px 50px 50px 50px;
+
+    & > .select-label {
+        display: none;
+        width: 100%;
+        max-width: 450px;
+        margin-bottom: 50px;
+
+        & > select {
+            margin-top: 5px;
+        }
+    }
+
+    @media screen and (max-width: 600px){
+        padding: 15px;
+        flex-direction: column-reverse;
+
+        & > .select-label {
+            display: block;
+        }
+    }
+
 `;
 
 export const WrapperContainer = styled('div')`
@@ -17,9 +38,14 @@ export const WrapperContainer = styled('div')`
     padding: 0 50px;
     max-width: 940px;
     width: 100%;
-    height: 465px;
+    height: 420px;
     border-radius: 5px;
     display: flex;
+
+    @media screen and (max-width: 600px){
+        justify-content: center;
+        padding: 0 5px;
+    }
 `;
 
 export const TypesContainer = styled('div')`
@@ -45,7 +71,7 @@ export const TypesContainer = styled('div')`
 
     input[type="radio"]:checked+label{
         transition: 0.5s all ease-out;
-        font-size: 30px;
+        font-size: 25px;
         color: #CF3034;
 
         & > div {
@@ -59,6 +85,10 @@ export const TypesContainer = styled('div')`
         }
     }
 
+    @media screen and (max-width: 600px){
+        display: none;
+    }
+
 `;
 
 // {export const Type = styled('div')`
@@ -69,11 +99,11 @@ export const TypesContainer = styled('div')`
 // `;}
 
 export const TypeLabel = styled('label')`
-    font-size: 20px;
+    font-size: 16px;
     text-align: center;
 
     & > div {
-        margin-top: 10px;
+        margin-top: 5px;
         border-bottom: solid 1px white;
     } 
 

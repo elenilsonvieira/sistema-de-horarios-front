@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Main = styled.div`
-    padding: 10px 0;
+    padding: 5px 0;
     width: 100%;
     color: #797979;
     display: flex;
@@ -14,6 +14,7 @@ export const Main = styled.div`
 export const Form = styled.form`
     width: 100%;
     max-height: 370px;
-    overflow: scroll;
+    overflow: auto;
+    margin-bottom: 10px;
     padding-bottom: 10px;
 `;

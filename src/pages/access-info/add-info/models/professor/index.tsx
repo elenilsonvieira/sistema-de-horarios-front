@@ -1,19 +1,47 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import {InputArea, ButtonAction, InputContent, SelectArea} from '../../../../../components'
-import { Form, Main } from '../form-styles/styles';
-import {ProfessorController} from "../../../../../api/controller/ProfessorController";
-import {ProfessorModel} from "../../../../../api/model/ProfessorModel";
+import { Form, Main } from '../styles/styles';
+import {professorControllerView} from "./professorControllerView";
+import {CourseController} from "../../../../../api/controller/CourseController";
+import {CourseModel} from "../../../../../api/model/CourseModel";
 
+import {errorMessage} from '../../../../../components/libs/Toastr';
+
+const courseController = CourseController.getInstance()
 export const Professor = () => {
     const [name, setName] = useState<string>();
-    const [area, setArea] = useState<string>();
-    const [courseUuid, setcourseUuid] = useState<string>();
+    const [area, setArea] = useState<string>()
 
     function getDataObject(): any{
         return {
             name,
-            area,
-            courseUuid
+            area
+        }
+    }
+
+
+    const validate = () => {
+        const errors = [];
+
+        if (!name) {
+            errors.push('Nome é obrigatório');
+        }
+        if (!area) {
+            errors.push('Área é obrigatória');
+        }
+        return errors;
+    }
+
+    const onSubmit = async () => {
+        const errors = validate();
+
+        if(errors.length > 0) {
+            errors.forEach((message) => {
+                errorMessage(message);
+            })
+        } else {
+            const data = getDataObject();
+            await professorControllerView(data);
         }
     }
 
@@ -35,27 +63,9 @@ export const Professor = () => {
                     }}></InputArea>
 
                 </InputContent>
-
-                {/* <InputContent labelText='Curso:' htmlFor="curso">
-
-                    <InputArea placeholder="Curso" id="curso" change={(event:any) => {
-                        setcourseUuid(event.target.value);
-                    }}></InputArea>
-
-                </InputContent> */}
-                {/* INTEGRAR ISSO AQUI  */}
-                <InputContent labelText='Curso:' htmlFor="curso">
-
-                    <SelectArea id="curso">
-                        <option value="">ADS</option>
-                        <option value="">Construção de Edifícios</option>
-                    </SelectArea>
-
-                </InputContent>
             </Form>
 
-            <ButtonAction textButton="adicionar professor" onClickFunction={ async ()=>{
-            }}/>
+            <ButtonAction textButton="adicionar professor" onClickFunction={onSubmit}/>
         </ Main>
     );
 }
