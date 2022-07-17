@@ -1,13 +1,17 @@
 import React, {useEffect, useState} from "react";
-import {InfoIcon, Expandir} from '../../../assets/img';
-import {SelectArea, InputContent, ButtonCancel, ButtonConcluir, Row} from '../../../components';
+import {InfoIcon} from '../../../assets/img';
+import {ButtonCancel, ButtonConcluir, InputContent, Row, SelectArea} from '../../../components';
 import {ActionContainer, ExpandDetails} from '../edit-info/models/styles/styles';
-import {Main, SelectContainer, Info, Title, ContainerFilters, ContainerLessons, IntervalContainer} from './styles';
+import {ContainerFilters, ContainerLessons, Info, IntervalContainer, Main, SelectContainer, Title} from './styles';
 import {LessonModel} from "../../../api/model/LessonModel";
 import {
-    classBlockReadControllerView, classNameReadControllerView,
-    courseReadControllerView, gapReadControllerView,
-    lessonReadControllerView, shiftReadControllerView, weekDayReadControllerView
+    classBlockReadControllerView,
+    classNameReadControllerView,
+    courseReadControllerView,
+    gapReadControllerView,
+    lessonReadControllerView,
+    shiftReadControllerView,
+    weekDayReadControllerView
 } from "./readControllerView"
 import {CourseModel} from "../../../api/model/CourseModel";
 import {ClassNameModel} from "../../../api/model/ClassNameModel";
@@ -15,8 +19,8 @@ import {ClassBlockModel} from "../../../api/model/ClassBlockModel";
 import {GapModel} from "../../../api/model/GapModel";
 import {ShiftModel} from "../../../api/model/ShiftModel";
 import {WeekDayModel} from "../../../api/model/WeekDayModel";
-import {IntervalModel} from "../../../api/model/IntervalModel";
 import {intervalCreateControllerView} from "./createControllerView";
+import {deleteControllerView} from "./deleteControllerView";
 
 
 const SetSchedules = () => {
@@ -36,16 +40,16 @@ const SetSchedules = () => {
     const [shift, setShift] = useState<string>();
     const [weekDay, setWeekDay] = useState<string>();
 
-    const buildIntervalModel = () => {
+    const buildIntervalModel = (lessonUuid:string) => {
         return {
+            lessonUuid,
             gapUuid:gap,
-            weekDayUuid:shift,
-            shiftUuid:weekDay
+            weekDayUuid:weekDay,
+            shiftUuid:shift
         };
     }
     const load =  async () => {
         try {
-            const resultLesson  = await lessonReadControllerView({});
             const resultCourse  = await courseReadControllerView();
             const resultClassName = await classNameReadControllerView();
             const resultClassBlock = await classBlockReadControllerView();
@@ -54,7 +58,6 @@ const SetSchedules = () => {
             const resultShift = await shiftReadControllerView();
             const resultWeekDay = await weekDayReadControllerView();
 
-            setLessonList(resultLesson);
             setCourseList(resultCourse);
             setClassNameList(resultClassName);
             setClassBlockList(resultClassBlock);
@@ -65,6 +68,7 @@ const SetSchedules = () => {
             setCourse(undefined);
             setClassName(undefined);
             setBlock(undefined);
+
             setGap(resultGap[0].uuid);
             setShift(resultShift[0].uuid);
             setWeekDay(resultWeekDay[0].uuid);
@@ -73,17 +77,7 @@ const SetSchedules = () => {
         }
     }
 
-    const reload = async (data: any) => {
-        const resultLesson  = await lessonReadControllerView(data);
-        setLessonList(resultLesson);
-    }
-
-
-    useEffect(() => {
-        load();
-    },[])
-
-    useEffect(() => {
+    const reload = async () => {
         const filters: any = {}
         if(course !== undefined){
             filters.courseUuid = course;
@@ -94,7 +88,17 @@ const SetSchedules = () => {
         if(block !== undefined) {
             filters.block = block;
         }
-        reload(filters);
+        const resultLesson  = await lessonReadControllerView(filters);
+        setLessonList(resultLesson);
+    }
+
+
+    useEffect(() => {
+        load();
+    },[])
+
+    useEffect(() => {
+        reload();
     },[course, className, block])
 
 
@@ -187,8 +191,8 @@ const SetSchedules = () => {
                                 <div>
                                     {lesson.interval !== null ? 
                                     <>
-                                        <span className='title'>Intervalo:</span>
-                                        <span className='info'>{lesson.interval}</span>
+                                        <span className='title'>Programação:</span>
+                                        <span className='info'>{lesson.interval.weekDayDTO.weekDay}, {lesson.interval.shiftDTO.shift} - {lesson.interval.gapDTO.gap}</span>
                                     </>
                                         :
                                         <IntervalContainer>
@@ -237,6 +241,8 @@ const SetSchedules = () => {
                                                     if (gapList) {
                                                         const gap = gapList[select.selectedIndex];
                                                         try {
+                                                            console.log(select.selectedIndex)
+                                                            console.log(gapList)
                                                             setGap(gap.uuid);
                                                         }catch (error) {
                                                             setGap(undefined);
@@ -255,11 +261,21 @@ const SetSchedules = () => {
                                 <ActionContainer>
                                     {lesson.interval === null ?
                                         <ButtonConcluir onClickFunction={ async () => {
-                                            const data  = buildIntervalModel();
+                                            const data  = buildIntervalModel(lesson.uuid);
                                             await intervalCreateControllerView(data);
+                                            setGap(gapList? gapList[0].uuid : "");
+                                            setShift(shiftList? shiftList[0].uuid : "");
+                                            setWeekDay(weekDayList? weekDayList[0].uuid : "");
+                                            await reload();
                                         }} />
                                         :
-                                        <ButtonCancel /> //seta o intervalo da aula atual como null
+                                        <ButtonCancel onClickFunction={ async () => {
+                                            await deleteControllerView(lesson.interval.uuid,lesson.uuid);
+                                            setGap(gapList? gapList[0].uuid : "");
+                                            setShift(shiftList? shiftList[0].uuid : "");
+                                            setWeekDay(weekDayList? weekDayList[0].uuid : "");
+                                            await reload();
+                                        }}/> //seta o intervalo da aula atual como null
                                     }
                                 </ActionContainer>
                             </ExpandDetails>

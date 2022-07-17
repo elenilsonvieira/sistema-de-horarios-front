@@ -5,5 +5,5 @@ import {successMessage, errorMessage} from '../../../../../components/libs/Toast
 export async function lessonControllerView(data: any) {
     const lesson =  data as LessonModel;
     const controller = LessonController.getInstance();
-    const response = await controller.create(lesson);
+    await controller.create(lesson);
 }

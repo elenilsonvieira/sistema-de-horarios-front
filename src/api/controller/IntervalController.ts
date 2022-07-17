@@ -15,23 +15,25 @@ export class IntervalController {
         }
         return IntervalController.instance;
     }
-    public async create(intervalModel: any):Promise<void>{
+    public async create(intervalModel: any):Promise<IntervalModel>{
         try {
             //console.log(intervalModel)
-            await axios.post("/interval", intervalModel);
+            const response = await axios.post("/interval", intervalModel);
             successMessage('interval adicionada ao banco.')
+            return response.data as IntervalModel;
         } catch (error) {
             errorMessage('Verifique os campos ou a conexão.')
+            return undefined as unknown as IntervalModel;
         }
     }
     public async list(): Promise<IntervalModel[]> {
         const response = await axios.get("/interval");
         return response.data as IntervalModel[];
     }
-    public async delete(uuid: string): Promise<void> {
+    public async delete(uuid: string, lessonUuid: string): Promise<void> {
         try {
-            await axios.delete(`/interval/${uuid}`)
-            successMessage('interval deletada.')
+            await axios.delete(`/interval/${uuid}/${lessonUuid}`)
+            successMessage('interval deletado.')
         } catch (error) {
             errorMessage('Não foi possível deletar.')
         }
