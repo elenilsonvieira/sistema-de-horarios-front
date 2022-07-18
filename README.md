@@ -28,7 +28,14 @@ Com o projeto na máquina, abra terminal do sistema, na IDE, e realize os seguin
 
 *Para npm:*
 
-- npm i (para instalação das dependências que compõem o sistema);
-- npm run dev (para startar o sistema no navegador http://localhost:3000/);
+```
+npm i
+```
+Para instalação das dependências que compõem o sistema
 
-E acessar https://sistema-de-horario.herokuapp.com/swagger-ui.html#/ (para dispor da base de dados).
+```
+npm run dev
+```
+Para startar o sistema no navegador http://localhost:3000;
+
+E acessar https://sistema-de-horario.herokuapp.com/swagger-ui.html#/ Para acessar a documentação da API
