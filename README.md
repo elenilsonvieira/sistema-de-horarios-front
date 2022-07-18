@@ -7,15 +7,15 @@ A ideia do sistema partiu graças à visão de oportunidades, pois o que era obt
 através da ferramenta, poderá ser visualizado a partir de qualquer dispositivo.*
 
 Das Tecnologias:  
- - **React;
- - **Yarn;
- - **Npm;
- - **TypeScript;
- - **JavaSript;
- - **HTML e CSS3;
- - **Styled-components;
- - **Toastr;
- - **Vite.
+ - React;
+ - Yarn;
+ - Npm;
+ - TypeScript;
+ - JavaSript;
+ - HTML e CSS3;
+ - Styled-components;
+ - Toastr;
+ - Vite.
  
  # Para executar
 
