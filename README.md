@@ -24,7 +24,7 @@ Com o projeto na máquina, abra terminal do sistema, na IDE, e realize os seguin
 *Para yarn:*
 
 - yarn npm i (para instalação das dependências que compõem o sistema);
-- yarn dev (para startar o sistema no navegador http://localhost:3000/);
+- yarn dev (para startar o sistema no navegador  [clique aqui](http://localhost:3000) );
 
 *Para npm:*
 
@@ -36,6 +36,6 @@ Para instalação das dependências que compõem o sistema
 ```
 npm run dev
 ```
-Para startar o sistema no navegador http://localhost:3000;
+Para startar o sistema no navegador [clique aqui](http://localhost:3000);
 
-E acessar https://sistema-de-horario.herokuapp.com/swagger-ui.html#/ Para acessar a documentação da API
+E acessar [esse link](https://sistema-de-horario.herokuapp.com/swagger-ui.html#/) Para acessar a documentação da API
