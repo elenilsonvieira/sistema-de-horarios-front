@@ -24,7 +24,7 @@ Com o projeto na máquina, abra terminal do sistema, na IDE, e realize os seguin
 *Para yarn:*
 
 - yarn npm i (para instalação das dependências que compõem o sistema);
-- yarn dev (para startar o sistema no navegador  [clique aqui](http://localhost:3000) );
+- yarn dev (para startar o sistema no navegador  [clique aqui](http://localhost:3000));
 
 *Para npm:*
 
