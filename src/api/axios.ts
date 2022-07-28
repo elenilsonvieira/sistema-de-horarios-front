@@ -7,8 +7,8 @@ export const TOKEN = 'token';
 
 export const httpClient = axios.create({
     baseURL: "https://sistema-de-horario.herokuapp.com",
-    withCredentials: true,
     headers: { "Content-Type": "application/json" },
+    withCredentials: true,
 });
 
 export default class ApiService {
