@@ -1,4 +1,4 @@
-import axios from "../axios";
+import {httpClient} from "../axios";
 import {LessonModel} from "../model/LessonModel";
 import {successMessage, errorMessage} from '../../components/libs/Toastr'
 
@@ -18,19 +18,19 @@ export class LessonController {
     }
     public async create(lesson: LessonModel):Promise<void>{
         try {
-            const response = await axios.post("/lesson", lesson);
+            const response = await httpClient.post("/lesson", lesson);
             successMessage('Aula adicionada ao banco.')
         } catch (error) {
             errorMessage('Verifique os campos ou a conexão.')
         }
     }
     public async list(): Promise<LessonModel[]> {
-        const response = await axios.get("/lesson");
+        const response = await httpClient.get("/lesson");
         return response.data as LessonModel[];
     }
 
     public async getByCourseByBlockAndClassName(data: any): Promise<LessonModel[]> {
-        const response = await axios.get("/lesson/getWithFilters",{
+        const response = await httpClient.get("/lesson/getWithFilters",{
             headers: data
         })
 
@@ -39,7 +39,7 @@ export class LessonController {
 
     public async delete(uuid: string): Promise<void> {
         try {
-            const response = await axios.delete(`/lesson/${uuid}`);
+            const response = await httpClient.delete(`/lesson/${uuid}`);
             successMessage('Turma deletada.')
         } catch (error) {
             errorMessage('Não foi possível deletar.')

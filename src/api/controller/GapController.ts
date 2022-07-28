@@ -1,4 +1,4 @@
-import axios from "../axios";
+import {httpClient} from "../axios";
 import {errorMessage, successMessage} from "../../components/libs/Toastr";
 import {GapModel} from "../model/GapModel";
 
@@ -16,19 +16,19 @@ export class GapController {
     }
     public async create(gapModel: GapModel):Promise<void>{
         try {
-            await axios.post("/gap", gapModel);
+            await httpClient.post("/gap", gapModel);
             successMessage('gap adicionada ao banco.')
         } catch (error) {
             errorMessage('Verifique os campos ou a conexão.')
         }
     }
     public async list(): Promise<GapModel[]> {
-        const response = await axios.get("/gap");
+        const response = await httpClient.get("/gap");
         return response.data as GapModel[];
     }
     public async delete(uuid: string): Promise<void> {
         try {
-            await axios.delete(`/gap/${uuid}`)
+            await httpClient.delete(`/gap/${uuid}`)
             successMessage('interval deletada.')
         } catch (error) {
             errorMessage('Não foi possível deletar.')

@@ -1,4 +1,4 @@
-import axios from "../axios";
+import {httpClient} from "../axios";
 import {errorMessage, successMessage} from "../../components/libs/Toastr";
 import {ClassBlockModel} from "../model/ClassBlockModel";
 
@@ -25,13 +25,13 @@ export default class ClassBlockController{
     //     }
     // }
     public async list(): Promise<ClassBlockModel[]> {
-        const response = await axios.get("/classBlock");
+        const response = await httpClient.get("/classBlock");
         return response.data as ClassBlockModel[];
     }
 
     public async delete(uuid: string): Promise<void> {
         try {
-            await axios.delete(`/classBlock/${uuid}`);
+            await httpClient.delete(`/classBlock/${uuid}`);
             successMessage('Sala de aula deletada.')
         } catch (error) {
             errorMessage('Não foi possível deletar.')

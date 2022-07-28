@@ -1,4 +1,4 @@
-import axios from "../axios";
+import {httpClient} from "../axios";
 import {errorMessage, successMessage} from "../../components/libs/Toastr";
 import {ShiftModel} from "../model/ShiftModel";
 import {IntervalModel} from "../model/IntervalModel";
@@ -18,7 +18,7 @@ export class IntervalController {
     public async create(intervalModel: any):Promise<IntervalModel>{
         try {
             //console.log(intervalModel)
-            const response = await axios.post("/interval", intervalModel);
+            const response = await httpClient.post("/interval", intervalModel);
             successMessage('interval adicionada ao banco.')
             return response.data as IntervalModel;
         } catch (error) {
@@ -27,12 +27,12 @@ export class IntervalController {
         }
     }
     public async list(): Promise<IntervalModel[]> {
-        const response = await axios.get("/interval");
+        const response = await httpClient.get("/interval");
         return response.data as IntervalModel[];
     }
     public async delete(uuid: string, lessonUuid: string): Promise<void> {
         try {
-            await axios.delete(`/interval/${uuid}/${lessonUuid}`)
+            await httpClient.delete(`/interval/${uuid}/${lessonUuid}`)
             successMessage('interval deletado.')
         } catch (error) {
             errorMessage('Não foi possível deletar.')
