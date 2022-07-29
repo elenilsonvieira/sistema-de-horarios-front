@@ -10,12 +10,12 @@ export default class AuthenticationApiService extends ApiService {
 
     async login(username: string, password: string) {
         const loginDTO = {
-            "username": username,
-            "password": password
+            "email": username,
+            "pass": password
         };
 
         try {
-            const response = await httpClient.post('/login', loginDTO); //PRECISO SABER QUAL ROTA DE LOGIN
+            const response = await httpClient.post('user/login', loginDTO); //PRECISO SABER QUAL ROTA DE LOGIN
 
             const user = response.data.user;
             const token = response.data.token;
