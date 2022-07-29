@@ -1,7 +1,11 @@
 import React from "react";
+import SessionProvider from "../../../hooks/sessionProvider";
 import {Main, Username, UserId, Button, UserData, ButtonsContainer} from './styles';
 
 const Sidebar = () => {
+
+    const sectionProvider = new SessionProvider();
+
     return (
         <Main>
             <UserData>
@@ -16,7 +20,7 @@ const Sidebar = () => {
                 <Button>
                     Meus dados
                 </Button>
-                <Button>
+                <Button onClick={sectionProvider.end}>
                     Sair
                 </Button>
             </ButtonsContainer>
