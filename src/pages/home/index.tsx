@@ -14,12 +14,12 @@ export const Home = () => {
 
     const AuthUser = async () => {
 
-            const user = await sectionProvider.login(email, password);
-            if (user) {
-                return successMessage(`Usuário autorizado!`);
-            } else {
-                errorMessage(`Verifique os dados e tente novamente.`);
-            }
+        const user = await sectionProvider.login(email, password);
+        if (user) {
+            return successMessage(`Usuário autorizado!`);
+        } else {
+            return errorMessage(`Verifique os dados e tente novamente.`);
+        }
     }
 
     return (

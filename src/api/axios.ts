@@ -2,13 +2,13 @@ import axios from "axios";
 
 import StorageService from "./auth/StorageService";
 
-export const LOGGED_USER = 'loggeduser';
-export const TOKEN = 'token';
+export const LOGGED_USER = 'LOGGED_USER';
+export const TOKEN = 'TOKEN';
 
 export const httpClient = axios.create({
     baseURL: "https://sistema-de-horario.herokuapp.com",
     headers: { "Content-Type": "application/json" },
-    withCredentials: true,
+    withCredentials: false,
 });
 
 export default class ApiService {

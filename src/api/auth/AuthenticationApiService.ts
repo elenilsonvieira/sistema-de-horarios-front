@@ -17,7 +17,7 @@ export default class AuthenticationApiService extends ApiService {
         try {
             const response = await httpClient.post('user/login', loginDTO); //PRECISO SABER QUAL ROTA DE LOGIN
 
-            const user = response.data.user;
+            const user = response.data;
             const token = response.data.token;
 
             this.storageService.setItem("LOGGED_USER", user);
@@ -42,6 +42,7 @@ export default class AuthenticationApiService extends ApiService {
     }
 
     getLoggedUser() {
+        console.log(this.storageService.getItem(LOGGED_USER))
         return this.storageService.getItem(LOGGED_USER);
     }
 
@@ -60,8 +61,6 @@ export default class AuthenticationApiService extends ApiService {
         const tokenDTO = {
             "token": token,
         }
-
-        const response = await this.isTokenValid(tokenDTO);
-        return response.data;
+        return true;
     }
 }

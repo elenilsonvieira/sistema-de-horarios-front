@@ -4,7 +4,6 @@ import AuthenticationApiService from "../api/auth/AuthenticationApiService";
 
 export const AuthContext = React.createContext();
 export const AuthConsumer = AuthContext.Consumer;
-const AuthProvider = AuthContext.Provider;
 
 export default class SessionProvider extends React.Component {
 
@@ -74,11 +73,11 @@ export default class SessionProvider extends React.Component {
         }
 
         return(
-            <AuthProvider value={context}>
+            <AuthContext.Provider value={context}>
                 {this.props.children}
-            </AuthProvider>
+            </AuthContext.Provider>
         )
     }
 }
 
-
+export const useSessionProviderContext = () => React.useContext(AuthContext);
