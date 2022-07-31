@@ -1,26 +1,24 @@
 import React from "react";
-import SessionProvider from "../../../hooks/sessionProvider";
-import {Main, Username, UserId, Button, UserData, ButtonsContainer} from './styles';
+import SessionProvider, { useSessionProviderContext } from "../../../hooks/sessionProvider";
+import {Main, Username, Button, UserData, ButtonsContainer} from './styles';
 
 const Sidebar = () => {
 
-    const sectionProvider = new SessionProvider();
+    const { isAuthenticated, end, loggedUser } = useSessionProviderContext(); 
+    console.log("logged", loggedUser);
 
     return (
         <Main>
             <UserData>
                 <Username>
-                    Nome do Usuário
+                    {loggedUser.name}
                 </Username>
-                <UserId>
-                    ID: 1462587654565
-                </UserId>
             </UserData>
             <ButtonsContainer>
                 <Button>
                     Meus dados
                 </Button>
-                <Button onClick={sectionProvider.end}>
+                <Button onClick={end}>
                     Sair
                 </Button>
             </ButtonsContainer>

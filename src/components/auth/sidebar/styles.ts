@@ -44,15 +44,6 @@ export const Username = styled.span`
     }
 `;
 
-export const UserId = styled.span`
-    font-size: 18px;
-    padding-bottom: 10px;
-
-    @media screen and (max-width: 600px){
-        font-size: 14px;
-    }
-`;
-
 export const Button = styled.button`
     width: 200px;
     padding: 10px 0;

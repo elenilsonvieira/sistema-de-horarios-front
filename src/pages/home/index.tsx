@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import SessionProvider from "../../hooks/sessionProvider";
+import { useSessionProviderContext } from "../../hooks/sessionProvider";
 import {ButtonHome, InputContent, InputArea, ButtonAction} from '../../components';
 import {Main, LoginSpan, Form, Container} from './styles';
 
@@ -7,7 +7,7 @@ import { successMessage, errorMessage } from "../../components/libs/Toastr";
 
 export const Home = () => {
 
-    const sectionProvider = new SessionProvider();
+    const { login, loggedUser } = useSessionProviderContext(); 
     const [showLogin, setShowLogin] = useState<boolean>(false);
     const [email, setEmail] = useState<string>();
     const [password, setPassword] = useState<string>();
@@ -32,8 +32,9 @@ export const Home = () => {
             errors.forEach((message) => {
                 errorMessage(message);
         })} else {
-            const user = await sectionProvider.login(email, password);
+            const user = await login(email, password);
             if (user) {
+                window.location.replace('/access-info')
                 return successMessage(`Usuário autorizado!`);
             } else {
                 return errorMessage(`Verifique os dados e tente novamente.`);

@@ -50,7 +50,6 @@ export default class SessionProvider extends React.Component {
     }
 
     end = () => {
-        console.log('ENCERRANDO SEÇÃO');
         this.setState({loggedUser: null});
         this.service.logout();
     }
