@@ -12,15 +12,35 @@ export const Home = () => {
     const [email, setEmail] = useState<string>();
     const [password, setPassword] = useState<string>();
 
+    const validate = () => {
+        const errors = [];
+
+        if (!email) {
+            errors.push('O e-mail é obrigatório');
+        }
+        if (!password) {
+            errors.push('A senha é obrigatória');
+        }
+        return errors;
+    }
+
     const AuthUser = async () => {
 
-        const user = await sectionProvider.login(email, password);
-        if (user) {
-            return successMessage(`Usuário autorizado!`);
-        } else {
-            return errorMessage(`Verifique os dados e tente novamente.`);
+        const errors = validate();
+
+        if(errors.length > 0) {
+            errors.forEach((message) => {
+                errorMessage(message);
+        })} else {
+            const user = await sectionProvider.login(email, password);
+            if (user) {
+                return successMessage(`Usuário autorizado!`);
+            } else {
+                return errorMessage(`Verifique os dados e tente novamente.`);
+            }
         }
     }
+
 
     return (
         <Main>

@@ -9,14 +9,17 @@ interface PrivateRouteProps {
 }
 
 const PrivateOutlet = ({ children }: PrivateRouteProps) => {
-  const { isAuthenticated } = useSessionProviderContext(); //Auth context
-  return isAuthenticated ? ( //Check if logged in
+  const { isAuthenticated } = useSessionProviderContext(); 
+  return isAuthenticated ? (
     <>
       {children} 
       <Outlet /> 
     </>
   ) : (
-    <Navigate to="/" replace /> 
+    <>
+      {errorMessage('Você não tem permissão de acesso.')}
+      <Navigate to="/" replace /> 
+    </>
   );
 };
 
