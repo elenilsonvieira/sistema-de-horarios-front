@@ -7,7 +7,7 @@ import { successMessage, errorMessage } from "../../components/libs/Toastr";
 
 export const Home = () => {
 
-    const { login, loggedUser } = useSessionProviderContext(); 
+    const { login, loggedUser, isAuthenticated, end } = useSessionProviderContext(); 
     const [showLogin, setShowLogin] = useState<boolean>(false);
     const [email, setEmail] = useState<string>();
     const [password, setPassword] = useState<string>();
@@ -65,9 +65,21 @@ export const Home = () => {
             :
                 <Container>
                     <ButtonHome />
+                    {isAuthenticated ?
+                    <>
+                        <LoginSpan className="user">
+                            {loggedUser.name} 
+                        </LoginSpan>
+                        <LoginSpan onClick={end}>
+                            Sair
+                        </LoginSpan>
+                    </>
+                    :
                     <LoginSpan onClick={() => setShowLogin(true)}>
                         Fazer login
                     </LoginSpan>
+                    }
+
                 </Container>
             }
         </Main>
