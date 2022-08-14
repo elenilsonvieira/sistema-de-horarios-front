@@ -43,8 +43,8 @@ export default class SessionProvider extends React.Component {
 
     start = () => {
         const loggedUser = this.service.getLoggedUser();
-        const token = this.service.getLoggedUser();
-
+        const token = this.service.getToken();
+        
         this.service.registerToken(token);
         this.setState({loggedUser});
 

@@ -65,7 +65,8 @@ export default class AuthenticationApiService extends ApiService {
                     token: token,
                     userUuid: user.uuid,
                 })
-                return response.data;
+                console.log("FEZ O REFRESH")
+                return this.registerToken(response.data as string);
             } catch (error) {
                 return false;
             }

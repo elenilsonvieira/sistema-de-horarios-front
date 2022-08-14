@@ -25,6 +25,7 @@ export default class ApiService {
 
     registerToken(token: any) {
        if(token){
+        console.log('BEARER TOKEN', token)
         httpClient.defaults.headers.common['Authorization'] = `Bearer ${token}`;
        }
     }
