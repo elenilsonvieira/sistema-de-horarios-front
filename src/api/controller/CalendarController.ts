@@ -13,7 +13,6 @@ export class CalendarController {
         if(!CalendarController.instance){
             CalendarController.instance = new CalendarController();
         }
-
         return CalendarController.instance;
     }
     

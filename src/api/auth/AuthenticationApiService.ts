@@ -15,7 +15,7 @@ export default class AuthenticationApiService extends ApiService {
         };
 
         try {
-            const response = await httpClient.post('user/login', loginDTO); //PRECISO SABER QUAL ROTA DE LOGIN
+            const response = await httpClient.post('user/login', loginDTO);
 
             const user = response.data;
             const token = response.data.token;
@@ -28,10 +28,6 @@ export default class AuthenticationApiService extends ApiService {
         } catch (error) {
             return null;
         }
-    }
-
-    isTokenValid(token: any){
-        return httpClient.post('/isValidToken', token); //PRECISO SABE RQUAL ROTA DE VALIDAÇÃO DO TOKEN
     }
 
     logout() {
@@ -56,9 +52,24 @@ export default class AuthenticationApiService extends ApiService {
             return false;
         }
 
-        const tokenDTO = {
-            "token": token,
-        }
         return true;
+    }
+    
+    async refreshToken() {
+        const user = this.getLoggedUser();
+        const token = this.getToken();
+        
+        if(token && user) {
+            try {
+                const response = await httpClient.post('/user/refreshToken', {
+                    token: token,
+                    userUuid: user.uuid,
+                })
+                return response.data;
+            } catch (error) {
+                return false;
+            }
+        }
+
     }
 }

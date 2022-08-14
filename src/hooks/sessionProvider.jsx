@@ -19,7 +19,7 @@ export default class SessionProvider extends React.Component {
 
     async componentDidMount() {
         const isAuthenticated = await this.service.isAuthenticated();
-
+        
         if(isAuthenticated){
             this.start();
         }
@@ -43,10 +43,11 @@ export default class SessionProvider extends React.Component {
 
     start = () => {
         const loggedUser = this.service.getLoggedUser();
-        const token = this.service.getToken();
+        const token = this.service.getLoggedUser();
 
-        this.setState({loggedUser});
         this.service.registerToken(token);
+        this.setState({loggedUser});
+
     }
 
     end = () => {
@@ -56,6 +57,10 @@ export default class SessionProvider extends React.Component {
 
     isAuthenticated = () => {
         return this.state.loggedUser != null;
+    }
+
+    refreshToken = () => {
+        return this.service.refreshToken();
     }
 
     render() {
@@ -69,6 +74,7 @@ export default class SessionProvider extends React.Component {
             start: this.start,
             end: this.end,
             login: this.login,
+            refreshToken: this.refreshToken,
         }
 
         return(

@@ -5,7 +5,6 @@ import {Main, Username, Button, UserData, ButtonsContainer} from './styles';
 const Sidebar = () => {
 
     const { end, loggedUser } = useSessionProviderContext(); 
-    console.log("logged", loggedUser);
 
     return (
         <Main>

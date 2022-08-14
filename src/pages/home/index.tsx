@@ -7,11 +7,13 @@ import { successMessage, errorMessage } from "../../components/libs/Toastr";
 
 export const Home = () => {
 
-    const { login, loggedUser, isAuthenticated, end } = useSessionProviderContext(); 
+    const { login, loggedUser, isAuthenticated, end, refreshToken } = useSessionProviderContext(); 
     const [showLogin, setShowLogin] = useState<boolean>(false);
     const [email, setEmail] = useState<string>();
     const [password, setPassword] = useState<string>();
 
+    const refresh = refreshToken();
+    
     const validate = () => {
         const errors = [];
 
