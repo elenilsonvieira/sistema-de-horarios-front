@@ -25,7 +25,6 @@ export default class ApiService {
 
     registerToken(token: any) {
        if(token){
-        localStorage.setItem('TOKEN', token);
         httpClient.defaults.headers.common['Authorization'] = `Bearer ${token}`;
        }
     }
