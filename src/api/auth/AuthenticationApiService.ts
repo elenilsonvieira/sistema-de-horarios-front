@@ -65,8 +65,9 @@ export default class AuthenticationApiService extends ApiService {
                     token: token,
                     userUuid: user.uuid,
                 })
-                localStorage.setItem('TOKEN', JSON.parse(response.data));
-                return this.registerToken(response.data);
+                localStorage.setItem('TOKEN', JSON.stringify(response.data));
+                this.registerToken(JSON.stringify(response.data));
+                return true;
             } catch (error) {
                 return false;
             }
