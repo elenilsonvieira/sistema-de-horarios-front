@@ -1,4 +1,4 @@
-import axios from "../axios";
+import {httpClient} from "../axios";
 import {CurricularComponentModel} from "../model/CurricularComponentModel";
 import {successMessage, errorMessage} from '../../components/libs/Toastr';
 
@@ -18,20 +18,20 @@ export class CurricularComponentController {
     }
     public async create(curricularComponent: CurricularComponentModel):Promise<void>{
         try {
-            const response = await axios.post("/curricularComponent", curricularComponent);
+            const response = await httpClient.post("/curricularComponent", curricularComponent);
             successMessage('Disciplina adicionada ao banco.')
         } catch (error) {
             errorMessage('Verifique os campos ou a conexão.')
         }
     }
     public async list(): Promise<CurricularComponentModel[]> {
-        const response = await axios.get("/curricularComponent");
+        const response = await httpClient.get("/curricularComponent");
         return response.data as CurricularComponentModel[];
     }
 
     public async delete(uuid: string): Promise<void> {
         try {
-            const response = await axios.delete(`/curricularComponent/${uuid}`)
+            const response = await httpClient.delete(`/curricularComponent/${uuid}`)
             successMessage('Disciplina deletada.')
         } catch (error) {
             errorMessage('Não foi possível deletar.')

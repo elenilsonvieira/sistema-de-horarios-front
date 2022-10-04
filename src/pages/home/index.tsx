@@ -1,11 +1,49 @@
 import React, {useState} from "react";
+import { useSessionProviderContext } from "../../hooks/sessionProvider";
 import {ButtonHome, InputContent, InputArea, ButtonAction} from '../../components';
 import {Main, LoginSpan, Form, Container} from './styles';
 
+import { successMessage, errorMessage } from "../../components/libs/Toastr";
 
 export const Home = () => {
 
+    const { login, loggedUser, isAuthenticated, end, refreshToken } = useSessionProviderContext(); 
     const [showLogin, setShowLogin] = useState<boolean>(false);
+    const [email, setEmail] = useState<string>();
+    const [password, setPassword] = useState<string>();
+
+    const refresh = refreshToken();
+    
+    const validate = () => {
+        const errors = [];
+
+        if (!email) {
+            errors.push('O e-mail é obrigatório');
+        }
+        if (!password) {
+            errors.push('A senha é obrigatória');
+        }
+        return errors;
+    }
+
+    const AuthUser = async () => {
+
+        const errors = validate();
+
+        if(errors.length > 0) {
+            errors.forEach((message) => {
+                errorMessage(message);
+        })} else {
+            const user = await login(email, password);
+            if (user) {
+                window.location.replace('/access-info')
+                return successMessage(`Usuário autorizado!`);
+            } else {
+                return errorMessage(`Verifique os dados e tente novamente.`);
+            }
+        }
+    }
+
 
     return (
         <Main>
@@ -13,12 +51,14 @@ export const Home = () => {
                 <Container>
                     <Form>
                         <InputContent labelText="E-mail:" htmlFor='email'>
-                            <InputArea placeholder="E-mail" id="email"/>
+                            <InputArea placeholder="E-mail" id="email" change={(event) => {
+                                setEmail(event.target.value)}}/>
                         </InputContent>
                         <InputContent labelText="Senha:" htmlFor='pass'>
-                            <InputArea type="password" placeholder="Senha" id="pass"/>
+                            <InputArea type="password" placeholder="Senha" id="pass" change={(event) => {
+                                setPassword(event.target.value)}}/>
                         </InputContent>
-                        <ButtonAction textButton={"login"} />
+                        <ButtonAction type="button" onClickFunction={AuthUser} textButton={"login"} />
                     </Form>
                     <LoginSpan onClick={() => setShowLogin(false)}>
                         Voltar
@@ -27,9 +67,21 @@ export const Home = () => {
             :
                 <Container>
                     <ButtonHome />
+                    {isAuthenticated ?
+                    <>
+                        <LoginSpan className="user">
+                            {loggedUser.name} 
+                        </LoginSpan>
+                        <LoginSpan onClick={end}>
+                            Sair
+                        </LoginSpan>
+                    </>
+                    :
                     <LoginSpan onClick={() => setShowLogin(true)}>
                         Fazer login
                     </LoginSpan>
+                    }
+
                 </Container>
             }
         </Main>

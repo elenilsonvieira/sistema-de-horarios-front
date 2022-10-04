@@ -1,4 +1,4 @@
-import axios from "../axios";
+import {httpClient} from "../axios";
 import {CalendarModel} from "../model/CalendarModel";
 import {successMessage, errorMessage} from '../../components/libs/Toastr';
 
@@ -13,25 +13,24 @@ export class CalendarController {
         if(!CalendarController.instance){
             CalendarController.instance = new CalendarController();
         }
-
         return CalendarController.instance;
     }
     
     public async create(calendar: CalendarModel):Promise<void>{
         try {
-            await axios.post("/calendar", calendar);
+            await httpClient.post("/calendar", calendar);
             successMessage('Calendário adicionado ao banco.')
         } catch (error) {
             errorMessage('Verifique os campos ou a conexão.')
         }
     }
     public async list(): Promise<CalendarModel[]> {
-        const response = await axios.get("/calendar");
+        const response = await httpClient.get("/calendar");
         return response.data as CalendarModel[];
     }
     public async delete(uuid: string): Promise<void> {
         try {
-            await axios.delete(`/calendar/${uuid}`);
+            await httpClient.delete(`/calendar/${uuid}`);
             successMessage('Calendário deletado.')
         } catch (error) {
             errorMessage('Não foi possível deletar.')

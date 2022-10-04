@@ -31,6 +31,14 @@ export const LoginSpan = styled.span`
         transition: 0.3s all ease;
         color: #CF3034;
     }
+
+    &.user {
+        cursor: default;
+        :hover{
+            transition: none;
+            color: white; 
+        }
+    }
 `;
 
 export const Form = styled.form`

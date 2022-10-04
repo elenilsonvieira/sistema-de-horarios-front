@@ -1,4 +1,4 @@
-import axios from "../axios";
+import {httpClient} from "../axios";
 import {ClassroomModel} from "../model/ClassroomModel";
 import {successMessage, errorMessage} from '../../components/libs/Toastr';
 
@@ -18,20 +18,20 @@ export class ClassroomController{
     }
     public async create(classroom: any):Promise<void>{
         try {
-            await axios.post("/classroom", classroom);
+            await httpClient.post("/classroom", classroom);
             successMessage('Sala de aula adicionada ao banco.')
         } catch (error) {
             errorMessage('Verifique os campos ou a conexão.')
         }
     }
     public async list(): Promise<ClassroomModel[]> {
-        const response = await axios.get("/classroom");
+        const response = await httpClient.get("/classroom");
         return response.data as ClassroomModel[];
     }
     
     public async delete(uuid: string): Promise<void> {
         try {
-            await axios.delete(`/classroom/${uuid}`);
+            await httpClient.delete(`/classroom/${uuid}`);
             successMessage('Sala de aula deletada.')
         } catch (error) {
             errorMessage('Não foi possível deletar.')

@@ -241,8 +241,6 @@ const SetSchedules = () => {
                                                     if (gapList) {
                                                         const gap = gapList[select.selectedIndex];
                                                         try {
-                                                            console.log(select.selectedIndex)
-                                                            console.log(gapList)
                                                             setGap(gap.uuid);
                                                         }catch (error) {
                                                             setGap(undefined);

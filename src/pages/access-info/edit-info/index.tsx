@@ -70,7 +70,6 @@ export const EditInfo = () => {
 
     function handleChangeType(event:any) {
         setType(event.target.value); 
-        console.log(event.target.value)
     }
 
     const handleSelectEdit = (value: string) => {
