@@ -8,14 +8,14 @@ export default class AuthenticationApiService extends ApiService {
         this.storageService = new StorageService();
     }
 
-    async login(username: string, password: string) {
+    async login(enrollment: string, password: string) {
         const loginDTO = {
-            "email": username,
+            "enrollment": enrollment,
             "pass": password
         };
 
         try {
-            const response = await httpClient.post('user/login', loginDTO);
+            const response = await httpClient.post('auth/login', loginDTO);
 
             const user = response.data;
             const token = response.data.token;
@@ -61,7 +61,7 @@ export default class AuthenticationApiService extends ApiService {
         
         if(token && user) {
             try {
-                const response = await httpClient.post('/user/refreshToken', {
+                const response = await httpClient.post('/auth/refreshToken', {
                     token: token,
                     userUuid: user.uuid,
                 })

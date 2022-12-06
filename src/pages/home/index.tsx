@@ -9,7 +9,7 @@ export const Home = () => {
 
     const { login, loggedUser, isAuthenticated, end, refreshToken } = useSessionProviderContext(); 
     const [showLogin, setShowLogin] = useState<boolean>(false);
-    const [email, setEmail] = useState<string>();
+    const [enrollment, setEnrollment] = useState<string>();
     const [password, setPassword] = useState<string>();
 
     const refresh = refreshToken();
@@ -17,8 +17,8 @@ export const Home = () => {
     const validate = () => {
         const errors = [];
 
-        if (!email) {
-            errors.push('O e-mail é obrigatório');
+        if (!enrollment) {
+            errors.push('A matrícula é obrigatória');
         }
         if (!password) {
             errors.push('A senha é obrigatória');
@@ -34,7 +34,7 @@ export const Home = () => {
             errors.forEach((message) => {
                 errorMessage(message);
         })} else {
-            const user = await login(email, password);
+            const user = await login(enrollment, password);
             if (user) {
                 window.location.replace('/access-info')
                 return successMessage(`Usuário autorizado!`);
@@ -50,9 +50,9 @@ export const Home = () => {
             {showLogin ? 
                 <Container>
                     <Form>
-                        <InputContent labelText="E-mail:" htmlFor='email'>
-                            <InputArea placeholder="E-mail" id="email" change={(event) => {
-                                setEmail(event.target.value)}}/>
+                        <InputContent labelText="Matrícula:" htmlFor='enrollment'>
+                            <InputArea placeholder="Matrícula" id="enrollment" change={(event) => {
+                                setEnrollment(event.target.value)}}/>
                         </InputContent>
                         <InputContent labelText="Senha:" htmlFor='pass'>
                             <InputArea type="password" placeholder="Senha" id="pass" change={(event) => {
