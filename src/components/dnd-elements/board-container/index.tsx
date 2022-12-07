@@ -1,16 +1,16 @@
 import {useCallback, useState} from "react"
 import {Main} from './styles';
 
-import {ListContainer} from '../list-container/index';
+import {ContainerDND} from '../container-drag-drop/index';
 import {LessonModel} from "../../../api/model/LessonModel";
 import {LessonController} from "../../../api/controller/LessonController";
 import {bd} from '../../../bdsimulator/bd';
 
-interface BoardC {
+interface IntfcBoard {
     change?: (event:any) => void;
 }
 
-export const BoardContainer: React.FC<BoardC> = ({change}: BoardC) => {
+export const BoardContainer: React.FC<IntfcBoard> = ({change}: IntfcBoard) => {
     
     const findLessons = useCallback(() => {
         let newLessons:LessonModel[] = [];
@@ -23,8 +23,8 @@ export const BoardContainer: React.FC<BoardC> = ({change}: BoardC) => {
 
     return (
         <Main onChange={change} >
-            <ListContainer listLesson={listLesson} label={'Aulas'}/>
-            <ListContainer listLesson={listLesson} label={'Destino'}/>
+            <ContainerDND listLesson={listLesson} label={'Aulas'}/>
+            <ContainerDND listLesson={listLesson} label={'Destino'}/>
         </ Main>
     )
 }
