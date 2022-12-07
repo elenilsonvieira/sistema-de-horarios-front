@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Campus from '../../assets/img/ifpb-monteiro.png';
+import Campus from '../../assets/img/ifpbmonteiro.png';
 
 export const Main = styled.div`
     padding: 25px;
