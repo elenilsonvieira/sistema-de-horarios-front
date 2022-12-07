@@ -2,11 +2,11 @@ import styled from "styled-components";
 
 export const Main = styled('div')`
     padding: 25px;
-    background-color: #3FA14C;
+    background-color: #d9d9d9;
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: white;
+    color: #131819;
     min-height: calc(100vh - 200px);
     padding: 20px 50px 50px 50px;
 
@@ -49,7 +49,7 @@ export const THead = styled('thead')`
             font-size: 18px;
             padding: 10px;
             :nth-child(even) {background: #5BCD5F}
-            :nth-child(odd) {background: #DA4145}
+            :nth-child(odd) {background: #5BCD5F}
         }
     }
 `;
@@ -72,7 +72,7 @@ export const TBody = styled('tbody')`
         }
         :nth-child(even) {
             & > th {
-                background: #DA4145;
+                background: #5BCD5F;
             }
         }
     }

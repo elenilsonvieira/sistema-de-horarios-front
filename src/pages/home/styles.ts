@@ -3,7 +3,7 @@ import Campus from '../../assets/img/ifpb-monteiro.png';
 
 export const Main = styled.div`
     padding: 25px;
-    //background-color: #3FA14C;
+    //background-color: #d9d9d9;
     display: flex;
     flex-direction: column;
     justify-content: center;

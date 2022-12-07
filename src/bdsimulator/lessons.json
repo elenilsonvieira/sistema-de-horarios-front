@@ -1,0 +1,185 @@
+[
+	{
+		"uuid": "8305ade3-fcf0-46ad-85ad-e3fcf0a6adc0",
+		"curricularComponent": {
+			"uuid": "03991a43-9404-405a-991a-439404905a4a",
+			"workload": 120,
+			"name": "DAC",
+			"course": {
+				"uuid": "9d1994d2-ec2e-4035-9994-d2ec2e803517",
+				"name": "Analise e Desenvolvimento de Sistemas"
+			}
+		},
+		"professor": {
+			"uuid": "0f4477d5-8a70-4bde-8477-d58a702bde30",
+			"name": "Elenilson Vieira",
+			"profileDTO": {
+				"field": "Tecnologia",
+				"standard": 1,
+				"uuid": "302ce134-5815-4c93-ace1-345815bc9348"
+			}
+		},
+		"turma": {
+			"uuid": "576c91eb-5e51-417e-ac91-eb5e51c17e92",
+			"name": "5º Periodo"
+		},
+		"interval": {
+			"gapDTO": {
+				"gap": "SECOND",
+				"displayName": "Segunda Aula",
+				"uuid": "502b22b5-56d5-403e-ab22-b556d5903ed5"
+			},
+			"weekDayDTO": {
+				"dayOfWeek": "TUESDAY",
+				"displayName": "terça-feira",
+				"uuid": "b68950c3-ae1f-4751-8950-c3ae1f77512a"
+			},
+			"shiftDTO": {
+				"shift": "NIGHT",
+				"displayName": "Noite",
+				"uuid": "c0820237-49c5-482e-8202-3749c5e82ed0"
+			},
+			"uuid": "96f4383e-0dbd-4958-b438-3e0dbdd9585b"
+		},
+		"classroom": {
+			"uuid": "1eec5403-ab38-47f1-ac54-03ab3847f1d4",
+			"name": "Sala 1",
+			"capacity": 40,
+			"classBlockDTO": {
+				"uuid": "f54a64b4-36ea-4e8c-8a64-b436ea0e8cd0",
+				"block": "Bloco 1"
+			}
+		},
+		"calendar": {
+			"uuid": "04f54455-e599-4e71-b544-55e5995e71e1",
+			"semester": "2022.2"
+		},
+		"course": {
+			"uuid": "9d1994d2-ec2e-4035-9994-d2ec2e803517",
+			"name": "Analise e Desenvolvimento de Sistemas"
+		},
+		"tipMessage": null
+	},
+	{
+		"uuid": "38298518-a68f-4a32-a985-18a68f2a3219",
+		"curricularComponent": {
+			"uuid": "03991a43-9404-405a-991a-439404905a4a",
+			"workload": 120,
+			"name": "DAC",
+			"course": {
+				"uuid": "9d1994d2-ec2e-4035-9994-d2ec2e803517",
+				"name": "Analise e Desenvolvimento de Sistemas"
+			}
+		},
+		"professor": {
+			"uuid": "0f4477d5-8a70-4bde-8477-d58a702bde30",
+			"name": "Elenilson Vieira",
+			"profileDTO": {
+				"field": "Tecnologia",
+				"standard": 1,
+				"uuid": "302ce134-5815-4c93-ace1-345815bc9348"
+			}
+		},
+		"turma": {
+			"uuid": "576c91eb-5e51-417e-ac91-eb5e51c17e92",
+			"name": "5º Periodo"
+		},
+		"interval": {
+			"gapDTO": {
+				"gap": "FRIST",
+				"displayName": "Primeira Aula",
+				"uuid": "ee894ef2-e3e9-4760-894e-f2e3e9c7609b"
+			},
+			"weekDayDTO": {
+				"dayOfWeek": "TUESDAY",
+				"displayName": "terça-feira",
+				"uuid": "b68950c3-ae1f-4751-8950-c3ae1f77512a"
+			},
+			"shiftDTO": {
+				"shift": "NIGHT",
+				"displayName": "Noite",
+				"uuid": "c0820237-49c5-482e-8202-3749c5e82ed0"
+			},
+			"uuid": "6771d40e-3c59-4430-b1d4-0e3c5984306a"
+		},
+		"classroom": {
+			"uuid": "1eec5403-ab38-47f1-ac54-03ab3847f1d4",
+			"name": "Sala 1",
+			"capacity": 40,
+			"classBlockDTO": {
+				"uuid": "f54a64b4-36ea-4e8c-8a64-b436ea0e8cd0",
+				"block": "Bloco 1"
+			}
+		},
+		"calendar": {
+			"uuid": "04f54455-e599-4e71-b544-55e5995e71e1",
+			"semester": "2022.2"
+		},
+		"course": {
+			"uuid": "9d1994d2-ec2e-4035-9994-d2ec2e803517",
+			"name": "Analise e Desenvolvimento de Sistemas"
+		},
+		"tipMessage": null
+	},
+	{
+		"uuid": "8305ade3-fcf0-46ad-85ad-e3fcf0a6adc0",
+		"curricularComponent": {
+			"uuid": "03991a43-9404-405a-991a-439404905a4a",
+			"workload": 120,
+			"name": "DAC",
+			"course": {
+				"uuid": "9d1994d2-ec2e-4035-9994-d2ec2e803517",
+				"name": "Analise e Desenvolvimento de Sistemas"
+			}
+		},
+		"professor": {
+			"uuid": "0f4477d5-8a70-4bde-8477-d58a702bde30",
+			"name": "Elenilson Vieira",
+			"profileDTO": {
+				"field": "Tecnologia",
+				"standard": 1,
+				"uuid": "302ce134-5815-4c93-ace1-345815bc9348"
+			}
+		},
+		"turma": {
+			"uuid": "576c91eb-5e51-417e-ac91-eb5e51c17e92",
+			"name": "5º Periodo"
+		},
+		"interval": {
+			"gapDTO": {
+				"gap": "SECOND",
+				"displayName": "Segunda Aula",
+				"uuid": "502b22b5-56d5-403e-ab22-b556d5903ed5"
+			},
+			"weekDayDTO": {
+				"dayOfWeek": "TUESDAY",
+				"displayName": "terça-feira",
+				"uuid": "b68950c3-ae1f-4751-8950-c3ae1f77512a"
+			},
+			"shiftDTO": {
+				"shift": "NIGHT",
+				"displayName": "Noite",
+				"uuid": "c0820237-49c5-482e-8202-3749c5e82ed0"
+			},
+			"uuid": "96f4383e-0dbd-4958-b438-3e0dbdd9585b"
+		},
+		"classroom": {
+			"uuid": "1eec5403-ab38-47f1-ac54-03ab3847f1d4",
+			"name": "Sala 1",
+			"capacity": 40,
+			"classBlockDTO": {
+				"uuid": "f54a64b4-36ea-4e8c-8a64-b436ea0e8cd0",
+				"block": "Bloco 1"
+			}
+		},
+		"calendar": {
+			"uuid": "04f54455-e599-4e71-b544-55e5995e71e1",
+			"semester": "2022.2"
+		},
+		"course": {
+			"uuid": "9d1994d2-ec2e-4035-9994-d2ec2e803517",
+			"name": "Analise e Desenvolvimento de Sistemas"
+		},
+		"tipMessage": null
+	}
+]
