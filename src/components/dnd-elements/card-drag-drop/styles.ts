@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 
-export const Main = styled.select`
+export const Main = styled.div`
     position: relative;
     background: #FFF;
     border-radius: 5px;
@@ -11,13 +11,18 @@ export const Main = styled.select`
     cursor: grab;
     header {
         position: absolute;
-        top: -22px;
-        left: 15px;
+        top: -30px;
+        left: -5px;
     }
 
     p {
         font-weight: 500;
         line-height: 20px;
+    }
+
+    button {
+        text-align: right;
+        margin-left: 100%;
     }
 
     ${props => props.isDragging && css`
@@ -28,16 +33,8 @@ export const Main = styled.select`
     box-shadow: none;
     cursor: grabbing;
     
-    p, img, header {
+    p, header {
         opacity: 0;
     }
     `}
-`;
-
-export const Label = styled.span`
-    width: 10px;
-    height: 10px;
-    border-radius: 2px;
-    display: inline-block;
-    background: ${props => props.color};
 `;

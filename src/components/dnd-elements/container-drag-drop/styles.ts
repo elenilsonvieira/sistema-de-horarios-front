@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 export const Main = styled.div`
     padding: 0 15px;
-    height: 100%;
-    flex: 0 0 320px;
+    height: 100px;
+    flex: 0 0 192px;
     opacity: ${props => props.done ? 0.6 : 1};
     
     & + div {

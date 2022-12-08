@@ -1,6 +1,6 @@
 import React from "react";
 
-import {Main, Label} from './styles';
+import {Main} from './styles';
 import {LessonModel} from "../../../api/model/LessonModel";
 
 interface IntfcCard {
@@ -14,11 +14,10 @@ export const CardDND: React.FC<IntfcCard> = ({lesson, index, change}: IntfcCard)
     return (
         <Main id={lesson.uuid} onChange={change} >
             <header>
-                <h2>{lesson.curricularComponent.name}</h2>
+                <h2>{lesson.curricularComponent.name}</h2><button type="button" >Edit</button>
             </header>
-            <button type="button" >Edit</button>
-            <p>{lesson.professor.name}</p>
-            <p>{lesson.turma.name}</p>
+            {lesson.professor && <p>{lesson.professor.name}</p>}
+            {lesson.classroom && <p>{lesson.classroom.classBlockDTO.block+" - "+lesson.classroom.name}</p>}
         </ Main>
     )
 }
