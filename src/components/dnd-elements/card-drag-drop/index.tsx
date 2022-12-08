@@ -1,4 +1,5 @@
-import React from "react";
+import React from 'react';
+import { useDrag } from 'react-dnd';
 
 import {Main} from './styles';
 import {LessonModel} from "../../../api/model/LessonModel";
@@ -11,8 +12,19 @@ interface IntfcCard {
 }
 
 export const CardDND: React.FC<IntfcCard> = ({lesson, index, change}: IntfcCard) => {
+    
+    const [{ isDragging }, dragRef] = useDrag({
+        type: "CARD",
+        item: () => {
+          return { lesson }
+        },
+        collect: (monitor: any) => ({
+          isDragging: monitor.isDragging(),
+        }),
+      })
+
     return (
-        <Main id={lesson.uuid} onChange={change} >
+        <Main id={lesson.uuid} onChange={change} ref={dragRef} isDragging={isDragging}>
             <header>
                 <h2>{lesson.curricularComponent.name}</h2><button type="button" >Edit</button>
             </header>

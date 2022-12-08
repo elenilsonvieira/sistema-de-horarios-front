@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 
 export const Main = styled.div`
-    padding: 0 15px;
-    height: 100px;
-    flex: 0 0 192px;
-    opacity: ${props => props.done ? 0.6 : 1};
+    padding: 2px;
+    margin: 1px;
+    width: 190px;
+    border-radius: 5px;
+    background: #A9A9A9;
     
     & + div {
         border-left: 1px solid rgba(0, 0, 0, 0.05);

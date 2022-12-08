@@ -13,13 +13,17 @@ interface IntfcBoard {
 
 export const BoardContainer: React.FC<IntfcBoard> = ({label, change}: IntfcBoard) => {
     
+    //só pra teste
+    let aaLessons:LessonModel[] = [];
+
     const findLessons = useCallback(() => {
         let newLessons:LessonModel[] = [];
         let lessons  = bd.getLessons();
         newLessons = lessons;
         return newLessons;
-      }, []);
-    
+    }, []);
+    //só pra teste
+
     const [listLesson, setListLesson] = useState(findLessons);
 
     return (
@@ -28,7 +32,7 @@ export const BoardContainer: React.FC<IntfcBoard> = ({label, change}: IntfcBoard
                 <h2>{label}</h2>
             </header>
             <ContainerDND listLesson={listLesson} />
-            <ContainerDND listLesson={listLesson} />
+            <ContainerDND listLesson={aaLessons} />
         </ Main>
     )
 }
