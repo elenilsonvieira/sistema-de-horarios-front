@@ -1,5 +1,6 @@
 export interface ClassroomModel{
     uuid:string;
-    classNameDTO: any;
+    name: string;
+    capacity:string;
     classBlockDTO: any;
 }

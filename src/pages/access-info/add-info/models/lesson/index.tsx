@@ -147,7 +147,7 @@ export const Lesson = () => {
                         {
                             classroomList?.map((item) =>(
 
-                                <option key={item.uuid}>{item.classNameDTO.name} - {item.classBlockDTO.block}</option>
+                                <option key={item.uuid}>{item.name} - {item.classBlockDTO.block}</option>
                             ))
                         }
                     </SelectArea>
