@@ -43,16 +43,16 @@ export const Classroom: React.FC<ModelProps> = ({editMode}: ModelProps) => {
             classroomList != null ? (
                 classroomList.map((classroom, index) => {
                     return (
-                        <Row key={classroom.uuid} propertyName={`${classroom.classNameDTO.name} - ${classroom.classBlockDTO.block}`}>
+                        <Row key={classroom.uuid} propertyName={`${classroom.name} - ${classroom.classBlockDTO.block}`}>
                             <ExpandDetails className='expand'>
                                 <div className={editMode? 'edit-mode' : ''}>
                                     <span className='title'>Nome:</span>
                                     {editMode ?
-                                        <InputArea placeholder={classroom.classNameDTO.name} id={'a'+index}change={(event) => {
+                                        <InputArea placeholder={classroom.name} id={'a'+index}change={(event) => {
                                             setName(event.target.value);
                                         }}></InputArea>
                                         :
-                                        <span className='info'>{classroom.classNameDTO.name}</span>
+                                        <span className='info'>{classroom.name}</span>
                                     }
                                 </div>
                                 <div className={editMode? 'edit-mode' : ''}>
@@ -68,11 +68,11 @@ export const Classroom: React.FC<ModelProps> = ({editMode}: ModelProps) => {
                                 <div className={editMode? 'edit-mode' : ''}>
                                     <span className='title'>Capacidade:</span>
                                     {editMode ?
-                                        <InputArea type='number' placeholder={classroom.classNameDTO.capacity.toString()} id={'c'+index} change={(event) => {
+                                        <InputArea type='number' placeholder={classroom.capacity.toString()} id={'c'+index} change={(event) => {
                                             setCapacity(event.target.value)
                                         }}></InputArea>
                                         :
-                                        <span className='info'>{classroom.classNameDTO.capacity}</span>
+                                        <span className='info'>{classroom.capacity}</span>
                                     }
                                 </div>
                                 <ActionContainer>

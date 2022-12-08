@@ -6,7 +6,7 @@ import {ContainerFilters, ContainerLessons, Info, IntervalContainer, Main, Selec
 import {LessonModel} from "../../../api/model/LessonModel";
 import {
     classBlockReadControllerView,
-    classNameReadControllerView,
+    classroomReadControllerView,
     courseReadControllerView,
     gapReadControllerView,
     lessonReadControllerView,
@@ -14,7 +14,7 @@ import {
     weekDayReadControllerView
 } from "./readControllerView"
 import {CourseModel} from "../../../api/model/CourseModel";
-import {ClassNameModel} from "../../../api/model/ClassNameModel";
+import {ClassroomModel} from "../../../api/model/ClassroomModel";
 import {ClassBlockModel} from "../../../api/model/ClassBlockModel";
 import {GapModel} from "../../../api/model/GapModel";
 import {ShiftModel} from "../../../api/model/ShiftModel";
@@ -27,14 +27,14 @@ const SetSchedules = () => {
 
     const [lessonList, setLessonList] = useState<LessonModel[]>();
     const [courseList, setCourseList] = useState<CourseModel[]>();
-    const [classNameList, setClassNameList] = useState<ClassNameModel[]>();
+    const [classroomList, setClassroomList] = useState<ClassroomModel[]>();
     const [classBlockList, setClassBlockList] = useState<ClassBlockModel[]>()
     const [gapList, setGapList] = useState<GapModel[]>();
     const [shiftList, setShiftList] = useState<ShiftModel[]>();
     const [weekDayList, setWeekDayList] = useState<WeekDayModel[]>();
 
     const [course, setCourse] = useState<string>();
-    const [className, setClassName] = useState<string>();
+    const [classroom, setClassroom] = useState<string>();
     const [block, setBlock] = useState<string>();
     const [gap, setGap] = useState<string>();
     const [shift, setShift] = useState<string>();
@@ -51,7 +51,7 @@ const SetSchedules = () => {
     const load =  async () => {
         try {
             const resultCourse  = await courseReadControllerView();
-            const resultClassName = await classNameReadControllerView();
+            const resultClassroom = await classroomReadControllerView();
             const resultClassBlock = await classBlockReadControllerView();
 
             const resultGap  = await gapReadControllerView();
@@ -59,14 +59,14 @@ const SetSchedules = () => {
             const resultWeekDay = await weekDayReadControllerView();
 
             setCourseList(resultCourse);
-            setClassNameList(resultClassName);
+            setClassroomList(resultClassroom);
             setClassBlockList(resultClassBlock);
             setGapList(resultGap);
             setShiftList(resultShift);
             setWeekDayList(resultWeekDay);
 
             setCourse(undefined);
-            setClassName(undefined);
+            setClassroom(undefined);
             setBlock(undefined);
 
             setGap(resultGap[0].uuid);
@@ -82,8 +82,8 @@ const SetSchedules = () => {
         if(course !== undefined){
             filters.courseUuid = course;
         }
-        if(className !== undefined){
-            filters.className = className;
+        if(classroom !== undefined){
+            filters.classroom = classroom;
         }
         if(block !== undefined) {
             filters.block = block;
@@ -99,7 +99,7 @@ const SetSchedules = () => {
 
     useEffect(() => {
         reload();
-    },[course, className, block])
+    },[course, classroom, block])
 
 
     return (
@@ -138,17 +138,17 @@ const SetSchedules = () => {
                     </InputContent>
                     <InputContent labelText="Selecione a Sala:">
                         <SelectArea id={`turma-${course}`} change={(event) => {
-                            const className = event.target.value;
-                            if(className != "undefined"){
-                                setClassName(event.target.value);
+                            const classroom = event.target.value;
+                            if(classroom != "undefined"){
+                                setClassroom(event.target.value);
                             }else{
-                                setClassName(undefined);
+                                setClassroom(undefined);
                             }
                         }}>
                             <option value="undefined">Selecione uma sala</option>
                             {
-                                classNameList?.map((className) => (
-                                    <option key={className.uuid} value={className.name}>{className.name}</option>))
+                                classroomList?.map((classroom) => (
+                                    <option key={classroom.uuid} value={classroom.name}>{classroom.name}</option>))
                             }
                         </SelectArea>
                     </InputContent>
@@ -182,7 +182,7 @@ const SetSchedules = () => {
                                 </div>
                                 <div>
                                     <span className='title'>Sala de aula:</span>
-                                    <span className='info'>{lesson.classroom.classNameDTO.name} - {lesson.classroom.classBlockDTO.block}</span>
+                                    <span className='info'>{lesson.classroom.name} - {lesson.classroom.classBlockDTO.block}</span>
                                 </div>
                                 <div>
                                     <span className='title'>Disciplina:</span>

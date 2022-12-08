@@ -6,7 +6,7 @@ export const LessonDND = () => {
     
     return (
         <Main>
-            <BoardContainer/>
+            <BoardContainer label={'Aulas'}/>
         </Main>
     )
 }

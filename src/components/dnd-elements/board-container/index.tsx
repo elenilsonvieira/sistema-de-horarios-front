@@ -7,10 +7,11 @@ import {LessonController} from "../../../api/controller/LessonController";
 import {bd} from '../../../bdsimulator/bd';
 
 interface IntfcBoard {
+    label: string;
     change?: (event:any) => void;
 }
 
-export const BoardContainer: React.FC<IntfcBoard> = ({change}: IntfcBoard) => {
+export const BoardContainer: React.FC<IntfcBoard> = ({label, change}: IntfcBoard) => {
     
     const findLessons = useCallback(() => {
         let newLessons:LessonModel[] = [];
@@ -23,8 +24,11 @@ export const BoardContainer: React.FC<IntfcBoard> = ({change}: IntfcBoard) => {
 
     return (
         <Main onChange={change} >
-            <ContainerDND listLesson={listLesson} label={'Aulas'}/>
-            <ContainerDND listLesson={listLesson} label={'Destino'}/>
+             <header>
+                <h2>{label}</h2>
+            </header>
+            <ContainerDND listLesson={listLesson} />
+            <ContainerDND listLesson={listLesson} />
         </ Main>
     )
 }
