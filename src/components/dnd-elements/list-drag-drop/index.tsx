@@ -1,6 +1,6 @@
 import React from "react";
 
-import {Main} from './styles';
+import {Main} from './styles'
 
 import { useDrop } from 'react-dnd';
 import {LessonModel} from "../../../api/model/LessonModel";
@@ -12,12 +12,11 @@ interface IntfcContainerDND {
     listLesson: LessonModel[];
     lessonModel?:LessonModel;
     interval?: IntervalModel;
-    turma?: TurmaModel;
 
     change?: (event:any) => void;
 }
 
-export const ContainerDND: React.FC<IntfcContainerDND> = ({listLesson, change}: IntfcContainerDND) => {
+export const ListDND: React.FC<IntfcContainerDND> = ({listLesson, change}: IntfcContainerDND) => {
 
     console.log(listLesson.length)
     const [{ isOver }, drop] = useDrop({

@@ -5,6 +5,7 @@ export const Main = styled.div`
     background: #FFF;
     border-radius: 5px;
     padding: 5px;
+    margin-bottom: 2px;
     box-shadow: 0 1px 4px 0 rgba(192, 208, 230, 0.8);
     border-top: 24px solid rgba(230, 236, 245, 0.4);
     cursor: grab;

@@ -4,7 +4,6 @@ export const Main = styled.div`
     padding: 2px;
     margin: 1px;
     width: 190px;
-    height: 88px;
     border-radius: 5px;
     background: #A9A9A9;
     

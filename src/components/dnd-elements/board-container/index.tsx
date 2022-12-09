@@ -3,36 +3,53 @@ import {Main} from './styles';
 
 import {ContainerDND} from '../container-drag-drop/index';
 import {LessonModel} from "../../../api/model/LessonModel";
-import {LessonController} from "../../../api/controller/LessonController";
-import {bd} from '../../../bdsimulator/bd';
+
 
 interface IntfcBoard {
     label: string;
+    listLesson: LessonModel[];
     change?: (event:any) => void;
 }
 
-export const BoardContainer: React.FC<IntfcBoard> = ({label, change}: IntfcBoard) => {
+export const BoardContainer: React.FC<IntfcBoard> = ({label, listLesson, change}: IntfcBoard) => {
     
-    //só pra teste
-    let aaLessons:LessonModel[] = [];
-
-    const findLessons = useCallback(() => {
-        let newLessons:LessonModel[] = [];
-        let lessons  = bd.getLessons();
-        newLessons = lessons;
-        return newLessons;
-    }, []);
-    //só pra teste
-
-    const [listLesson, setListLesson] = useState(findLessons);
-
     return (
         <Main onChange={change} >
-             <header>
+            <header>
                 <h2>{label}</h2>
             </header>
-            <ContainerDND listLesson={listLesson} />
-            <ContainerDND listLesson={aaLessons} />
+            <tr>
+                <th>18:30</th>
+                <td><ContainerDND listLesson={listLesson} /></td>
+                <td><ContainerDND listLesson={listLesson} /></td>
+                <td><ContainerDND listLesson={listLesson} /></td>
+                <td><ContainerDND listLesson={listLesson} /></td>
+                <td><ContainerDND listLesson={listLesson} /></td>
+            </tr>
+            <tr>
+                <th>19:20</th>
+                <td><ContainerDND listLesson={listLesson} /></td>
+                <td><ContainerDND listLesson={listLesson} /></td>
+                <td><ContainerDND listLesson={listLesson} /></td>
+                <td><ContainerDND listLesson={listLesson} /></td>
+                <td><ContainerDND listLesson={listLesson} /></td>
+            </tr>
+            <tr>
+                <th>20:20</th>
+                <td><ContainerDND listLesson={listLesson} /></td>
+                <td><ContainerDND listLesson={listLesson} /></td>
+                <td><ContainerDND listLesson={listLesson} /></td>
+                <td><ContainerDND listLesson={listLesson} /></td>
+                <td><ContainerDND listLesson={listLesson} /></td>
+            </tr>
+            <tr>
+                <th>21:10</th>
+                <td><ContainerDND listLesson={listLesson} /></td>
+                <td><ContainerDND listLesson={listLesson} /></td>
+                <td><ContainerDND listLesson={listLesson} /></td>
+                <td><ContainerDND listLesson={listLesson} /></td>
+                <td><ContainerDND listLesson={listLesson} /></td>
+            </tr>
         </ Main>
     )
 }
