@@ -28,7 +28,11 @@ export const ListDND: React.FC<IntfcContainerDND> = ({listLesson, change}: Intfc
 
     return (
         <Main onChange={change} >
-            {listLesson.map((card, index) => <CardDND lesson={card} index={index}/>)}
+            {listLesson.map((card, index) => (
+                card.interval === null
+                ? (<CardDND lesson={card} index={index}/>)
+                : null
+            ))}   
         </ Main>
     )
 }

@@ -28,8 +28,13 @@ export const LessonDND = () => {
     return (
         <DndProvider backend={HTML5Backend}>
             <Main>
-                <BoardList label={'Aulas'} listLesson={listLesson}/>
-                <BoardContainer label={'1º Período'} listLesson={aaLessons}/>
+                <div>
+                    <BoardList label={'Aulas Livres'} listLesson={listLesson}/>
+                </div>
+                <div>
+                    <BoardContainer label={'1º Período'} listLesson={listLesson}/>
+                    <BoardContainer label={'2º Período'} listLesson={aaLessons}/>
+                </div>
             </Main>
         </DndProvider>
     )
