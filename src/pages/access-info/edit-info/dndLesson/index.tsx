@@ -1,4 +1,4 @@
-import {useCallback, useState} from "react"
+import { useState } from "react"
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { DndProvider } from 'react-dnd'
 
@@ -13,14 +13,12 @@ import { bd } from '../../../../bdsimulator/bd';
 export const LessonDND = () => {
     
     //só pra teste
-    let aaLessons:LessonModel[] = [];
-
-    const findLessons = useCallback(() => {
+    const findLessons = () => {
         let newLessons:LessonModel[] = [];
         let lessons  = bd.getLessons();
         newLessons = lessons;
         return newLessons;
-    }, []);
+    };
     //só pra teste
  
     const [listLesson, setListLesson] = useState(findLessons);
@@ -33,7 +31,7 @@ export const LessonDND = () => {
                 </div>
                 <div>
                     <BoardContainer label={'1º Período'} listLesson={listLesson}/>
-                    <BoardContainer label={'2º Período'} listLesson={aaLessons}/>
+                    <BoardContainer label={'2º Período'} listLesson={listLesson}/>
                 </div>
             </Main>
         </DndProvider>

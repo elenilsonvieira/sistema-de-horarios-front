@@ -1,4 +1,4 @@
-import React from "react";
+import {useEffect, useState} from "react"
 
 import {Main} from './styles';
 
@@ -10,16 +10,28 @@ import { TurmaModel } from "../../../api/model/TurmaModel";
 
 interface IntfcContainerDND {
     listLesson: LessonModel[];
+    listInterval: IntervalModel[];
+    gap: string;
+    shift: string
+    weekDay: string;
     lessonModel?:LessonModel;
-    interval?: IntervalModel;
-    turma?: TurmaModel;
+    turma: string;
 
     change?: (event:any) => void;
 }
 
-export const ContainerDND: React.FC<IntfcContainerDND> = ({listLesson, interval, turma, change}: IntfcContainerDND) => {
+export const ContainerDND: React.FC<IntfcContainerDND> = ({listLesson, gap, shift, weekDay, listInterval, turma, change}: IntfcContainerDND) => {
+    const [interval, setInterval] = useState<IntervalModel>();
+    
+    useEffect(() => {
+        listInterval.map((element) => (
+            element.gapDTO.gap === gap && element.shiftDTO.shift === shift && element.weekDayDTO.dayOfWeek === weekDay
+            ? setInterval(element)
+            : null
+        ))
+    }, []);
+      
 
-    console.log(listLesson.length)
     const [{ isOver }, drop] = useDrop({
         accept: "CARD",
         collect: (monitor: any) => ({
@@ -30,7 +42,7 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({listLesson, interval,
     return (
         <Main onChange={change} >
             {listLesson.map((card, index) => (
-                card.interval === interval && card.turma === turma
+                interval && card.interval && card.interval.uuid === interval.uuid && card.turma.name === turma
                 ? (<CardDND lesson={card} index={index}/>)
                 : null
             ))}  

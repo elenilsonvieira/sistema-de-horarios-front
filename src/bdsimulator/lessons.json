@@ -13,7 +13,43 @@
 		"professor": null,
 		"turma": {
 			"uuid": "576c91eb-5e51-417e-ac91-eb5e51c17e92",
-			"name": "5º Periodo"
+			"name": "1º Período"
+		},
+		"interval": null,
+		"classroom": {
+			"uuid": "1eec5403-ab38-47f1-ac54-03ab3847f1d4",
+			"name": "Sala 1",
+			"capacity": 40,
+			"classBlockDTO": {
+				"uuid": "f54a64b4-36ea-4e8c-8a64-b436ea0e8cd0",
+				"block": "Bloco 1"
+			}
+		},
+		"calendar": {
+			"uuid": "04f54455-e599-4e71-b544-55e5995e71e1",
+			"semester": "2022.2"
+		},
+		"course": {
+			"uuid": "9d1994d2-ec2e-4035-9994-d2ec2e803517",
+			"name": "Analise e Desenvolvimento de Sistemas"
+		},
+		"tipMessage": null
+	},
+	{
+		"uuid": "7c73782e-e1d9-4749-b378-2ee1d947497f",
+		"curricularComponent": {
+			"uuid": "03991a43-9404-405a-991a-439404905a4a",
+			"workload": 120,
+			"name": "DAC",
+			"course": {
+				"uuid": "9d1994d2-ec2e-4035-9994-d2ec2e803517",
+				"name": "Analise e Desenvolvimento de Sistemas"
+			}
+		},
+		"professor": null,
+		"turma": {
+			"uuid": "576c91eb-5e51-417e-ac91-eb5e51c17e92",
+			"name": "1º Período"
 		},
 		"interval": null,
 		"classroom": {
@@ -57,7 +93,7 @@
 		},
 		"turma": {
 			"uuid": "576c91eb-5e51-417e-ac91-eb5e51c17e92",
-			"name": "5º Periodo"
+			"name": "2º Período"
 		},
 		"interval": {
 			"gapDTO": {
@@ -118,7 +154,7 @@
 		},
 		"turma": {
 			"uuid": "576c91eb-5e51-417e-ac91-eb5e51c17e92",
-			"name": "5º Periodo"
+			"name": "1º Período"
 		},
 		"interval": {
 			"gapDTO": {
