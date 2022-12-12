@@ -31,7 +31,7 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({listLesson, gap, shif
         ));
     }, []);
 
-    const assigningLesson = useEffect(() => {
+    const assigningLesson = useMemo(() => {
         listLesson.map((lesson) => (
             interval && lesson.interval && lesson.interval.uuid === interval.uuid && lesson.turma.name === turma
             ? setLesson(lesson)
@@ -43,6 +43,7 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({listLesson, gap, shif
         accept: "CARD",
         collect: (monitor: any) => ({
             item: monitor.getItem(),
+            canDrop: console.log(monitor.canDrop()),
         }),
     });
 
