@@ -8,6 +8,7 @@ export const Main = styled.div`
     th {
         vertical-align: middle;
     }
+
     .center{
         text-align: center;
     }

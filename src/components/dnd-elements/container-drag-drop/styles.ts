@@ -7,7 +7,7 @@ export const Main = styled.div`
     height: 88px;
     border-radius: 5px;
     background: #A9A9A9;
-    
+
     & + div {
         border-left: 1px solid rgba(0, 0, 0, 0.05);
     }

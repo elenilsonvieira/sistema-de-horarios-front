@@ -18,7 +18,6 @@ interface IntfcContainerDND {
 
 export const ListDND: React.FC<IntfcContainerDND> = ({listLesson, change}: IntfcContainerDND) => {
 
-    console.log(listLesson.length)
     const [{ isOver }, drop] = useDrop({
         accept: "CARD",
         collect: (monitor: any) => ({
@@ -30,7 +29,7 @@ export const ListDND: React.FC<IntfcContainerDND> = ({listLesson, change}: Intfc
         <Main onChange={change} >
             {listLesson.map((card, index) => (
                 card.interval === null
-                ? (<CardDND lesson={card} index={index}/>)
+                ? (<CardDND lesson={card}/>)
                 : null
             ))}   
         </ Main>

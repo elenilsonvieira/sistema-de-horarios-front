@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react"
+import {useEffect, useState, useMemo, useCallback} from "react"
 
 import {Main} from './styles';
 
@@ -6,7 +6,6 @@ import { useDrop } from 'react-dnd';
 import {LessonModel} from "../../../api/model/LessonModel";
 import {CardDND} from "../card-drag-drop/index";
 import { IntervalModel } from "../../../api/model/IntervalModel";
-import { TurmaModel } from "../../../api/model/TurmaModel";
 
 interface IntfcContainerDND {
     listLesson: LessonModel[];
@@ -22,30 +21,42 @@ interface IntfcContainerDND {
 
 export const ContainerDND: React.FC<IntfcContainerDND> = ({listLesson, gap, shift, weekDay, listInterval, turma, change}: IntfcContainerDND) => {
     const [interval, setInterval] = useState<IntervalModel>();
+    const [lesson, setLesson] = useState<LessonModel>();
     
-    useEffect(() => {
-        listInterval.map((element) => (
-            element.gapDTO.gap === gap && element.shiftDTO.shift === shift && element.weekDayDTO.dayOfWeek === weekDay
-            ? setInterval(element)
+    const assigningInterval = useMemo(() => {
+        listInterval.map((interval) => (
+           interval.gapDTO.gap === gap && interval.shiftDTO.shift === shift && interval.weekDayDTO.dayOfWeek === weekDay
+            ? setInterval(interval)
             : null
-        ))
+        ));
     }, []);
-      
 
-    const [{ isOver }, drop] = useDrop({
+    const assigningLesson = useEffect(() => {
+        listLesson.map((lesson) => (
+            interval && lesson.interval && lesson.interval.uuid === interval.uuid && lesson.turma.name === turma
+            ? setLesson(lesson)
+            : null
+        ));
+    }, [interval]);
+
+    const [{ item }, drop] = useDrop({
         accept: "CARD",
         collect: (monitor: any) => ({
-            isOver: monitor.isOver(),
+            item: monitor.getItem(),
         }),
     });
 
+    const updateIntervalInLesson = useCallback(() => {
+        if(!lesson){
+            item.interval = interval;
+            setLesson(item)
+            console.log(lesson);
+        }
+    }, [item]);
+
     return (
-        <Main onChange={change} >
-            {listLesson.map((card, index) => (
-                interval && card.interval && card.interval.uuid === interval.uuid && card.turma.name === turma
-                ? (<CardDND lesson={card} index={index}/>)
-                : null
-            ))}  
-        </ Main>
+        <Main onChange={change} ref={drop}>
+            {lesson && (<CardDND lesson={lesson}/>)}
+         </ Main>
     )
 }
