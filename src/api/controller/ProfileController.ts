@@ -17,7 +17,7 @@ export default class ProfileController{
     public async create(profile: ProfileModel):Promise<void>{
         try {
             const response = await httpClient.post("/profile", profile);
-            successMessage('Profile adicionada ao banco.')
+            successMessage('Profile adicionado ao banco.')
         } catch (error) {
             errorMessage('Verifique os campos ou a conexão.')
         }
@@ -29,7 +29,7 @@ export default class ProfileController{
     public async delete(uuid: string): Promise<void> {
         try {
             const response = await httpClient.delete(`/profile/${uuid}`)
-            successMessage('Profile deletada.')
+            successMessage('Profile deletado.')
         } catch (error) {
             errorMessage('Não foi possível deletar.')
         }
