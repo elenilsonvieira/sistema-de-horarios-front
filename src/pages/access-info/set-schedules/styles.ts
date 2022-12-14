@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Main = styled.div`
     width: 100%;
     min-height: calc(100vh - 200px);
-    background-color: #3FA14C;
+    background-color: #d9d9d9;
     color: white;
     padding: 25px;
     display: flex;
@@ -49,7 +49,7 @@ export const Info = styled.div`
     border-radius: 5px;
     padding: 10px 15px;
     align-items: center;
-    background-color: #f7ea83b0;
+    background-color: #3FA14C;
 
     & > span {
         font-size: 18px;
