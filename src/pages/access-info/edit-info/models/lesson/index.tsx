@@ -42,7 +42,7 @@ export const Lesson: React.FC<ModelProps> = ({editMode}: ModelProps) => {
                                 <div className={''}>
                                     <span className='title'>Sala de aula:</span>
                                     {
-                                        <span className='info'>{lesson.classroom.classNameDTO.name} - {lesson.classroom.classBlockDTO.block}</span>
+                                        <span className='info'>{lesson.classroom.name} - {lesson.classroom.classBlockDTO.block}</span>
                                     }
                                 </div>
                                 <div className={''}>

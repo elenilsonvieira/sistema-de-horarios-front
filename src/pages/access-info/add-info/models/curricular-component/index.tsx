@@ -12,7 +12,6 @@ export const CurricularComponent = () => {
     const [name, setName] = useState<string>();
     const [workload, setWorkload] = useState<number>();
     const [courseUuid, setCourseUuid] = useState<string>();
-
     const [courseModelList, setCourseModelList] = useState<CourseModel[]>();
 
     function getDataObject(): any{
@@ -64,6 +63,7 @@ export const CurricularComponent = () => {
     useEffect(() => {
         load();
     },[])
+    
     return (
         <Main>
             <Form>
@@ -100,10 +100,7 @@ export const CurricularComponent = () => {
                 </InputContent>
             </Form>
 
-            <ButtonAction textButton="adicionar Disciplina" onClickFunction={ async () => {
-                const data = getDataObject();
-                await curricularComponentControllerView(data);
-            }}/>
+            <ButtonAction textButton="adicionar Disciplina" onClickFunction={onSubmit}/>
         </ Main>
     );
 }

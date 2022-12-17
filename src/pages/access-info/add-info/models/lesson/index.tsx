@@ -4,13 +4,11 @@ import { Form, Main } from '../styles/styles';
 import {CalendarModel} from "../../../../../api/model/CalendarModel";
 import {ClassroomModel} from "../../../../../api/model/ClassroomModel";
 import {CurricularComponentModel} from "../../../../../api/model/CurricularComponentModel";
-import {ProfessorModel} from "../../../../../api/model/ProfessorModel";
 import {TurmaModel} from "../../../../../api/model/TurmaModel";
 import {CourseModel} from "../../../../../api/model/CourseModel";
 import {CalendarController} from "../../../../../api/controller/CalendarController";
 import {ClassroomController} from "../../../../../api/controller/ClassroomController";
 import {CurricularComponentController} from "../../../../../api/controller/CurricularComponentController";
-import {ProfessorController} from "../../../../../api/controller/ProfessorController";
 import {TurmaController} from "../../../../../api/controller/TurmaController";
 import {lessonControllerView} from "./lessonControllerView";
 import {CourseController} from "../../../../../api/controller/CourseController";
@@ -19,7 +17,6 @@ import {errorMessage} from '../../../../../components/libs/Toastr';
 const calendarController = CalendarController.getInstance();
 const classroomController = ClassroomController.getInstance();
 const curricularComponentController = CurricularComponentController.getInstance();
-const professorController = ProfessorController.getInstance();
 const turmaController =  TurmaController.getInstance();
 const courseController = CourseController.getInstance();
 
@@ -28,14 +25,12 @@ export const Lesson = () => {
     const [calendarUuid, setCalendarUuid] = useState<string>();
     const [classroomUuid, setClassroomUuid] = useState<string>();
     const [curricularComponentUuid, setCurricularComponentUuid] = useState<string>();
-    const [professorUuid, setProfessorUuid] = useState<string>();
     const [turmaUuid, setTurmaUuid] = useState<string>();
     const [courseUuid, setCourseUuid] = useState<string>();
 
     const [calendarList, setCalendarList] = useState<CalendarModel[]>();
     const [classroomList, setClassroomList] = useState<ClassroomModel[]>();
     const [curricularComponentList, setCurricularComponentList] = useState<CurricularComponentModel[]>();
-    const [professorList, setProfessorList] = useState<ProfessorModel[]>();
     const [turmaList, setTurmaList] = useState<TurmaModel[]>();
     const [courseList, setCourseList] = useState<CourseModel[]>();
 
@@ -44,7 +39,6 @@ export const Lesson = () => {
             calendarUuid,
             classroomUuid,
             curricularComponentUuid,
-            professorUuid,
             turmaUuid,
             courseUuid
         }
@@ -61,9 +55,6 @@ export const Lesson = () => {
         }
         if (!curricularComponentUuid) {
             errors.push('Disciplina é obrigatória');
-        }
-        if (!professorUuid) {
-            errors.push('Professor é obrigatório');
         }
         if (!turmaUuid) {
             errors.push('Turma é obrigatória');
@@ -92,21 +83,18 @@ export const Lesson = () => {
             const calendar  = await calendarController.list();
             const classroom  = await classroomController.list();
             const curricularComponent  = await curricularComponentController.list();
-            const professor = await professorController.list();
             const turma  = await turmaController.list();
             const course =  await courseController.list();
 
             setCalendarList(calendar);
             setClassroomList(classroom);
             setCurricularComponentList(curricularComponent);
-            setProfessorList(professor);
             setTurmaList(turma);
             setCourseList(course);
 
             setCalendarUuid(calendar[0].uuid);
             setClassroomUuid(classroom[0].uuid);
             setCurricularComponentUuid(curricularComponent[0].uuid);
-            setProfessorUuid(professor[0].uuid);
             setTurmaUuid(turma[0].uuid);
             setCourseUuid(course[0].uuid);
         }catch (Error:any){
@@ -161,20 +149,6 @@ export const Lesson = () => {
                         }}}>
                         {
                             curricularComponentList?.map((item) =>(
-                                <option key={item.uuid}>{item.name}</option>
-                            ))
-                        }
-                    </SelectArea>
-                </InputContent>
-                <InputContent labelText='Professor:' htmlFor="professor-s">
-                    <SelectArea id="professor-s" change={(event)=>{
-                        const select  = event.target;
-                        if (professorList) {
-                            const uuid = professorList[select.selectedIndex].uuid;
-                            setProfessorUuid(uuid);
-                        }}}>
-                        {
-                            professorList?.map((item) =>(
                                 <option key={item.uuid}>{item.name}</option>
                             ))
                         }

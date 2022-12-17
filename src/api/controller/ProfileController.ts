@@ -2,7 +2,7 @@ import {httpClient} from "../axios";
 import {errorMessage, successMessage} from "../../components/libs/Toastr";
 import { ProfileModel } from "../model/ProfileModel";
 
-export default class ProfileController{
+export class ProfileController{
     private static instance: ProfileController;
 
     private constructor() {

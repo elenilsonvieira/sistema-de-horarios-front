@@ -48,9 +48,9 @@ export const Professor: React.FC<ModelProps> = ({editMode}: ModelProps) => {
                                 <div className={editMode? 'edit-mode' : ''}>
                                     <span className='title'>Área:</span>
                                     {editMode ?
-                                        <InputArea placeholder={prof.area} id={'b'+index}></InputArea>
+                                        <InputArea placeholder={prof.profile.field} id={'b'+index}></InputArea>
                                         :
-                                        <span className='info'>{prof.area}</span>
+                                        <span className='info'>{prof.profile.field}</span>
                                     }
                                 </div>
                                 <ActionContainer>
