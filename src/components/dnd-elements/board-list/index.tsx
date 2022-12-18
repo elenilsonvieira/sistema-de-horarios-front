@@ -3,8 +3,7 @@ import {Main} from './styles'
 
 import { ListDND } from "../list-drag-drop";
 import {LessonModel} from "../../../api/model/LessonModel";
-import {LessonController} from "../../../api/controller/LessonController";
-import {bd} from '../../../bdsimulator/bd';
+
 
 interface IntfcBoard {
     label: string;

@@ -37,6 +37,16 @@ export class LessonController {
         return response.data as LessonModel[];
     }
 
+    public async update(uuid:string, lesson: LessonModel):Promise<void>{
+        try {
+            const response = await httpClient.put(`/lesson/${uuid}`, lesson);
+            successMessage('Aula atualizada no banco.')
+            return response.data;
+        } catch (error) {
+            errorMessage('Verifique os campos ou a conexão.')
+        }
+    }
+
     public async delete(uuid: string): Promise<void> {
         try {
             const response = await httpClient.delete(`/lesson/${uuid}`);

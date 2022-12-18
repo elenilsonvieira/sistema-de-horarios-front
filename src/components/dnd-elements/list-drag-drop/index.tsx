@@ -18,16 +18,9 @@ interface IntfcContainerDND {
 
 export const ListDND: React.FC<IntfcContainerDND> = ({listLesson, change}: IntfcContainerDND) => {
 
-    const [{ isOver }, drop] = useDrop({
-        accept: "CARD",
-        collect: (monitor: any) => ({
-            isOver: monitor.isOver(),
-        }),
-    });
-
     return (
         <Main onChange={change} >
-            {listLesson.map((card, index) => (
+            {listLesson.map((card) => (
                 card.interval === null
                 ? (<CardDND lesson={card}/>)
                 : null

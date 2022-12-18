@@ -3,9 +3,10 @@ import {useEffect, useState, useMemo, useCallback} from "react"
 import {Main} from './styles';
 
 import { useDrop } from 'react-dnd';
-import {LessonModel} from "../../../api/model/LessonModel";
-import {CardDND} from "../card-drag-drop/index";
+import { LessonModel } from "../../../api/model/LessonModel";
+import { CardDND } from "../card-drag-drop/index";
 import { IntervalModel } from "../../../api/model/IntervalModel";
+import { LessonController } from "../../../api/controller/LessonController";
 
 interface IntfcContainerDND {
     listLesson: LessonModel[];
@@ -19,6 +20,7 @@ interface IntfcContainerDND {
     change?: (event:any) => void;
 }
 
+const lessonController  = LessonController.getInstance();
 export const ContainerDND: React.FC<IntfcContainerDND> = ({listLesson, gap, shift, weekDay, listInterval, turma, change}: IntfcContainerDND) => {
     const [interval, setInterval] = useState<IntervalModel>();
     const [lesson, setLesson] = useState<LessonModel>();
@@ -42,18 +44,17 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({listLesson, gap, shif
     const [{ item }, drop] = useDrop({
         accept: "CARD",
         collect: (monitor: any) => ({
-            item: monitor.getItem(),
-            canDrop: console.log(monitor.canDrop()),
+            item: updateIntervalInLesson(monitor.getItem()),
         }),
     });
 
-    const updateIntervalInLesson = useCallback(() => {
-        if(!lesson){
-            item.interval = interval;
-            setLesson(item)
-            console.log(lesson);
+    const updateIntervalInLesson = (lessonUpdate:LessonModel) => {
+        lessonUpdate.interval = interval;
+        setLesson(lessonUpdate);
+        if(lesson){
+            lessonController.update(lesson.uuid, lesson).then(() => {window.location.reload()})
         }
-    }, [item]);
+    }
 
     return (
         <Main onChange={change} ref={drop}>
