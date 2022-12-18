@@ -23,7 +23,7 @@ export const Profile = () => {
         const errors = [];
 
         if (!field) {
-            errors.push('Campo é obrigatório');
+            errors.push('Área é obrigatório');
         }
         if (!standard) {
             errors.push('Padrão é obrigatória');
@@ -47,8 +47,8 @@ export const Profile = () => {
     return (
         <Main>
             <Form>
-                <InputContent labelText='Campo:' htmlFor="campo">
-                    <InputArea placeholder="Campo de formação" id="nome" change={(event) => {
+                <InputContent labelText='Área:' htmlFor="area">
+                    <InputArea placeholder="Área de formação" id="nome" change={(event) => {
                         setField(event.target.value)
                     }}></InputArea>
                 </InputContent>

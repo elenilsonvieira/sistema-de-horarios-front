@@ -12,12 +12,14 @@ import {Calendar,
     CurricularComponent,
     Professor,
     Turma,
-    Lesson} from './models';
+    Lesson,
+    Profile} from './models';
 import { InputContent, SelectArea } from "../../../components";
 
 enum TypeLabeEnuml {
     classroom = 'Sala de Aula',
     professor = 'Professor',
+    profile = 'Perfil do Professor',
     calendar = 'Calendário',
     course = 'Curso',
     turma = 'Turma',
@@ -30,6 +32,12 @@ const models = [
         id: 'aaa',
         type: 'professor',
         title: 'Professor',
+        checked: true,
+    },
+    {
+        id: 'hhh',
+        type: 'profile',
+        title: 'Perfil',
         checked: true,
     },
     {
@@ -115,6 +123,9 @@ export const EditInfo = () => {
                 }
                 {type === 'professor' && 
                     <Professor editMode={editMode} />
+                }
+                {type === 'profile' && 
+                    <Profile editMode={editMode}/>
                 }
                 {type === 'course' && 
                     <Course editMode={editMode}/>
