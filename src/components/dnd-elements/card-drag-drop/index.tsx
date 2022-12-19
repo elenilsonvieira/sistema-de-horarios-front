@@ -12,7 +12,6 @@ interface IntfcCard {
     change?: (event:any) => void;
 }
 
-Modal.setAppElement('root');
 export const CardDND: React.FC<IntfcCard> = ({lesson, change}: IntfcCard) => {
     const [modalStatus, setModalStatus] = useState(false)
 
