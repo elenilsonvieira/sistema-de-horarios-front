@@ -22,7 +22,7 @@ export const ListDND: React.FC<IntfcContainerDND> = ({listLesson, change}: Intfc
         <Main onChange={change} >
             {listLesson.map((card) => (
                 card.interval === null
-                ? (<CardDND lesson={card}/>)
+                ? (<CardDND lesson={card} key={card.uuid}/>)
                 : null
             ))}   
         </ Main>
