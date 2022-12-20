@@ -12,18 +12,18 @@ export default class ClassBlockController{
         if(!ClassBlockController.instance){
             ClassBlockController.instance = new ClassBlockController();
         }
-
         return ClassBlockController.instance;
-
     }
-    // public async create(classBlock: ClassBlockModel):Promise<void>{
-    //     try {
-    //         await axios.post("/classBlock", classBlock);
-    //         successMessage('Sala de aula adicionada ao banco.')
+    
+    //public async create(classBlock: ClassBlockModel):Promise<void>{
+    //    try {
+    //        await httpClient.post("/classBlock", classBlock);
+    //        successMessage('Bloco adicionado ao banco.')
     //     } catch (error) {
-    //         errorMessage('Verifique os campos ou a conexão.')
+    //        errorMessage('Verifique os campos ou a conexão.')
     //     }
-    // }
+    //}
+
     public async list(): Promise<ClassBlockModel[]> {
         const response = await httpClient.get("/classBlock");
         return response.data as ClassBlockModel[];
@@ -32,7 +32,7 @@ export default class ClassBlockController{
     public async delete(uuid: string): Promise<void> {
         try {
             await httpClient.delete(`/classBlock/${uuid}`);
-            successMessage('Sala de aula deletada.')
+            successMessage('Bloco deletado.')
         } catch (error) {
             errorMessage('Não foi possível deletar.')
         }

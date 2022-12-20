@@ -6,7 +6,7 @@ export const LOGGED_USER = 'LOGGED_USER';
 export const TOKEN = 'TOKEN';
 
 export const httpClient = axios.create({
-    baseURL: "https://sistema-de-horario.herokuapp.com",
+    baseURL: "http://localhost:8080",
     headers: { "Content-Type": "application/json" },
     withCredentials: false,
 });

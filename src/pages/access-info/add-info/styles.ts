@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Main = styled.div`
     padding: 25px;
-    background-color: #3FA14C;
+    background-color: #d9d9d9;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -72,15 +72,15 @@ export const TypesContainer = styled('div')`
     input[type="radio"]:checked+label{
         transition: 0.5s all ease-out;
         font-size: 25px;
-        color: #CF3034;
+        color: #FF5559;
 
         & > div {
-            border-bottom: solid 1px #CF3034;
+            border-bottom: solid 1px #FF5559;
         }
 
         & > span {
             :hover {
-                color: #CF3034;
+                color: #FF5559;
             }
         }
     }

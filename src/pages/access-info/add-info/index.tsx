@@ -8,6 +8,8 @@ import {Calendar,
     Course,
     CurricularComponent,
     Professor,
+    Profile,
+    Restriction,
     Turma,
     Lesson} from './models'
 
@@ -15,6 +17,8 @@ import {Calendar,
 enum TypeLabeEnuml {
     classroom = 'Sala de Aula',
     professor = 'Professor',
+    profile = 'Perfil',
+    restriction = 'Restrição',
     calendar = 'Calendário',
     course = 'Curso',
     turma = 'Turma',
@@ -28,6 +32,16 @@ const types = [
         value: 'professor',
         title: 'Professor',
         checked: true,
+    },
+    {
+        id: '99877',
+        value: 'profile',
+        title: 'Perfil do Professor',
+    },
+    {
+        id: '99887',
+        value: 'restriction',
+        title: 'Restrição de Professor',
     },
     {
         id: '99879',
@@ -82,6 +96,12 @@ export const AddInfo = () => {
                     }
                     {typeSelected === 'professor' && 
                         <Professor />
+                    }
+                    {typeSelected === 'profile' && 
+                        <Profile />
+                    }
+                    {typeSelected === 'restriction' && 
+                        <Restriction />
                     }
                     {typeSelected === 'course' && 
                         <Course />

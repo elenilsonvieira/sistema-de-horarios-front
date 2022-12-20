@@ -1,4 +1,5 @@
 export interface WeekDayModel {
     uuid: string;
-    weekDay: string;
+    dayOfWeek: string;
+    displayName: string;
 }

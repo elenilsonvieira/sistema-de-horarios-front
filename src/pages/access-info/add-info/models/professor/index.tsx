@@ -2,20 +2,22 @@ import {useEffect, useState} from 'react';
 import {InputArea, ButtonAction, InputContent, SelectArea} from '../../../../../components'
 import { Form, Main } from '../styles/styles';
 import {professorControllerView} from "./professorControllerView";
-import {CourseController} from "../../../../../api/controller/CourseController";
-import {CourseModel} from "../../../../../api/model/CourseModel";
+import { ProfileController }  from '../../../../../api/controller/ProfileController';
+import { ProfileModel } from '../../../../../api/model/ProfileModel';
 
 import {errorMessage} from '../../../../../components/libs/Toastr';
 
-const courseController = CourseController.getInstance()
+const profileController  = ProfileController.getInstance();
 export const Professor = () => {
+
     const [name, setName] = useState<string>();
-    const [area, setArea] = useState<string>()
+    const [profileList, setProfileList] = useState<ProfileModel[]>();
+    const [profileUuid, setProfileUuid] = useState<string>()
 
     function getDataObject(): any{
         return {
             name,
-            area
+            profileUuid
         }
     }
 
@@ -26,8 +28,8 @@ export const Professor = () => {
         if (!name) {
             errors.push('Nome é obrigatório');
         }
-        if (!area) {
-            errors.push('Área é obrigatória');
+        if (!profileUuid) {
+            errors.push('Perfil é obrigatória');
         }
         return errors;
     }
@@ -45,23 +47,38 @@ export const Professor = () => {
         }
     }
 
+    const load = async () => {
+        const result = await profileController.list();
+        setProfileList(result);
+        setProfileUuid(result[0].uuid);
+    }
+
+    useEffect(()=>{
+        load();
+    },[])
+
     return (
         <Main>
             <Form>
                 <InputContent labelText='Nome:' htmlFor="nome">
-
                     <InputArea placeholder="Nome do professor" id="nome" change={(event:any) => {
                         setName(event.target.value);
                     }}></InputArea>
-
                 </InputContent>
 
-                <InputContent labelText='Área:' htmlFor="area">
-
-                    <InputArea placeholder="Área" id="area" change={(event:any) => {
-                        setArea(event.target.value);
-                    }}></InputArea>
-
+                <InputContent labelText='Perfil*:' htmlFor="profile-s">
+                    <SelectArea id="perfil-s" change={(event)=>{
+                        const select  = event.target;
+                        if (profileList) {
+                            const uuid = profileList[select.selectedIndex].uuid;
+                            setProfileUuid(uuid);
+                        }}}>
+                        {
+                            profileList?.map((item) =>(
+                                <option key={item.uuid}>{item.field} - {item.standard}</option>
+                            ))
+                        }
+                    </SelectArea>
                 </InputContent>
             </Form>
 

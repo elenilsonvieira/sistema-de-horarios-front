@@ -16,6 +16,6 @@ export const Main = styled.button`
     :hover{
         transition: 0.3s all ease;
         background-color: #fff;
-        color: #CF3034;
+        color: #FF5559;
     }
 `;

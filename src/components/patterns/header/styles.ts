@@ -6,7 +6,7 @@ export const Main = styled.div`
     justify-content: space-between;
     height: 100px;
     padding: 10px 45px;
-    background-color: #D0D0D0;
+    background-color: #4CA84E;
 
     @media screen and (max-width: 600px){
         padding: 10px 20px;
@@ -39,7 +39,7 @@ export const Nav = styled.nav`
                 text-decoration: none;
 
                 :hover{
-                    color: #CF3034;
+                    color: #FF5559;
                 }
             }
         }

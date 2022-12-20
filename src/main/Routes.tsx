@@ -27,14 +27,15 @@ const Routes = () => {
 
     return (
       <AppRoutes>
-        <Route path='/view' element={<ViewSchedules />}/>
         <Route index element={<Home />}/>
+        <Route path='/view' element={<ViewSchedules />}/>
         <Route path="/" element={<PrivateOutlet />}> 
           <Route path='/access-info' element={<AccessInfo />} /> 
           <Route path='/add-info' element={<AddInfo />} />
-          <Route path='/edit-info' element={<EditInfo />} />
           <Route path='/set-schedules' element={<SetSchedules />} />
+          <Route path='/edit-info' element={<EditInfo />} />
         </Route>
+        <Route path='/*' element={<Home />}/>
       </AppRoutes>
     );
   };

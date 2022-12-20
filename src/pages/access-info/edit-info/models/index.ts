@@ -5,6 +5,8 @@ import {Professor} from './professor';
 import {Course} from './course';
 import {Turma} from './turma';
 import {Lesson} from './lesson';
+import { Profile } from './profile';
+import { Restriction } from './restriction';
 
 export {
     Calendar,
@@ -14,4 +16,6 @@ export {
     Professor,
     Turma,
     Lesson,
+    Profile,
+    Restriction
 }
