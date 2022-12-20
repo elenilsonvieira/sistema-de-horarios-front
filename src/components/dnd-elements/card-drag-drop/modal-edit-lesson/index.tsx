@@ -158,7 +158,7 @@ export const LessonModal: React.FC<IntfcModal> = ({lessonModal}: IntfcModal) => 
                     </SelectArea>
                 </InputContent>
                 <InputContent labelText='Professor:' htmlFor="professor-s">
-                    <SelectArea id="professor-s" value={lessonModel.professor.name} change={(event)=>{
+                    <SelectArea id="professor-s" value={lessonModel.professor ? lessonModel.professor.name : ""} change={(event)=>{
                         const select  = event.target;
                         if (professorList) {
                             const professor = professorList[select.selectedIndex].uuid;

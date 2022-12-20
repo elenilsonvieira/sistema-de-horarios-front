@@ -48,7 +48,7 @@ export const CardDND: React.FC<IntfcCard> = ({lesson, change}: IntfcCard) => {
     return (
         <Main id={lesson.uuid} onChange={change} ref={dragRef} isDragging={isDragging}>
             <header>
-                <h2>{lesson.curricularComponent.name}</h2><button type="button" onClick={handleModal}>Edit</button>
+                <h2>{lesson.curricularComponent ? lesson.curricularComponent.name : ""}</h2><button type="button" onClick={handleModal}>Edit</button>
             </header>
             {lesson.professor && <p>{lesson.professor.name}</p>}
             {lesson.classroom && <p>{lesson.classroom.classBlockDTO.block+" - "+lesson.classroom.name}</p>}
