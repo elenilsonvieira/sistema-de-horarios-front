@@ -37,9 +37,7 @@ export const CardDND: React.FC<IntfcCard> = ({lesson, change}: IntfcCard) => {
     
     const [{ isDragging }, dragRef] = useDrag({
         type: "CARD",
-        item: () => {
-            return { lesson }
-        },
+        item: { lesson },
         collect: (monitor: any) => ({
             isDragging: monitor.isDragging(),
         }),

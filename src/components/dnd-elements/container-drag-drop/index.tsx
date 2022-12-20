@@ -36,11 +36,13 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({ listLesson, gap, shi
     }, []);
 
     const assigningLesson = useMemo(() => {
-        listLesson.forEach((lesson) => (
-            interval && lesson.interval && lesson.interval.uuid === interval.uuid && lesson.turma.name === turma
-                ? setLesson(lesson)
-                : null
-        ));
+        if (listLesson.length > 0) {
+            listLesson.forEach((lesson) => (
+                interval && lesson.interval && lesson.interval.uuid === interval.uuid && lesson.turma.name === turma
+                    ? setLesson(lesson)
+                    : null
+            ));
+        }
     }, [interval]);
 
     const updateIntervalInLesson = (lessonUpdate: LessonModel) => {
@@ -53,7 +55,7 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({ listLesson, gap, shi
         }
     }
 
-    const [{ item }, drop] = useDrop({
+    const [{ item }, dropRef] = useDrop({
         accept: "CARD",
         collect: (monitor: any) => ({
             item: updateIntervalInLesson(monitor.getItem()),
@@ -63,7 +65,7 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({ listLesson, gap, shi
 
 
     return (
-        <Main onChange={change} ref={drop}>
+        <Main onChange={change} ref={dropRef}>
             {lesson && (<CardDND lesson={lesson} key={lesson.uuid}/>)}
          </ Main>
     )

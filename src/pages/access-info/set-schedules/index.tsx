@@ -40,13 +40,13 @@ export const SetSchedules = () => {
                         <BoardList label={'Aulas Livres'} listLesson={lessonList}/>
                     </div>
                     <div>
-                        <BoardContainer label={'1º Período'} listLesson={lessonList} intervalList={intervalList}/>
-                        <BoardContainer label={'2º Período'} listLesson={lessonList} intervalList={intervalList}/>
-                        <BoardContainer label={'3º Período'} listLesson={lessonList} intervalList={intervalList}/>
-                        <BoardContainer label={'4º Período'} listLesson={lessonList} intervalList={intervalList}/>
-                        <BoardContainer label={'5º Período'} listLesson={lessonList} intervalList={intervalList}/>
-                        <BoardContainer label={'6º Período'} listLesson={lessonList} intervalList={intervalList}/>
-                        <BoardContainer label={'7º Período'} listLesson={lessonList} intervalList={intervalList}/>
+                        <BoardContainer key={"ADS1ºPeriodo"} label={'1º Período'} listLesson={lessonList} intervalList={intervalList}/>
+                        <BoardContainer key={"ADS2ºPeriodo"} label={'2º Período'} listLesson={lessonList} intervalList={intervalList}/>
+                        <BoardContainer key={"ADS3ºPeriodo"} label={'3º Período'} listLesson={lessonList} intervalList={intervalList}/>
+                        <BoardContainer key={"ADS4ºPeriodo"} label={'4º Período'} listLesson={lessonList} intervalList={intervalList}/>
+                        <BoardContainer key={"ADS5ºPeriodo"} label={'5º Período'} listLesson={lessonList} intervalList={intervalList}/>
+                        <BoardContainer key={"ADS6ºPeriodo"} label={'6º Período'} listLesson={lessonList} intervalList={intervalList}/>
+                        <BoardContainer key={"ADS7ºPeriodo"} label={'7º Período'} listLesson={lessonList} intervalList={intervalList}/>
                     </div>
                     </>
                 ) : (
