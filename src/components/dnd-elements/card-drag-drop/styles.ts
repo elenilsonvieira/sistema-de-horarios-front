@@ -19,7 +19,6 @@ export const Main = styled.div`
     header h2 {
         display: flex;
         width: 100%;
-        backgorund-color: red;
         padding: 0;
         font-size: larger;
     }
