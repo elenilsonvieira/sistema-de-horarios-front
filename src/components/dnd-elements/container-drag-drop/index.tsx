@@ -67,6 +67,6 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({ listLesson, gap, shi
     return (
         <Main onChange={change} ref={dropRef}>
             {lesson && (<CardDND lesson={lesson} key={lesson.uuid}/>)}
-         </ Main>
+         </Main>
     )
 }

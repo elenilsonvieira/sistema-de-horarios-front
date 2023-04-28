@@ -1,28 +1,62 @@
-import styled, {css} from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Main = styled.div`
-    position: relative;
+    display: flex;
+    flex-direction: column;
     background: #FFF;
     border-radius: 5px;
-    padding: 5px;
     margin-bottom: 2px;
     box-shadow: 0 1px 4px 0 rgba(192, 208, 230, 0.8);
-    border-top: 24px solid rgba(230, 236, 245, 0.4);
     cursor: grab;
+    place-itens: center;
+    padding: 0.5em;
+    margin-bottom: 1em;
+    span {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    header h2 {
+        display: flex;
+        width: 100%;
+        backgorund-color: red;
+        padding: 0;
+        font-size: larger;
+    }
+
     header {
-        position: absolute;
-        top: -30px;
-        left: -5px;
+        display: flex;
+        width: fit-content;
+        heigth: 100%;
+        margin-bottom: 0;
     }
 
     p {
-        font-weight: 500;
-        line-height: 20px;
+        display: flex;
+        font-weight: bold;
+        justify-content: center;
+        align-items:center;
     }
 
     button {
-        text-align: right;
-        margin-left: 100%;
+        display: flex;
+        width: 30%;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        border-radius: 3px;
+        background-color: #4ca84e;
+        color: #FFF;
+        font-weight: bold;
+        margin: 0.5em;
+        padding: 0.5em;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    button:hover{
+        background-color: #3E7F3F;
+        transition: 0.2s;
     }
 
     ${props => props.isDragging && css`
@@ -36,5 +70,7 @@ export const Main = styled.div`
     p, header {
         opacity: 0;
     }
+
+    
     `}
 `;

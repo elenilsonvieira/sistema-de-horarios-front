@@ -1,12 +1,16 @@
 import styled from 'styled-components';
 
 export const Main = styled.div`
+    display: flex;
+    flex-direction: column;
     padding: 2px;
     margin: 1px;
-    width: 190px;
+    width: 100%;
+    heigth: 100%;
     border-radius: 5px;
-    background: #A9A9A9;
-    
+    background-color: #A9A9A9;
+    justify-content: center;
+    align-items: center;
     & + div {
         border-left: 1px solid rgba(0, 0, 0, 0.05);
     }
