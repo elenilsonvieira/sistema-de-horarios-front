@@ -69,7 +69,6 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({
   const updateIntervalInLesson = useCallback(
     (lessonUpdate: LessonModel) => {
       if (lessonUpdate) {
-        lessonUpdate.interval = interval;
         setLesson(lessonUpdate);
         lessonController.update(lessonUpdate.uuid, lessonUpdate).then(() => {});
       }
