@@ -1,4 +1,4 @@
-import { useId } from "react"
+import { useId }  from "react"
 import { Main } from './styles';
 
 import { ContainerDND } from '../container-drag-drop';
@@ -41,35 +41,35 @@ export const BoardContainer: React.FC<IntfcBoard> = ({ label, listLesson, interv
                     <tbody>
                     <tr>
                         <th>18:30</th>
-                        <td><ContainerDND key={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[0]} gap={GapEnum[0]} shift={ShiftEnum[2]} /></td>
-                        <td><ContainerDND key={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[1]} gap={GapEnum[0]} shift={ShiftEnum[2]} /></td>
-                        <td><ContainerDND key={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[2]} gap={GapEnum[0]} shift={ShiftEnum[2]} /></td>
-                        <td><ContainerDND key={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[3]} gap={GapEnum[0]} shift={ShiftEnum[2]} /></td>
-                        <td><ContainerDND key={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[4]} gap={GapEnum[0]} shift={ShiftEnum[2]} /></td>
+                        <td><ContainerDND key={useId()} id={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[0]} gap={GapEnum[0]} shift={ShiftEnum[2]} /></td>
+                        <td><ContainerDND key={useId()} id={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[1]} gap={GapEnum[0]} shift={ShiftEnum[2]} /></td>
+                        <td><ContainerDND key={useId()} id={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[2]} gap={GapEnum[0]} shift={ShiftEnum[2]} /></td>
+                        <td><ContainerDND key={useId()} id={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[3]} gap={GapEnum[0]} shift={ShiftEnum[2]} /></td>
+                        <td><ContainerDND key={useId()} id={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[4]} gap={GapEnum[0]} shift={ShiftEnum[2]} /></td>
                     </tr>
                     <tr>
                         <th>19:20</th>
-                        <td><ContainerDND key={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[0]} gap={GapEnum[1]} shift={ShiftEnum[2]} /></td>
-                        <td><ContainerDND key={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[1]} gap={GapEnum[1]} shift={ShiftEnum[2]} /></td>
-                        <td><ContainerDND key={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[2]} gap={GapEnum[1]} shift={ShiftEnum[2]} /></td>
-                        <td><ContainerDND key={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[3]} gap={GapEnum[1]} shift={ShiftEnum[2]} /></td>
-                        <td><ContainerDND key={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[4]} gap={GapEnum[1]} shift={ShiftEnum[2]} /></td>
+                        <td><ContainerDND key={useId()} id={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[0]} gap={GapEnum[1]} shift={ShiftEnum[2]} /></td>
+                        <td><ContainerDND key={useId()} id={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[1]} gap={GapEnum[1]} shift={ShiftEnum[2]} /></td>
+                        <td><ContainerDND key={useId()} id={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[2]} gap={GapEnum[1]} shift={ShiftEnum[2]} /></td>
+                        <td><ContainerDND key={useId()} id={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[3]} gap={GapEnum[1]} shift={ShiftEnum[2]} /></td>
+                        <td><ContainerDND key={useId()} id={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[4]} gap={GapEnum[1]} shift={ShiftEnum[2]} /></td>
                     </tr>
                     <tr>
                         <th>20:20</th>
-                        <td><ContainerDND key={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[0]} gap={GapEnum[2]} shift={ShiftEnum[2]} /></td>
-                        <td><ContainerDND key={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[1]} gap={GapEnum[2]} shift={ShiftEnum[2]} /></td>
-                        <td><ContainerDND key={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[2]} gap={GapEnum[2]} shift={ShiftEnum[2]} /></td>
-                        <td><ContainerDND key={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[3]} gap={GapEnum[2]} shift={ShiftEnum[2]} /></td>
-                        <td><ContainerDND key={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[4]} gap={GapEnum[2]} shift={ShiftEnum[2]} /></td>
+                        <td><ContainerDND key={useId()} id={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[0]} gap={GapEnum[2]} shift={ShiftEnum[2]} /></td>
+                        <td><ContainerDND key={useId()} id={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[1]} gap={GapEnum[2]} shift={ShiftEnum[2]} /></td>
+                        <td><ContainerDND key={useId()} id={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[2]} gap={GapEnum[2]} shift={ShiftEnum[2]} /></td>
+                        <td><ContainerDND key={useId()} id={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[3]} gap={GapEnum[2]} shift={ShiftEnum[2]} /></td>
+                        <td><ContainerDND key={useId()} id={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[4]} gap={GapEnum[2]} shift={ShiftEnum[2]} /></td>
                     </tr>
                         <tr>
                             <th>21:10</th>
-                            <td><ContainerDND key={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[0]} gap={GapEnum[3]} shift={ShiftEnum[2]} /></td>
-                            <td><ContainerDND key={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[1]} gap={GapEnum[3]} shift={ShiftEnum[2]} /></td>
-                            <td><ContainerDND key={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[2]} gap={GapEnum[3]} shift={ShiftEnum[2]} /></td>
-                            <td><ContainerDND key={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[3]} gap={GapEnum[3]} shift={ShiftEnum[2]} /></td>
-                            <td><ContainerDND key={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[4]} gap={GapEnum[3]} shift={ShiftEnum[2]} /></td>
+                            <td><ContainerDND key={useId()} id={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[0]} gap={GapEnum[3]} shift={ShiftEnum[2]} /></td>
+                            <td><ContainerDND key={useId()} id={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[1]} gap={GapEnum[3]} shift={ShiftEnum[2]} /></td>
+                            <td><ContainerDND key={useId()} id={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[2]} gap={GapEnum[3]} shift={ShiftEnum[2]} /></td>
+                            <td><ContainerDND key={useId()} id={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[3]} gap={GapEnum[3]} shift={ShiftEnum[2]} /></td>
+                            <td><ContainerDND key={useId()} id={useId()} listLesson={listLesson} listInterval={intervalList} turma={label} weekDay={WeekDayEnum[4]} gap={GapEnum[3]} shift={ShiftEnum[2]} /></td>
                         </tr>
                     </tbody>
                 </table>

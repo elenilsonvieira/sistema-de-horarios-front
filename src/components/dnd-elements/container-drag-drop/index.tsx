@@ -10,6 +10,8 @@ import { LessonController } from "../../../api/controller/LessonController";
 import {data} from "jquery";
 
 interface IntfcContainerDND {
+
+    id: string;
     listLesson: LessonModel[];
     listInterval: IntervalModel[];
     gap: string;
@@ -22,7 +24,7 @@ interface IntfcContainerDND {
 }
 
 const lessonController = LessonController.getInstance();
-export const ContainerDND: React.FC<IntfcContainerDND> = ({ listLesson, gap, shift, weekDay, listInterval, turma, change }: IntfcContainerDND) => {
+export const ContainerDND: React.FC<IntfcContainerDND> = ({ id, listLesson, gap, shift, weekDay, listInterval, turma, change }: IntfcContainerDND) => {
 
     const [interval, setInterval] = useState<IntervalModel>();
     const [lesson, setLesson] = useState<LessonModel>();
@@ -61,7 +63,7 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({ listLesson, gap, shi
         accept: "CARD",
         hover(item: { lesson: any, uuid: string}, monitor){
             console.log(item.lesson);
-            console.log(listLesson)
+            console.log("Id do bagui cinza: " + id);
         },
         collect: (monitor: any) => ({
             // item: updateIntervalInLesson(monitor.getItem()),
