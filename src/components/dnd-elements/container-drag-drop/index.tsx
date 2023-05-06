@@ -7,6 +7,7 @@ import { LessonModel } from "../../../api/model/LessonModel";
 import { CardDND } from "../card-drag-drop";
 import { IntervalModel } from "../../../api/model/IntervalModel";
 import { LessonController } from "../../../api/controller/LessonController";
+import {data} from "jquery";
 
 interface IntfcContainerDND {
     listLesson: LessonModel[];
@@ -59,7 +60,8 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({ listLesson, gap, shi
     const [, dropRef] = useDrop({
         accept: "CARD",
         hover(item: { lesson: any, uuid: string}, monitor){
-            console.log(item.lesson.uuid);
+            console.log(item.lesson);
+            console.log(listLesson)
         },
         collect: (monitor: any) => ({
             // item: updateIntervalInLesson(monitor.getItem()),
