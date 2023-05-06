@@ -39,9 +39,9 @@ export class LessonController {
 
     public async update(uuid:string, lesson: LessonModel):Promise<void>{
         try {
+            console.log("Esse: ", lesson)
             const response = await httpClient.put(`/lesson/${uuid}`, lesson);
             successMessage('Aula atualizada no banco.')
-            return response.data;
         } catch (error) {
             errorMessage('Verifique os campos ou a conexão.')
         }
