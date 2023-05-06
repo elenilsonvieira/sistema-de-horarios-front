@@ -22,6 +22,7 @@ interface IntfcContainerDND {
 
 const lessonController = LessonController.getInstance();
 export const ContainerDND: React.FC<IntfcContainerDND> = ({ listLesson, gap, shift, weekDay, listInterval, turma, change }: IntfcContainerDND) => {
+    
     const [interval, setInterval] = useState<IntervalModel>();
     const [lesson, setLesson] = useState<LessonModel>();
 
@@ -50,23 +51,26 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({ listLesson, gap, shi
             lessonUpdate.interval = interval;
             setLesson(lessonUpdate);
             if (lesson) {
-                lessonController.update(lesson.uuid, lesson).then(() => { window.location.reload() })
+                lessonController.update(lesson.uuid, lesson).then(() => {})
             }
         }
     }
 
     const [{ item }, dropRef] = useDrop({
         accept: "CARD",
+        hover(item, monitor){
+            console.log(monitor);
+        },
         collect: (monitor: any) => ({
-            item: updateIntervalInLesson(monitor.getItem()),
-        }),
+            // item: updateIntervalInLesson(monitor.getItem()),
+        })
+        
     });
-
 
 
     return (
         <Main onChange={change} ref={dropRef}>
-            {lesson && (<CardDND lesson={lesson} key={lesson.uuid}/>)}
+            {lesson && (<CardDND lesson={lesson} key={lesson.uuid} dropRef={dropRef}/>)}
         </Main>
     )
 }

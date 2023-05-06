@@ -1,5 +1,5 @@
 import Modal from 'react-modal';
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { useDrag } from 'react-dnd';
 
 import { Main } from './styles';
@@ -10,10 +10,12 @@ interface IntfcCard {
     uuid?: string;
     lesson: LessonModel;
     change?: (event: any) => void;
+    dropRef: () => {};
 }
 
-export const CardDND: React.FC<IntfcCard> = ({ lesson, change }: IntfcCard) => {
+export const CardDND: React.FC<IntfcCard> = ({ lesson, change, uuid, dropRef }: IntfcCard) => {
     const [modalStatus, setModalStatus] = useState(false)
+    const ref = useRef()
 
     function handleModal() {
         if (modalStatus === false) {
@@ -37,7 +39,7 @@ export const CardDND: React.FC<IntfcCard> = ({ lesson, change }: IntfcCard) => {
 
     const [{ isDragging }, dragRef] = useDrag({
         type: "CARD",
-        item: { lesson },
+        item: { lesson, uuid },
         collect: (monitor: any) => ({
             isDragging: monitor.isDragging(),
         }),
