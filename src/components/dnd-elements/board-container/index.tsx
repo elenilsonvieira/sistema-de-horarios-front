@@ -1,8 +1,8 @@
-import {useEffect, useState, useId} from "react"
+import { useId } from "react"
 import {Main} from './styles';
 
-import {ContainerDND} from '../container-drag-drop/index';
-import {LessonModel} from "../../../api/model/LessonModel";
+import { ContainerDND } from '../container-drag-drop';
+import { LessonModel } from "../../../api/model/LessonModel";
 import { IntervalModel } from "../../../api/model/IntervalModel";
 import { GapEnum } from "./Enums/GapEnum";
 import { ShiftEnum } from "./Enums/ShiftEnum";

@@ -1,10 +1,10 @@
-import { useEffect, useState, useMemo, useCallback } from "react"
+import { useState, useMemo } from "react"
 
 import { Main } from './styles';
 
 import { useDrop } from 'react-dnd';
 import { LessonModel } from "../../../api/model/LessonModel";
-import { CardDND } from "../card-drag-drop/index";
+import { CardDND } from "../card-drag-drop";
 import { IntervalModel } from "../../../api/model/IntervalModel";
 import { LessonController } from "../../../api/controller/LessonController";
 
@@ -67,6 +67,6 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({ listLesson, gap, shi
     return (
         <Main onChange={change} ref={dropRef}>
             {lesson && (<CardDND lesson={lesson} key={lesson.uuid}/>)}
-         </Main>
+        </Main>
     )
 }
