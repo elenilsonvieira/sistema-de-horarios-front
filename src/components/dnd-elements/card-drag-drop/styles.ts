@@ -5,10 +5,9 @@ export const Main = styled.div`
     flex-direction: column;
     background: #FFF;
     border-radius: 5px;
-    margin-bottom: 2px;
     box-shadow: 0 1px 4px 0 rgba(192, 208, 230, 0.8);
     cursor: grab;
-    place-itens: center;
+    place-items: center;
     padding: 0.5em;
     margin-bottom: 1em;
     span {
@@ -26,7 +25,7 @@ export const Main = styled.div`
     header {
         display: flex;
         width: fit-content;
-        heigth: 100%;
+        height: 100%;
         margin-bottom: 0;
     }
 
@@ -58,7 +57,7 @@ export const Main = styled.div`
         transition: 0.2s;
     }
 
-    ${props => props.isDragging && css`
+    ${(props: any) => props.isDragging && css`
     border: 2px dashed rgba(0, 0, 0, 0.2);
     padding-top: 31px;
     border-radius: 0;

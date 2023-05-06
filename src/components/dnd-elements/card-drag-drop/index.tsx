@@ -1,6 +1,6 @@
 import Modal from 'react-modal';
 import { useRef, useState } from "react"
-import { useDrag } from 'react-dnd';
+import {ConnectDropTarget, useDrag} from 'react-dnd';
 
 import { Main } from './styles';
 import { LessonModel } from "../../../api/model/LessonModel";
@@ -10,7 +10,7 @@ interface IntfcCard {
     uuid?: string;
     lesson: LessonModel;
     change?: (event: any) => void;
-    dropRef: () => {};
+    dropRef: ConnectDropTarget;
 }
 
 export const CardDND: React.FC<IntfcCard> = ({ lesson, change, uuid, dropRef }: IntfcCard) => {
@@ -18,7 +18,7 @@ export const CardDND: React.FC<IntfcCard> = ({ lesson, change, uuid, dropRef }: 
     const ref = useRef()
 
     function handleModal() {
-        if (modalStatus === false) {
+        if (!modalStatus) {
             setModalStatus(true)
         } else {
             setModalStatus(false)
@@ -45,8 +45,10 @@ export const CardDND: React.FC<IntfcCard> = ({ lesson, change, uuid, dropRef }: 
         }),
     })
 
+
+    // @ts-ignore
     return (
-        <Main id={lesson.uuid} onChange={change} ref={dragRef} isDragging={isDragging}>
+        <Main id={lesson.uuid} onChange={change} ref={dragRef} isDragging={isDragging as boolean}>
             <header>
                 <h2>{lesson.curricularComponent ? lesson.curricularComponent.name : ""}</h2>
             </header>
