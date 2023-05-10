@@ -8,6 +8,7 @@ import { CardDND } from "../card-drag-drop";
 import { IntervalModel } from "../../../api/model/IntervalModel";
 import { LessonController } from "../../../api/controller/LessonController";
 import { data } from "jquery";
+import useRefreshContext from "../../../hooks/useRefreshContext";
 
 interface IntfcContainerDND {
   id: string;
@@ -40,6 +41,7 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({
     uuid: id,
   });
   const [lesson, setLesson] = useState<LessonModel>();
+  const {refreshBool} = useRefreshContext()
 
   const assigningInterval = useMemo(() => {
     if (listInterval.length > 0) {
@@ -70,7 +72,7 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({
     (lessonUpdate: LessonModel) => {
       if (lessonUpdate) {
         setLesson(lessonUpdate);
-        lessonController.update(lessonUpdate.uuid, lessonUpdate).then(() => {});
+        lessonController.update(lessonUpdate.uuid, lessonUpdate).then(() => refreshBool());
       }
     },
     [lesson, setLesson]
@@ -81,8 +83,6 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({
     drop: (item: { lesson: any; uuid: string }, monitor) => {
       let updateLesson = item.lesson;
       updateLesson.interval = interval;
-      console.log(updateLesson);
-
       updateIntervalInLesson(updateLesson);
     },
   });

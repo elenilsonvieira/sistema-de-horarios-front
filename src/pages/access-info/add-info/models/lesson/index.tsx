@@ -13,12 +13,15 @@ import {TurmaController} from "../../../../../api/controller/TurmaController";
 import {lessonControllerView} from "./lessonControllerView";
 import {CourseController} from "../../../../../api/controller/CourseController";
 import {errorMessage} from '../../../../../components/libs/Toastr';
+import { ProfessorController } from '../../../../../api/controller/ProfessorController';
+import { ProfessorModel } from '../../../../../api/model/ProfessorModel';
 
 const calendarController = CalendarController.getInstance();
 const classroomController = ClassroomController.getInstance();
 const curricularComponentController = CurricularComponentController.getInstance();
 const turmaController =  TurmaController.getInstance();
 const courseController = CourseController.getInstance();
+const professorController = ProfessorController.getInstance();
 
 export const Lesson = () => {
 
@@ -27,7 +30,9 @@ export const Lesson = () => {
     const [curricularComponentUuid, setCurricularComponentUuid] = useState<string>();
     const [turmaUuid, setTurmaUuid] = useState<string>();
     const [courseUuid, setCourseUuid] = useState<string>();
+    const [professorUuid, setProfessorUuid] = useState<string>();
 
+    const [professorList, setProfessorList] = useState<ProfessorModel[]>();
     const [calendarList, setCalendarList] = useState<CalendarModel[]>();
     const [classroomList, setClassroomList] = useState<ClassroomModel[]>();
     const [curricularComponentList, setCurricularComponentList] = useState<CurricularComponentModel[]>();
@@ -40,7 +45,8 @@ export const Lesson = () => {
             classroomUuid,
             curricularComponentUuid,
             turmaUuid,
-            courseUuid
+            courseUuid,
+            professorUuid
         }
     }
 
@@ -85,7 +91,9 @@ export const Lesson = () => {
             const curricularComponent  = await curricularComponentController.list();
             const turma  = await turmaController.list();
             const course =  await courseController.list();
+            const professor = await professorController.list();
 
+            setProfessorList(professor);
             setCalendarList(calendar);
             setClassroomList(classroom);
             setCurricularComponentList(curricularComponent);
@@ -97,6 +105,8 @@ export const Lesson = () => {
             setCurricularComponentUuid(curricularComponent[0].uuid);
             setTurmaUuid(turma[0].uuid);
             setCourseUuid(course[0].uuid);
+            setProfessorUuid(professor[0].uuid)
+            
         }catch (Error:any){
 
         }

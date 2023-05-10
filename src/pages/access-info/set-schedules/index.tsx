@@ -9,12 +9,14 @@ import { IntervalModel } from "../../../api/model/IntervalModel";
 import { intervalReadControllerView } from "./intervalReadControllerView";
 import { BoardContainer } from "../../../components/dnd-elements/board-container";
 import { BoardList } from '../../../components/dnd-elements/board-list';
+import useRefreshContext from "../../../hooks/useRefreshContext";
 
 export const SetSchedules = () => {
 
     const [lessonList, setListLesson] = useState<LessonModel[]>();
     const [intervalList, setListInterval] = useState<IntervalModel[]>();
-    
+    const {bool} = useRefreshContext()
+
     const load =  async () => {
         try {
             const lesson  = await lessonReadControllerView();
@@ -28,7 +30,9 @@ export const SetSchedules = () => {
 
     useEffect(() => {
         load();
-    },[])
+        console.log("atualizou")
+        
+    },[bool])
  
 
     return (
