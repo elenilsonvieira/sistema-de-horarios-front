@@ -28,7 +28,6 @@ export const Lesson = () => {
     const [calendarUuid, setCalendarUuid] = useState<string>();
     const [classroomUuid, setClassroomUuid] = useState<string>();
     const [curricularComponentUuid, setCurricularComponentUuid] = useState<string>();
-    const [turmaUuid, setTurmaUuid] = useState<string>();
     const [courseUuid, setCourseUuid] = useState<string>();
     const [professorUuid, setProfessorUuid] = useState<string>();
 
@@ -36,7 +35,6 @@ export const Lesson = () => {
     const [calendarList, setCalendarList] = useState<CalendarModel[]>();
     const [classroomList, setClassroomList] = useState<ClassroomModel[]>();
     const [curricularComponentList, setCurricularComponentList] = useState<CurricularComponentModel[]>();
-    const [turmaList, setTurmaList] = useState<TurmaModel[]>();
     const [courseList, setCourseList] = useState<CourseModel[]>();
 
     function getDataObject(): any{
@@ -44,7 +42,6 @@ export const Lesson = () => {
             calendarUuid,
             classroomUuid,
             curricularComponentUuid,
-            turmaUuid,
             courseUuid,
             professorUuid
         }
@@ -61,9 +58,6 @@ export const Lesson = () => {
         }
         if (!curricularComponentUuid) {
             errors.push('Disciplina é obrigatória');
-        }
-        if (!turmaUuid) {
-            errors.push('Turma é obrigatória');
         }
         if (!courseUuid) {
             errors.push('Curso é obrigatório');
@@ -89,7 +83,6 @@ export const Lesson = () => {
             const calendar  = await calendarController.list();
             const classroom  = await classroomController.list();
             const curricularComponent  = await curricularComponentController.list();
-            const turma  = await turmaController.list();
             const course =  await courseController.list();
             const professor = await professorController.list();
 
@@ -97,13 +90,11 @@ export const Lesson = () => {
             setCalendarList(calendar);
             setClassroomList(classroom);
             setCurricularComponentList(curricularComponent);
-            setTurmaList(turma);
             setCourseList(course);
 
             setCalendarUuid(calendar[0].uuid);
             setClassroomUuid(classroom[0].uuid);
             setCurricularComponentUuid(curricularComponent[0].uuid);
-            setTurmaUuid(turma[0].uuid);
             setCourseUuid(course[0].uuid);
             setProfessorUuid(professor[0].uuid)
             
@@ -173,20 +164,6 @@ export const Lesson = () => {
                         }}}>
                         {
                             courseList?.map((item) =>(
-                                <option key={item.uuid}>{item.name}</option>
-                            ))
-                        }
-                    </SelectArea>
-                </InputContent>
-                <InputContent labelText='Turma:' htmlFor="turma-s">
-                    <SelectArea id="turma-s" change={(event)=>{
-                        const select  = event.target;
-                        if (turmaList) {
-                            const uuid = turmaList[select.selectedIndex].uuid;
-                            setTurmaUuid(uuid);
-                        }}}>
-                        {
-                            turmaList?.map((item) =>(
                                 <option key={item.uuid}>{item.name}</option>
                             ))
                         }

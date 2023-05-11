@@ -53,11 +53,11 @@ const types = [
         value: 'calendar',
         title: 'Calendário',
     },
-    {
-        id: '99499',
-        value: 'turma',
-        title: 'Turma',
-    },
+    // {
+    //     id: '99499',
+    //     value: 'turma',
+    //     title: 'Turma',
+    // },
     {
         id: '74899',
         value: 'course',
@@ -112,9 +112,9 @@ export const AddInfo = () => {
                     {typeSelected === 'calendar' &&
                         <Calendar />
                     }
-                    {typeSelected === 'turma' &&
+                    {/* {typeSelected === 'turma' &&
                         <Turma />
-                    }
+                    } */}
                     {typeSelected === 'lesson' &&
                         <Lesson />
                     }

@@ -10,6 +10,7 @@ import { LessonController } from "../../../api/controller/LessonController";
 import useRefreshContext from "../../../hooks/useRefreshContext";
 
 interface IntfcContainerDND {
+  idClass: string,
   id: string;
   listLesson: LessonModel[];
   listInterval: IntervalModel[];
@@ -32,6 +33,7 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({
   listInterval,
   turma,
   change,
+  idClass
 }: IntfcContainerDND) => {
 
   const [interval, setInterval] = useState<IntervalModel>({
@@ -40,7 +42,8 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({
     weekDayDTO: weekDay,
     uuid: id,
   });
-
+  console.log(id);
+  
   const [lesson, setLesson] = useState<LessonModel>();
   const { refreshBool } = useRefreshContext()
 
@@ -60,8 +63,6 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({
   const assigningLesson = useMemo(() => {
     turma = turma.split("º")[0] + turma.split("º")[1]
     turma = turma.replace("í", "i")
-    // console.log(listLesson);
-
 
     if (listLesson.length > 0) {
       listLesson.forEach((lesson) =>
@@ -79,7 +80,10 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({
     (lessonUpdate: LessonModel) => {
       if (lessonUpdate) {
         setLesson(lessonUpdate);
-        lessonController.update(lessonUpdate.uuid, lessonUpdate).then(() => refreshBool());
+        lessonController.update(lessonUpdate.uuid, lessonUpdate).then(() => {
+          refreshBool()
+          location.reload()
+        });
       }
     },
     [lesson, setLesson]
@@ -90,6 +94,10 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({
     drop: (item: { lesson: any; uuid: string }, monitor) => {
       let updateLesson = item.lesson;
       updateLesson.interval = interval;
+      updateLesson.turma = {name: turma, uuid: idClass}
+      
+      console.log(updateLesson);
+      
       updateIntervalInLesson(updateLesson);
     },
   });
