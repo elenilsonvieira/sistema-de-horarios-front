@@ -30,7 +30,6 @@ export const SetSchedules = () => {
 
     useEffect(() => {
         load();
-        console.log("atualizou")
         
     },[bool])
  
