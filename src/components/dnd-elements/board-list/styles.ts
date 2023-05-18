@@ -10,10 +10,11 @@ export const Main = styled.div`
     border-radius: 1em;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 60%;
     header{
         margin-bottom: 1em;
     }
+    
 `;

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { DndProvider } from 'react-dnd'
 
-import { Main } from './styles';
+import { Main, Filters } from './styles';
 import { LessonModel } from '../../../api/model/LessonModel';
 import { lessonReadControllerView } from "./lessonReadControllerView";
 import { IntervalModel } from "../../../api/model/IntervalModel";
@@ -15,24 +15,43 @@ import { turmaReadControllerView } from "../edit-info/models/turma/turmaReadCont
 
 export const SetSchedules = () => {
 
-    const [lessonList, setListLesson] = useState<LessonModel[]>();
+    const [lessonList, setLessonList] = useState<LessonModel[]>();
     const [intervalList, setListInterval] = useState<IntervalModel[]>();
     const [classList, setClassList] = useState<TurmaModel[]>();
+    const [defaultListLesson, setDefaultListLesson] = useState<LessonModel[]>();
 
+    const [teacherOptions, setTeacherOptions] = useState<string[]>(["Todos"])
+    // const [classOptions, setClassOptions] = useState<string[]>(["Todos"])
 
     const { bool } = useRefreshContext()
 
     const load = async () => {
-        try {
-            const lesson = await lessonReadControllerView();
-            const interval = await intervalReadControllerView();
-            const classListt = await turmaReadControllerView();
+        const lessons = await lessonReadControllerView();
+        const intervals = await intervalReadControllerView();
+        const classListts = await turmaReadControllerView();
 
-            setClassList(classListt)
-            setListLesson(lesson);
-            setListInterval(interval);
-        } catch (Error: any) {
-        }
+        setClassList(classListts)
+        setDefaultListLesson(lessons);
+        setLessonList(lessons)
+        setListInterval(intervals);
+
+        prepareDefaultOptions(lessons)
+    }
+
+    function prepareDefaultOptions(arr: []) {
+
+        const optsTeacher = arr.map((lesson: LessonModel) => lesson.professor.name)
+        // const optsClass = arr.map((lesson: LessonModel) => lesson.turma.name)
+
+        setTeacherOptions(filterNames(optsTeacher))
+        // setClassOptions(filterNames(optsClass))
+    }
+
+    function filterNames(arr: string[]): string[] {
+        arr = arr.filter((element, index) => {
+            return arr.indexOf(element) === index;
+        });
+        return arr
     }
 
     function getIdClass(name: string) {
@@ -44,9 +63,30 @@ export const SetSchedules = () => {
 
     }, [bool])
 
+    function handleChangeFilter(value: String) {
+        if (value === "Todos") {
+            setLessonList(defaultListLesson)
+            return
+        }
+        setLessonList(defaultListLesson?.filter((lesson) => lesson.professor.name === value))
+    }
 
     return (
         <DndProvider backend={HTML5Backend}>
+            <Filters>
+                <div>
+                    <h2>Filtros</h2>
+                    <label>
+                        <p>Professores</p>
+                        <select onChange={(e) => handleChangeFilter(e.target.value)}>
+                            <option value={"Todos"}>Todos</option>
+                            {teacherOptions.map((teacher, k) => (
+                                <option key={k} value={teacher} >{teacher}</option>
+                            ))}
+                        </select>
+                    </label>
+                </div>
+            </Filters>
             <Main>
                 {lessonList && intervalList && classList ? (
                     <>

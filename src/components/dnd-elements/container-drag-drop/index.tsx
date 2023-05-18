@@ -42,7 +42,6 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({
     weekDayDTO: weekDay,
     uuid: id,
   });
-  console.log(id);
   
   const [lesson, setLesson] = useState<LessonModel>();
   const { refreshBool } = useRefreshContext()
@@ -95,8 +94,6 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({
       let updateLesson = item.lesson;
       updateLesson.interval = interval;
       updateLesson.turma = {name: turma, uuid: idClass}
-      
-      console.log(updateLesson);
       
       updateIntervalInLesson(updateLesson);
     },
