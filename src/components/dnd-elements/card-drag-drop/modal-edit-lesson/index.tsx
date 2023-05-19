@@ -35,8 +35,7 @@ export const LessonModal: React.FC<IntfcModal> = ({lessonModal}: IntfcModal) => 
     const [professorList, setProfessorList] = useState<ProfessorModel[]>();
 
     const [calendarValue, setCalendarValue] = useState(lessonModel.calendar.semester);
-    const [classroomValue, setClassroomValue] =
-    useState(lessonModel.classroom.name + "-" + lessonModel.classroom.classBlockDTO.block);
+    const [classroomValue, setClassroomValue] = useState(lessonModel.classroom.name);
     const [curricularComponentValue, setCurricularComponentValue] = useState(lessonModel.curricularComponent.name);
     const [courseValue, setCourseValue] = useState(lessonModel.turma.name);
     const [professorValue, setProfessorValue] = useState(lessonModel.professor ? lessonModel.professor.name : "");
@@ -49,37 +48,33 @@ export const LessonModal: React.FC<IntfcModal> = ({lessonModal}: IntfcModal) => 
 
     const onSubmit = async () => {
         const data = getDataObject();
-        console.log(data);
-        await lessonUpdateControllerView(data).then(() => { window.location.reload() })
+        console.log(data.lessonModel);
+        await lessonUpdateControllerView(data.lessonModel).then(() => { window.location.reload() })
     }
 
     const deleteSubmit = async () => {
         const data = getDataObject();
-        console.log(data.lessonModel.uuid)
         await lessonDeleteControllerView(data.lessonModel.uuid).then(() => { window.location.reload() })
     }
 
-    const load =  async () => {
-        try {
-            const calendar  = await calendarController.list();
-            const classroom  = await classroomController.list();
-            const curricularComponent  = await curricularComponentController.list();
-            const course =  await courseController.list();
-            const professor =  await professorController.list();
+    const loadingLessonValues =  async () => {
+        const calendar  = await calendarController.list();
+        const classroom  = await classroomController.list();
+        const curricularComponent  = await curricularComponentController.list();
+        const course =  await courseController.list();
+        const professor =  await professorController.list();
 
-            setCalendarList(calendar);
-            setClassroomList(classroom);
-            setCurricularComponentList(curricularComponent);
-            setCourseList(course);
-            setProfessorList(professor);
-
-        }catch (Error:any){
-            console.log(Error);
-        }
+        setCalendarList(calendar);
+        setClassroomList(classroom);
+        setCurricularComponentList(curricularComponent);
+        setCourseList(course);
+        setProfessorList(professor);
     }
 
     useEffect(() => {
-        load();
+        loadingLessonValues()
+            .then(() => console.log(lessonModel))
+            .catch((error) => console.log(error));
     },[])
 
     return (
@@ -106,12 +101,10 @@ export const LessonModal: React.FC<IntfcModal> = ({lessonModal}: IntfcModal) => 
                         const select  = event.target;
                         if (classroomList) {
                             lessonModel.classroom = classroomList[select.selectedIndex];
-                            setClassroomValue(lessonModel.classroom.name +
-                            "-" + lessonModel.classroom.classBlockDTO.block);
+                            setClassroomValue(lessonModel.classroom.name);
                         }}}>
                         {
                             classroomList?.map((item) =>(
-
                                 <option key={item.uuid}>{item.name} - {item.classBlockDTO.block}</option>
                             ))
                         }
