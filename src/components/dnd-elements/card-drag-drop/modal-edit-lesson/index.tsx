@@ -35,26 +35,18 @@ export const LessonModal: React.FC<IntfcModal> = ({lessonModal}: IntfcModal) => 
     const [professorList, setProfessorList] = useState<ProfessorModel[]>();
 
     const [calendarValue, setCalendarValue] = useState(lessonModel.calendar.semester);
-    const [classroomValue, setClassroomValue] = useState(lessonModel.classroom.name);
+    const [classroomValue, setClassroomValue] = useState(lessonModel.classroom.name + "-" + lessonModel.classroom.classBlockDTO.block);
     const [curricularComponentValue, setCurricularComponentValue] = useState(lessonModel.curricularComponent.name);
     const [courseValue, setCourseValue] = useState(lessonModel.turma.name);
     const [professorValue, setProfessorValue] = useState(lessonModel.professor ? lessonModel.professor.name : "");
 
-    function getDataObject(): any{
-        return {
-            lessonModel
-        }
-    }
-
     const onSubmit = async () => {
-        const data = getDataObject();
-        console.log(data.lessonModel);
-        await lessonUpdateControllerView(data.lessonModel).then(() => { window.location.reload() })
+        console.log(lessonModel);
+        await lessonUpdateControllerView(lessonModel).then(() => { window.location.reload() })
     }
 
     const deleteSubmit = async () => {
-        const data = getDataObject();
-        await lessonDeleteControllerView(data.lessonModel.uuid).then(() => { window.location.reload() })
+        await lessonDeleteControllerView(lessonModel.uuid).then(() => { window.location.reload() })
     }
 
     const loadingLessonValues =  async () => {
@@ -100,12 +92,13 @@ export const LessonModal: React.FC<IntfcModal> = ({lessonModal}: IntfcModal) => 
                     <SelectArea id="classroom-s" value={classroomValue} change={(event)=>{
                         const select  = event.target;
                         if (classroomList) {
+                            console.log(classroomList[select.selectedIndex])
                             lessonModel.classroom = classroomList[select.selectedIndex];
-                            setClassroomValue(lessonModel.classroom.name);
+                            setClassroomValue(lessonModel.classroom.name + " - " + lessonModel.classroom.classBlockDTO.block);
                         }}}>
                         {
                             classroomList?.map((item) =>(
-                                <option key={item.uuid}>{item.name}</option>
+                                <option key={item.uuid}>{item.name} - {item.classBlockDTO.block}</option>
                             ))
                         }
                     </SelectArea>
