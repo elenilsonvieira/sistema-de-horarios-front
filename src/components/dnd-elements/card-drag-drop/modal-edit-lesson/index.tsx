@@ -35,14 +35,16 @@ export const LessonModal: React.FC<IntfcModal> = ({lessonModal}: IntfcModal) => 
     const [professorList, setProfessorList] = useState<ProfessorModel[]>();
 
     const [calendarValue, setCalendarValue] = useState(lessonModel.calendar.semester);
-    const [classroomValue, setClassroomValue] = useState(lessonModel.classroom.name + "-" + lessonModel.classroom.classBlockDTO.block);
+    const [classroomValue, setClassroomValue] = useState(
+        lessonModel.classroom.name
+        + " - " + lessonModel.classroom.classBlockDTO.block);
     const [curricularComponentValue, setCurricularComponentValue] = useState(lessonModel.curricularComponent.name);
-    const [courseValue, setCourseValue] = useState(lessonModel.turma.name);
-    const [professorValue, setProfessorValue] = useState(lessonModel.professor ? lessonModel.professor.name : "");
+    const [courseValue, setCourseValue] = useState(lessonModel.course.name);
+    const [professorValue, setProfessorValue] = useState(lessonModel.professor);
 
     const onSubmit = async () => {
-        console.log(lessonModel);
-        await lessonUpdateControllerView(lessonModel).then(() => { window.location.reload() })
+        console.log(lessonModel)
+        await lessonUpdateControllerView(lessonModel).then(() => { })
     }
 
     const deleteSubmit = async () => {
@@ -61,11 +63,12 @@ export const LessonModal: React.FC<IntfcModal> = ({lessonModal}: IntfcModal) => 
         setCurricularComponentList(curricularComponent);
         setCourseList(course);
         setProfessorList(professor);
+
     }
 
     useEffect(() => {
         loadingLessonValues()
-            .then(() => console.log(lessonModel))
+            .then(() => console.log(lessonModal))
             .catch((error) => console.log(error));
     },[])
 
@@ -75,6 +78,7 @@ export const LessonModal: React.FC<IntfcModal> = ({lessonModal}: IntfcModal) => 
                 <InputContent labelText='Calendário:' htmlFor="calendario-s">
                     <SelectArea id="calendario-s" value={calendarValue} change={(event)=> {
                         const select  = event.target;
+                        console.log(calendarValue)
                         if (calendarList) {
                             lessonModel.calendar = calendarList[select.selectedIndex];
                             setCalendarValue(lessonModel.calendar.semester);
@@ -92,9 +96,9 @@ export const LessonModal: React.FC<IntfcModal> = ({lessonModal}: IntfcModal) => 
                     <SelectArea id="classroom-s" value={classroomValue} change={(event)=>{
                         const select  = event.target;
                         if (classroomList) {
-                            console.log(classroomList[select.selectedIndex])
                             lessonModel.classroom = classroomList[select.selectedIndex];
-                            setClassroomValue(lessonModel.classroom.name + " - " + lessonModel.classroom.classBlockDTO.block);
+                            setClassroomValue(lessonModel.classroom.name
+                            + " - " + lessonModel.classroom.classBlockDTO.block);
                         }}}>
                         {
                             classroomList?.map((item) =>(

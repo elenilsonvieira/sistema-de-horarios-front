@@ -5,8 +5,7 @@ import { successMessage, errorMessage } from '../../components/libs/Toastr'
 export class LessonController {
     private static instance: LessonController;
 
-    private constructor() {
-    }
+    private constructor() {}
 
     public static getInstance(): LessonController {
         if (!LessonController.instance) {
@@ -45,10 +44,11 @@ export class LessonController {
                 curricularComponentUuid: lesson.curricularComponent.uuid,
                 turmaUuid: lesson.turma.uuid,
                 courseUuid: lesson.course.uuid,
-                professorUuid: lesson.professor ? lesson.professor.uuid :null,
+                professorUuid: lesson.professor.uuid,
                 intervalUuid: lesson.interval ? lesson.interval.uuid : null
             }
-            const response = await httpClient.put(`/lesson/${uuid}`, lessonDRO);
+            console.log(lessonDRO)
+            await httpClient.put(`/lesson/${uuid}`, lessonDRO);
             successMessage('Aula atualizada no banco.')
         } catch (error) {
             errorMessage('Verifique os campos ou a conexão.')
@@ -57,8 +57,7 @@ export class LessonController {
 
     public async delete(uuid: string): Promise<void> {
         try {
-            console.log(uuid);
-            const response = await httpClient.delete(`/lesson/${uuid}`);
+            await httpClient.delete(`/lesson/${uuid}`);
             successMessage('Turma deletada.')
         } catch (error) {
             errorMessage('Não foi possível deletar.')
