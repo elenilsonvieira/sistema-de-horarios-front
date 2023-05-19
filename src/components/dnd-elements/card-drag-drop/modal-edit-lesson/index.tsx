@@ -105,7 +105,7 @@ export const LessonModal: React.FC<IntfcModal> = ({lessonModal}: IntfcModal) => 
                         }}}>
                         {
                             classroomList?.map((item) =>(
-                                <option key={item.uuid}>{item.name} - {item.classBlockDTO.block}</option>
+                                <option key={item.uuid}>{item.name}</option>
                             ))
                         }
                     </SelectArea>
