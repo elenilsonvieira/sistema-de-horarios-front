@@ -18,7 +18,7 @@ export class LessonController {
     }
     public async create(lesson: LessonModel): Promise<void> {
         try {
-            const response = await httpClient.post("/lesson", lesson);
+            await httpClient.post("/lesson", lesson);
             successMessage('Aula adicionada ao banco.')
         } catch (error) {
             errorMessage('Verifique os campos ou a conexão.')
@@ -57,6 +57,7 @@ export class LessonController {
 
     public async delete(uuid: string): Promise<void> {
         try {
+            console.log(uuid);
             const response = await httpClient.delete(`/lesson/${uuid}`);
             successMessage('Turma deletada.')
         } catch (error) {
