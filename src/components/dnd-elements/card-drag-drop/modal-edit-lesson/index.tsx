@@ -40,11 +40,11 @@ export const LessonModal: React.FC<IntfcModal> = ({lessonModal}: IntfcModal) => 
         + " - " + lessonModel.classroom.classBlockDTO.block);
     const [curricularComponentValue, setCurricularComponentValue] = useState(lessonModel.curricularComponent.name);
     const [courseValue, setCourseValue] = useState(lessonModel.course.name);
-    const [professorValue, setProfessorValue] = useState(lessonModel.professor);
+    const [professorValue, setProfessorValue] = useState(lessonModel.professor.name);
 
     const onSubmit = async () => {
         console.log(lessonModel)
-        await lessonUpdateControllerView(lessonModel).then(() => { })
+        await lessonUpdateControllerView(lessonModel).then(() => {  })
     }
 
     const deleteSubmit = async () => {
@@ -139,8 +139,9 @@ export const LessonModal: React.FC<IntfcModal> = ({lessonModal}: IntfcModal) => 
                     <SelectArea id="professor-s" value={professorValue} change={(event)=>{
                         const select  = event.target;
                         if (professorList) {
-                            lessonModel.professor = professorList[select.selectedIndex].uuid;
-                            setProfessorValue(lessonModel.professor ? lessonModel.professor.name : "");
+                            console.log(professorList[select.selectedIndex]);
+                            lessonModel.professor = professorList[select.selectedIndex];
+                            setProfessorValue(lessonModel.professor.name);
                         }}}>
                         {
                             professorList?.map((item) =>(
