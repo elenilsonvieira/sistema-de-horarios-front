@@ -24,6 +24,11 @@ flex-direction: row;
 justify-content: center;
 flex-direction: row;
 padding: 1em;
+
+div {
+    margin: 1em;
+}
+
 select {
     padding: 0.5em;
     justify-self: center;

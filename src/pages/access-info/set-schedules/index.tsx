@@ -9,15 +9,18 @@ import { IntervalModel } from "../../../api/model/IntervalModel";
 import { intervalReadControllerView } from "./intervalReadControllerView";
 import { BoardContainer } from "../../../components/dnd-elements/board-container";
 import { BoardList } from '../../../components/dnd-elements/board-list';
-import { TurmaModel } from '../../../../../api/model/TurmaModel';
+import {TurmaModel} from '../../../api/model/TurmaModel';
 import useRefreshContext from "../../../hooks/useRefreshContext";
 import { turmaReadControllerView } from "../edit-info/models/turma/turmaReadControllerView";
+import { CourseModel } from "../../../api/model/CourseModel";
+import { courseReadControllerView } from "../edit-info/models/course/courseReadControllerView";
 
 export const SetSchedules = () => {
 
     const [lessonList, setLessonList] = useState<LessonModel[]>();
     const [intervalList, setListInterval] = useState<IntervalModel[]>();
     const [classList, setClassList] = useState<TurmaModel[]>();
+    const [courseList, setCourseList] = useState<CourseModel[]>();
     const [defaultListLesson, setDefaultListLesson] = useState<LessonModel[]>();
 
     const [teacherOptions, setTeacherOptions] = useState<string[]>(["Todos"])
@@ -29,11 +32,13 @@ export const SetSchedules = () => {
         const lessons = await lessonReadControllerView();
         const intervals = await intervalReadControllerView();
         const classListts = await turmaReadControllerView();
+        const courses = await courseReadControllerView();
 
         setClassList(classListts)
         setDefaultListLesson(lessons);
         setLessonList(lessons)
         setListInterval(intervals);
+        setCourseList(courses);
 
         prepareDefaultOptions(lessons)
     }
@@ -54,10 +59,6 @@ export const SetSchedules = () => {
         return arr
     }
 
-    function getIdClass(name: string) {
-        return classList?.filter((c) => c.name === name)[0].uuid
-    }
-
     useEffect(() => {
         load();
 
@@ -74,14 +75,24 @@ export const SetSchedules = () => {
     return (
         <DndProvider backend={HTML5Backend}>
             <Filters>
-                <div>
                     <h2>Filtros</h2>
+                <div>
                     <label>
                         <p>Professores</p>
                         <select onChange={(e) => handleChangeFilter(e.target.value)}>
                             <option value={"Todos"}>Todos</option>
                             {teacherOptions.map((teacher, k) => (
                                 <option key={k} value={teacher} >{teacher}</option>
+                            ))}
+                        </select>
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <p>Curso</p>
+                        <select onChange={(e) => handleChangeFilter(e.target.value)}>
+                            {courseList?.map((course, k) => (
+                                <option key={k} value={course.name} >{course.name}</option>
                             ))}
                         </select>
                     </label>
@@ -94,13 +105,9 @@ export const SetSchedules = () => {
                             <BoardList label={'Aulas Livres'} listLesson={lessonList} />
                         </div>
                         <div>
-                            <BoardContainer key={"ADS1ºPeriodo"} label={'1º Período'} idClass={getIdClass('1 Periodo')} listLesson={lessonList} intervalList={intervalList} />
-                            <BoardContainer key={"ADS2ºPeriodo"} label={'2º Período'} idClass={getIdClass('2 Periodo')} listLesson={lessonList} intervalList={intervalList} />
-                            <BoardContainer key={"ADS3ºPeriodo"} label={'3º Período'} idClass={getIdClass('3 Periodo')} listLesson={lessonList} intervalList={intervalList} />
-                            <BoardContainer key={"ADS4ºPeriodo"} label={'4º Período'} idClass={getIdClass('4 Periodo')} listLesson={lessonList} intervalList={intervalList} />
-                            <BoardContainer key={"ADS5ºPeriodo"} label={'5º Período'} idClass={getIdClass('5 Periodo')} listLesson={lessonList} intervalList={intervalList} />
-                            <BoardContainer key={"ADS6ºPeriodo"} label={'6º Período'} idClass={getIdClass('6 Periodo')} listLesson={lessonList} intervalList={intervalList} />
-                            <BoardContainer key={"ADS7ºPeriodo"} label={'7º Período'} idClass={getIdClass('7 Periodo')} listLesson={lessonList} intervalList={intervalList} />
+                            {classList.map((classs: TurmaModel, k) => (
+                                <BoardContainer key={k} label={classs.name} idClass={classs.name} listLesson={lessonList} intervalList={intervalList}/>
+                            ))}
                         </div>
                     </>
                 ) : (
