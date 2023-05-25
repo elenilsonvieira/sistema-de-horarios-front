@@ -60,9 +60,6 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({
   // }, []);
 
   const assigningLesson = useMemo(() => {
-    turma = turma.split("º")[0] + turma.split("º")[1]
-    turma = turma.replace("í", "i")
-
     if (listLesson.length > 0) {
       listLesson.forEach((lesson) =>
         interval &&

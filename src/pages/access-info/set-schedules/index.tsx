@@ -31,7 +31,8 @@ export const SetSchedules = () => {
     const load = async () => {
         const lessons = await lessonReadControllerView();
         const intervals = await intervalReadControllerView();
-        const classListts = await turmaReadControllerView();
+        let classListts = await turmaReadControllerView();
+        classListts = classListts.filter((c) => c.uuid !== 'default')
         const courses = await courseReadControllerView();
 
         setClassList(classListts)
@@ -106,7 +107,7 @@ export const SetSchedules = () => {
                         </div>
                         <div>
                             {classList.map((classs: TurmaModel, k) => (
-                                <BoardContainer key={k} label={classs.name} idClass={classs.name} listLesson={lessonList} intervalList={intervalList}/>
+                                <BoardContainer key={k} label={classs.name} idClass={classs.uuid as string} listLesson={lessonList} intervalList={intervalList}/>
                             ))}
                         </div>
                     </>
