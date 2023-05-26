@@ -101,8 +101,9 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({
       {listLesson.includes(lesson) ? (
         <CardDND lesson={lesson} key={lesson.uuid} dropRef={dropRef} />
       ):
-        lesson && lesson.course.name === turma.name && <BusyCard>Card Ocupado</BusyCard>
+        lesson && lesson.turma.uuid === idClass && <BusyCard>Card Ocupado</BusyCard>
       }
+      {console.log(lesson)}
     </Main>
   );
 };
