@@ -29,3 +29,15 @@ export const Main = styled.div`
         margin-top: 30px;
     }
 `;
+
+export const BusyCard = styled.div`
+    display: flex;
+    width: 100%;
+    height: 100%;
+    border-radius: 0.5em;
+    color: #FFF;
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+    background-color: #cc3535;
+`;

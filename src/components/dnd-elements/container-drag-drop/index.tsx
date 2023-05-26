@@ -1,6 +1,6 @@
 import { useState, useMemo, useCallback } from "react";
 
-import { Main } from "./styles";
+import { Main, BusyCard} from "./styles";
 
 import { useDrop } from "react-dnd";
 import { LessonModel } from "../../../api/model/LessonModel";
@@ -58,7 +58,7 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({
   //     );
   //   }
   // }, []);
-
+  
   const assigningLesson = useMemo(() => {
     if (listLesson.length > 0) {
       listLesson.forEach((lesson) =>
@@ -98,9 +98,11 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({
 
   return (
     <Main onChange={change} ref={dropRef}>
-      {lesson && (
+      {listLesson.includes(lesson) ? (
         <CardDND lesson={lesson} key={lesson.uuid} dropRef={dropRef} />
-      )}
+      ):
+        lesson && lesson.course.name === turma.name && <BusyCard>Card Ocupado</BusyCard>
+      }
     </Main>
   );
 };
