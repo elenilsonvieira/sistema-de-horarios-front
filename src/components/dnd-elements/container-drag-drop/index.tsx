@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 
 import { Main, BusyCard} from "./styles";
 
@@ -96,14 +96,19 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({
     },
   });
 
+  useEffect(() => {
+    setLesson(listLesson.filter(ls => ls.interval.uuid === id && ls.turma.uuid === idClass)[0])
+  }, [listLesson])
+  
   return (
     <Main onChange={change} ref={dropRef}>
+      {/* {console.log(listLesson)} */}
+      {/* {console.log(lesson)} */}
       {listLesson.includes(lesson) ? (
         <CardDND lesson={lesson} key={lesson.uuid} dropRef={dropRef} />
       ):
         lesson && lesson.turma.uuid === idClass && <BusyCard>Card Ocupado</BusyCard>
       }
-      {console.log(lesson)}
     </Main>
   );
 };

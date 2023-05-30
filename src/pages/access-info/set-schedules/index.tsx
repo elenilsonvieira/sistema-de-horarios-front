@@ -66,26 +66,20 @@ export const SetSchedules = () => {
 
     useEffect(() => {
         load();
-        
+
     }, [bool])
 
     function handleChangeFilter(value: String, type: String) {
         if (type === "course") {
             const uuid: String | undefined = courseList?.filter(course => course.name === value)[0]?.uuid
-            console.log(defaultListClass);
-            
             setClassList(defaultListClass?.filter(classs => classs.course_uuid === uuid))
             setLessonList(defaultListLesson?.filter(lesson => lesson.course.name === value))
-            
         }
-
-        
-
         if (type === "teacher") {
             if (value === "Todos") {
                 setLessonList(defaultListLesson)
                 return
-            }else{
+            } else {
                 setLessonList(defaultListLesson?.filter((lesson) => lesson.professor.name === value))
 
             }
