@@ -21,7 +21,6 @@ interface IntfcBoard {
 export const BoardContainer: React.FC<IntfcBoard> = ({ label, listLesson, intervalList, change, idClass}: IntfcBoard) => {
 
     function getUuidInterval(week: string, gap: string, shift: string) {
-        console.log(intervalList.filter((i) => i.gapDTO.gap === gap && i.shiftDTO.shift === shift && i.weekDayDTO.dayOfWeek === week)[0].uuid);
         return intervalList.filter((i) => i.gapDTO.gap === gap && i.shiftDTO.shift === shift && i.weekDayDTO.dayOfWeek === week)[0].uuid
     }
 
