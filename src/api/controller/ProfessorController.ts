@@ -1,5 +1,5 @@
-import {httpClient} from "../axios";
-import {ProfessorModel} from "../model/ProfessorModel";
+import {httpClient} from '../axios';
+import {ProfessorModel} from '../model/ProfessorModel';
 import {successMessage, errorMessage} from '../../components/libs/Toastr'
 
 export class ProfessorController {
@@ -18,14 +18,14 @@ export class ProfessorController {
 
     public async create(professorModel: ProfessorModel):Promise<void>{
         try {
-            const response = await httpClient.post("/professor", professorModel);
+            const response = await httpClient.post('/professor', professorModel);
             successMessage('Professor(a) adicionado(a) ao banco.')
         } catch (error) {
             errorMessage('Verifique os campos ou a conexão.')
         }
     }
     public async list(): Promise<ProfessorModel[]> {
-        const response = await httpClient.get("/professor");
+        const response = await httpClient.get('/professor');
         return response.data as ProfessorModel[];
     }
 

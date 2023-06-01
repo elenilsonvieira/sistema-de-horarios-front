@@ -1,5 +1,5 @@
-import {httpClient} from "../axios";
-import {TurmaModel} from "../model/TurmaModel";
+import {httpClient} from '../axios';
+import {TurmaModel} from '../model/TurmaModel';
 import {successMessage, errorMessage} from '../../components/libs/Toastr'
 
 export class TurmaController {
@@ -16,14 +16,14 @@ export class TurmaController {
     }
     public async create(turma: TurmaModel):Promise<void>{
         try {
-            const response = await httpClient.post("/turma", turma);
+            const response = await httpClient.post('/turma', turma);
             successMessage('Turma adicionada ao banco.')
         } catch (error) {
             errorMessage('Verifique os campos ou a conexão.')
         }
     }
     public async list(): Promise<TurmaModel[]> {
-        const response = await httpClient.get("/turma");
+        const response = await httpClient.get('/turma');
         console.log(response.data);
         
         return response.data as TurmaModel[];

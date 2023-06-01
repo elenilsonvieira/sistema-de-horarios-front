@@ -1,3 +1,3 @@
 export interface ModelProps {
-    editMode: boolean;
+  editMode: boolean;
 }

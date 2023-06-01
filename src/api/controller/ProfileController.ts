@@ -1,6 +1,6 @@
-import {httpClient} from "../axios";
-import {errorMessage, successMessage} from "../../components/libs/Toastr";
-import { ProfileModel } from "../model/ProfileModel";
+import {httpClient} from '../axios';
+import {errorMessage, successMessage} from '../../components/libs/Toastr';
+import { ProfileModel } from '../model/ProfileModel';
 
 export class ProfileController{
     private static instance: ProfileController;
@@ -16,14 +16,14 @@ export class ProfileController{
     }
     public async create(profile: ProfileModel):Promise<void>{
         try {
-            const response = await httpClient.post("/profile", profile);
+            const response = await httpClient.post('/profile', profile);
             successMessage('Profile adicionado ao banco.')
         } catch (error) {
             errorMessage('Verifique os campos ou a conexão.')
         }
     }
     public async list(): Promise<ProfileModel[]> {
-        const response = await httpClient.get("/profile");
+        const response = await httpClient.get('/profile');
         return response.data as ProfileModel[];
     }
     public async delete(uuid: string): Promise<void> {

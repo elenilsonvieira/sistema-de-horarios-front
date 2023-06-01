@@ -1,10 +1,10 @@
-import Modal from "react-modal";
-import { useRef, useState } from "react";
-import { ConnectDropTarget, useDrag } from "react-dnd";
+import Modal from 'react-modal';
+import { useRef, useState } from 'react';
+import { ConnectDropTarget, useDrag } from 'react-dnd';
 
-import { Main } from "./styles";
-import { LessonModel } from "../../../api/model/LessonModel";
-import { LessonModal } from "./modal-edit-lesson";
+import { Main } from './styles';
+import { LessonModel } from '../../../api/model/LessonModel';
+import { LessonModal } from './modal-edit-lesson';
 
 interface IntfcCard {
   uuid?: string;
@@ -32,17 +32,17 @@ export const CardDND: React.FC<IntfcCard> = ({
 
   const customStyles = {
     content: {
-      top: "50%",
-      left: "50%",
-      right: "auto",
-      bottom: "auto",
-      marginRight: "-50%",
-      transform: "translate(-50%, -50%)",
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
     },
   };
 
   const [{ isDragging }, dragRef] = useDrag({
-    type: "CARD",
+    type: 'CARD',
     item: { lesson, uuid },
     collect: (monitor: any) => ({
       isDragging: monitor.isDragging(),
@@ -59,7 +59,7 @@ export const CardDND: React.FC<IntfcCard> = ({
     >
       <header>
         <h2>
-          {lesson.curricularComponent ? lesson.curricularComponent.name : ""}
+          {lesson.curricularComponent ? lesson.curricularComponent.name : ''}
         </h2>
       </header>
       {lesson.professor && <p>{lesson.professor.name}</p>}
@@ -67,7 +67,7 @@ export const CardDND: React.FC<IntfcCard> = ({
         {lesson.classroom && (
           <p>
             {lesson.classroom.classBlockDTO.block +
-              " - " +
+              ' - ' +
               lesson.classroom.name}
           </p>
         )}

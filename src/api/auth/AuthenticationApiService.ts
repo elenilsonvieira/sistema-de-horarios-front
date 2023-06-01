@@ -10,8 +10,8 @@ export default class AuthenticationApiService extends ApiService {
 
     async login(enrollment: string, password: string) {
         const loginDTO = {
-            "enrollment": enrollment,
-            "pass": password
+            'enrollment': enrollment,
+            'pass': password
         };
 
         try {
@@ -20,8 +20,8 @@ export default class AuthenticationApiService extends ApiService {
             const user = response.data;
             const token = response.data.token;
 
-            this.storageService.setItem("LOGGED_USER", user);
-            this.storageService.setItem("TOKEN", token);
+            this.storageService.setItem('LOGGED_USER', user);
+            this.storageService.setItem('TOKEN', token);
 
             this.registerToken(token);
             return user;
@@ -69,7 +69,7 @@ export default class AuthenticationApiService extends ApiService {
                 this.registerToken(JSON.stringify(response.data));
                 return true;
             } catch (error) {
-                return false;
+                return false
             }
         }
 

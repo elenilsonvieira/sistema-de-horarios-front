@@ -1,7 +1,7 @@
-import {TurmaModel} from "../model/TurmaModel";
-import {httpClient} from "../axios";
-import {errorMessage, successMessage} from "../../components/libs/Toastr";
-import {WeekDayModel} from "../model/WeekDayModel";
+import {TurmaModel} from '../model/TurmaModel';
+import {httpClient} from '../axios';
+import {errorMessage, successMessage} from '../../components/libs/Toastr';
+import {WeekDayModel} from '../model/WeekDayModel';
 
 export class WeekDayController {
     private static instance: WeekDayController;
@@ -17,14 +17,14 @@ export class WeekDayController {
     }
     public async create(weekDayModel: WeekDayModel):Promise<void>{
         try {
-            await httpClient.post("/weekDay", weekDayModel);
+            await httpClient.post('/weekDay', weekDayModel);
             successMessage('weekDay adicionada ao banco.')
         } catch (error) {
             errorMessage('Verifique os campos ou a conexão.')
         }
     }
     public async list(): Promise<WeekDayModel[]> {
-        const response = await httpClient.get("/weekDay");
+        const response = await httpClient.get('/weekDay');
         return response.data as WeekDayModel[];
     }
     public async delete(uuid: string): Promise<void> {

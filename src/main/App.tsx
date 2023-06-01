@@ -1,8 +1,8 @@
-import {BrowserRouter} from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import Router from '../main/Routes';
 import SessionProvider from '../hooks/sessionProvider';
 
-import {Header, Footer} from '../components/patterns'
+import { Header, Footer } from '../components/patterns';
 
 export default function App() {
   return (
@@ -15,4 +15,3 @@ export default function App() {
     </SessionProvider>
   );
 }
-

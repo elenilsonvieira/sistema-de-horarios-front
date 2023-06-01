@@ -1,5 +1,5 @@
-import {httpClient} from "../axios";
-import {RestrictionModel} from "../model/RestrictionModel";
+import {httpClient} from '../axios';
+import {RestrictionModel} from '../model/RestrictionModel';
 import {successMessage, errorMessage} from '../../components/libs/Toastr';
 
 export class RestrictionController{
@@ -17,7 +17,7 @@ export class RestrictionController{
 
     public async create(restriction: any):Promise<void>{
         try {
-            await httpClient.post("/restriction", restriction);
+            await httpClient.post('/restriction', restriction);
             successMessage('Restrição adicionada ao banco.')
         } catch (error) {
             errorMessage('Verifique os campos ou a conexão.')
@@ -25,7 +25,7 @@ export class RestrictionController{
     }
 
     public async list(): Promise<RestrictionModel[]> {
-        const response = await httpClient.get("/restriction");
+        const response = await httpClient.get('/restriction');
         return response.data as RestrictionModel[];
     }
     

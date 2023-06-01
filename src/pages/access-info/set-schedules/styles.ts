@@ -1,48 +1,49 @@
 import styled from 'styled-components';
 
 export const Main = styled('div')`
-    min-height: calc(100vh - 200px);
-    background-color: #d9d9d9;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+  min-height: calc(100vh - 200px);
+  background-color: #d9d9d9;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  
+  & > .list-items {
     width: 100%;
-    & > .list-items {
-        width: 100%;
-        max-width: 1200px;
-    }
+    max-width: 1200px;
+  }
 
-    .p{
-        text-align: center;
-    }
+  .p {
+    text-align: center;
+  }
 `;
 
 export const Filters = styled('div')`
-background-color: #d9d9d9;
-display: flex;
-flex-direction: row;
-justify-content: center;
-flex-direction: row;
-padding: 1em;
+  background-color: #d9d9d9;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-direction: row;
+  padding: 1em;
 
-div {
+  div {
     margin: 1em;
-}
+  }
 
-select {
+  select {
     padding: 0.5em;
     justify-self: center;
-}
+  }
 
-p{
+  p {
     font-weight: bold;
     margin-bottom: 0.2em;
-}
+  }
 
-div {
+  div {
     padding: 1em;
     background-color: #4ca84e;
     border-radius: 0.5em;
-    color: #FFF;
-}
+    color: #fff;
+  }
 `;

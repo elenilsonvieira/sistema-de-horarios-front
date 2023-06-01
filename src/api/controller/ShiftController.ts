@@ -1,6 +1,6 @@
-import {httpClient} from "../axios";
-import {errorMessage, successMessage} from "../../components/libs/Toastr";
-import {ShiftModel} from "../model/ShiftModel";
+import {httpClient} from '../axios';
+import {errorMessage, successMessage} from '../../components/libs/Toastr';
+import {ShiftModel} from '../model/ShiftModel';
 
 export class ShiftController {
     private static instance: ShiftController;
@@ -16,14 +16,14 @@ export class ShiftController {
     }
     public async create(shiftModel: ShiftModel):Promise<void>{
         try {
-            await httpClient.post("/shift", shiftModel);
+            await httpClient.post('/shift', shiftModel);
             successMessage('shift adicionada ao banco.')
         } catch (error) {
             errorMessage('Verifique os campos ou a conexão.')
         }
     }
     public async list(): Promise<ShiftModel[]> {
-        const response = await httpClient.get("/shift");
+        const response = await httpClient.get('/shift');
         return response.data as ShiftModel[];
     }
     public async delete(uuid: string): Promise<void> {
