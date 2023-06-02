@@ -1,13 +1,13 @@
-import { useState, useMemo, useCallback, useEffect } from "react";
+import { useState, useMemo, useCallback, useEffect } from 'react';
 
-import { Main, BusyCard } from "./styles";
+import { Main, BusyCard } from './styles';
 
-import { useDrop } from "react-dnd";
-import { LessonModel } from "../../../api/model/LessonModel";
-import { CardDND } from "../card-drag-drop";
-import { IntervalModel } from "../../../api/model/IntervalModel";
-import { LessonController } from "../../../api/controller/LessonController";
-import useRefreshContext from "../../../hooks/useRefreshContext";
+import { useDrop } from 'react-dnd';
+import { LessonModel } from '../../../api/model/LessonModel';
+import { CardDND } from '../card-drag-drop';
+import { IntervalModel } from '../../../api/model/IntervalModel';
+import { LessonController } from '../../../api/controller/LessonController';
+import useRefreshContext from '../../../hooks/useRefreshContext';
 
 interface IntfcContainerDND {
   idClass: string;
@@ -66,7 +66,7 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({
         lesson.interval.uuid === interval.uuid &&
         lesson.turma.name === turma
           ? setLesson(lesson)
-          : null
+          : null,
       );
     }
   }, [interval]);
@@ -81,13 +81,13 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({
         });
       }
     },
-    [lesson, setLesson]
+    [lesson, setLesson],
   );
 
   const [, dropRef] = useDrop({
-    accept: "CARD",
+    accept: 'CARD',
     drop: (item: { lesson: any; uuid: string }, monitor) => {
-      let updateLesson = item.lesson;
+      const updateLesson = item.lesson;
       updateLesson.interval = interval;
       updateLesson.turma = { name: turma, uuid: idClass };
 
@@ -101,8 +101,8 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({
         (ls) =>
           ls.interval != null &&
           ls.interval.uuid === id &&
-          ls.turma.uuid === idClass
-      )[0]
+          ls.turma.uuid === idClass,
+      )[0],
     );
   }, [listLesson]);
 
