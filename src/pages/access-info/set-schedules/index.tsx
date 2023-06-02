@@ -42,7 +42,7 @@ export const SetSchedules = () => {
 
     setClassList(classList);
     setDefaultListLesson(lessons);
-    setLessonList(lessons);
+    setLessonList(lessons.filter((lesson) => lesson.course.name === courses[0].name))
     setListInterval(intervals);
     setCourseList(courses);
 
