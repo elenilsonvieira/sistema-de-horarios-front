@@ -22,7 +22,7 @@ export const Turma: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
   const load = async () => {
     try {
       const result = await turmaReadControllerView();
-      setTurmaList(result);
+      setTurmaList(result.filter((turma) => turma.uuid = 'default'));
     } catch (error) {
       console.log(error);
     }
