@@ -38,14 +38,17 @@ export const SetSchedules = () => {
         setDefaultListClass(classList)
         const uuid: String = courses.filter((course) => course.uuid === classList[0].course_uuid)[0].uuid
         classList = classList.filter((classs) => classs.course_uuid === uuid)
-
+        
+        
         setClassList(classList)
         setDefaultListLesson(lessons);
-        setLessonList(lessons)
+        setLessonList(lessons.filter((lesson) => lesson.course.name === courses[0].name))
         setListInterval(intervals);
         setCourseList(courses);
 
         prepareDefaultOptions(lessons)
+        
+        // handleChangeFilter(courses[0].name, 'course')
     }
 
     function prepareDefaultOptions(arr: []) {
@@ -103,7 +106,7 @@ export const SetSchedules = () => {
                 </div>
                 <div>
                     <label>
-                        <p>Curso</p>
+                        <p>Cursos</p>
                         <select onChange={(e) => handleChangeFilter(e.target.value, "course")}>
                             {courseList?.map((course, k) => (
                                 <option key={k} value={course.name} >{course.name}</option>
