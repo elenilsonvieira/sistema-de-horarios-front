@@ -29,7 +29,7 @@ export const SetSchedules = () => {
   const { bool } = useRefreshContext();
 
   const load = async () => {
-    const lessons = await lessonReadControllerView();
+    let lessons = await lessonReadControllerView();
     const intervals = await intervalReadControllerView();
     let classList = await turmaReadControllerView();
     const courses = await courseReadControllerView();
@@ -42,7 +42,8 @@ export const SetSchedules = () => {
 
     setClassList(classList);
     setDefaultListLesson(lessons);
-    setLessonList(lessons.filter((lesson) => lesson.course.name === courses[0].name))
+      lessons = lessons.filter((lesson) => lesson.course.name === courses[0].name)
+    setLessonList(lessons)
     setListInterval(intervals);
     setCourseList(courses);
 
@@ -67,7 +68,7 @@ export const SetSchedules = () => {
   useEffect(() => {
     load();
   }, [bool]);
-
+  
   function handleChangeFilter(value: string, type: string) {
     if (type === 'course') {
       const uuid: string | undefined = courseList?.filter(
@@ -76,9 +77,10 @@ export const SetSchedules = () => {
       setClassList(
         defaultListClass?.filter((classs) => classs.course_uuid === uuid),
       );
-      setLessonList(
-        defaultListLesson?.filter((lesson) => lesson.course.name === value),
-      );
+      const listLesson = defaultListLesson?.filter((lesson) => lesson.course.name === value)
+      setLessonList(listLesson);
+
+      prepareDefaultOptions(listLesson)
     }
     if (type === 'teacher') {
       if (value === 'Todos') {
