@@ -17,6 +17,8 @@ import { courseReadControllerView } from '../edit-info/models/course/courseReadC
 
 export const SetSchedules = () => {
   const [lessonList, setLessonList] = useState<LessonModel[]>();
+  const [backupLessonList, setBackupLessonList] = useState<LessonModel[]>();
+
   const [intervalList, setListInterval] = useState<IntervalModel[]>();
   const [classList, setClassList] = useState<TurmaModel[]>();
   const [courseList, setCourseList] = useState<CourseModel[]>();
@@ -35,6 +37,7 @@ export const SetSchedules = () => {
     const courses = await courseReadControllerView();
     classList = classList.filter((c) => c.uuid !== 'default');
     setDefaultListClass(classList);
+
     const uuid: string = courses.filter(
       (course) => course.uuid === classList[0].course_uuid,
     )[0].uuid;
@@ -42,8 +45,9 @@ export const SetSchedules = () => {
 
     setClassList(classList);
     setDefaultListLesson(lessons);
-      lessons = lessons.filter((lesson) => lesson.course.name === courses[0].name)
+    lessons = lessons.filter((lesson) => lesson.course.name === courses[0].name)
     setLessonList(lessons)
+    setBackupLessonList(lessons);
     setListInterval(intervals);
     setCourseList(courses);
 
@@ -68,7 +72,7 @@ export const SetSchedules = () => {
   useEffect(() => {
     load();
   }, [bool]);
-  
+
   function handleChangeFilter(value: string, type: string) {
     if (type === 'course') {
       const uuid: string | undefined = courseList?.filter(
@@ -100,34 +104,36 @@ export const SetSchedules = () => {
     <DndProvider backend={HTML5Backend}>
       <Filters>
         <h2>Filtros</h2>
-        <div>
-          <label>
-            <p>Professores</p>
-            <select
-              onChange={(e) => handleChangeFilter(e.target.value, 'teacher')}
-            >
-              <option value={'Todos'}>Todos</option>
-              {teacherOptions.map((teacher, k) => (
-                <option key={k} value={teacher}>
-                  {teacher}
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
-        <div>
-          <label>
-            <p>Curso</p>
-            <select
-              onChange={(e) => handleChangeFilter(e.target.value, 'course')}
-            >
-              {courseList?.map((course, k) => (
-                <option key={k} value={course.name}>
-                  {course.name}
-                </option>
-              ))}
-            </select>
-          </label>
+        <div className='filters-group'>
+          <div>
+            <label>
+              <p>Professores</p>
+              <select
+                onChange={(e) => handleChangeFilter(e.target.value, 'teacher')}
+              >
+                <option value={'Todos'}>Todos</option>
+                {teacherOptions.map((teacher, k) => (
+                  <option key={k} value={teacher}>
+                    {teacher}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+          <div>
+            <label>
+              <p>Curso</p>
+              <select
+                onChange={(e) => handleChangeFilter(e.target.value, 'course')}
+              >
+                {courseList?.map((course, k) => (
+                  <option key={k} value={course.name}>
+                    {course.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
         </div>
       </Filters>
       <Main>
@@ -143,6 +149,7 @@ export const SetSchedules = () => {
                   label={classs.name}
                   idClass={classs.uuid as string}
                   listLesson={lessonList}
+                  defaultListLesson={backupLessonList}
                   intervalList={intervalList}
                 />
               ))}

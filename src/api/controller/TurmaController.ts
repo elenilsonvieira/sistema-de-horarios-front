@@ -24,8 +24,6 @@ export class TurmaController {
     }
     public async list(): Promise<TurmaModel[]> {
         const response = await httpClient.get("/turma");
-        console.log(response.data);
-        
         return response.data as TurmaModel[];
     }
     public async delete(uuid: string): Promise<void> {

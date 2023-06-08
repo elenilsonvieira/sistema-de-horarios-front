@@ -22,7 +22,7 @@ export const ListDND: React.FC<IntfcContainerDND> = ({
   return (
     <Main onChange={change}>
       {listLesson.map((card) =>
-        card.interval === null ? (
+        card.turma.uuid === 'default' || !card.interval ? (
           <CardDND
             lesson={card}
             key={card.uuid}

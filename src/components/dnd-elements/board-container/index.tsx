@@ -13,6 +13,7 @@ interface IntfcBoard {
   label: string;
   listLesson: LessonModel[];
   intervalList: IntervalModel[];
+  defaultListLesson: LessonModel[];
   change?: (event: any) => void;
 }
 
@@ -20,6 +21,7 @@ export const BoardContainer: React.FC<IntfcBoard> = ({
   label,
   listLesson,
   intervalList,
+  defaultListLesson,
   change,
   idClass,
 }: IntfcBoard) => {
@@ -64,6 +66,7 @@ export const BoardContainer: React.FC<IntfcBoard> = ({
                       ShiftEnum[2],
                     ) as string
                   }
+                  defaultListLesson={defaultListLesson}
                   listLesson={listLesson}
                   listInterval={intervalList}
                   turma={label}
@@ -83,6 +86,7 @@ export const BoardContainer: React.FC<IntfcBoard> = ({
                       ShiftEnum[2],
                     ) as string
                   }
+                  defaultListLesson={defaultListLesson}
                   listLesson={listLesson}
                   listInterval={intervalList}
                   turma={label}
@@ -102,6 +106,7 @@ export const BoardContainer: React.FC<IntfcBoard> = ({
                       ShiftEnum[2],
                     ) as string
                   }
+                  defaultListLesson={defaultListLesson}
                   listLesson={listLesson}
                   listInterval={intervalList}
                   turma={label}
@@ -121,6 +126,7 @@ export const BoardContainer: React.FC<IntfcBoard> = ({
                       ShiftEnum[2],
                     ) as string
                   }
+                  defaultListLesson={defaultListLesson}
                   listLesson={listLesson}
                   listInterval={intervalList}
                   turma={label}
@@ -140,6 +146,7 @@ export const BoardContainer: React.FC<IntfcBoard> = ({
                       ShiftEnum[2],
                     ) as string
                   }
+                  defaultListLesson={defaultListLesson}
                   listLesson={listLesson}
                   listInterval={intervalList}
                   turma={label}
@@ -162,6 +169,7 @@ export const BoardContainer: React.FC<IntfcBoard> = ({
                       ShiftEnum[2],
                     ) as string
                   }
+                  defaultListLesson={defaultListLesson}
                   listLesson={listLesson}
                   listInterval={intervalList}
                   turma={label}
@@ -181,6 +189,7 @@ export const BoardContainer: React.FC<IntfcBoard> = ({
                       ShiftEnum[2],
                     ) as string
                   }
+                  defaultListLesson={defaultListLesson}
                   listLesson={listLesson}
                   listInterval={intervalList}
                   turma={label}
@@ -200,6 +209,7 @@ export const BoardContainer: React.FC<IntfcBoard> = ({
                       ShiftEnum[2],
                     ) as string
                   }
+                  defaultListLesson={defaultListLesson}
                   listLesson={listLesson}
                   listInterval={intervalList}
                   turma={label}
@@ -219,6 +229,7 @@ export const BoardContainer: React.FC<IntfcBoard> = ({
                       ShiftEnum[2],
                     ) as string
                   }
+                  defaultListLesson={defaultListLesson}
                   listLesson={listLesson}
                   listInterval={intervalList}
                   turma={label}
@@ -238,6 +249,7 @@ export const BoardContainer: React.FC<IntfcBoard> = ({
                       ShiftEnum[2],
                     ) as string
                   }
+                  defaultListLesson={defaultListLesson}
                   listLesson={listLesson}
                   listInterval={intervalList}
                   turma={label}
@@ -260,6 +272,7 @@ export const BoardContainer: React.FC<IntfcBoard> = ({
                       ShiftEnum[2],
                     ) as string
                   }
+                  defaultListLesson={defaultListLesson}
                   listLesson={listLesson}
                   listInterval={intervalList}
                   turma={label}
@@ -279,6 +292,7 @@ export const BoardContainer: React.FC<IntfcBoard> = ({
                       ShiftEnum[2],
                     ) as string
                   }
+                  defaultListLesson={defaultListLesson}
                   listLesson={listLesson}
                   listInterval={intervalList}
                   turma={label}
@@ -298,6 +312,7 @@ export const BoardContainer: React.FC<IntfcBoard> = ({
                       ShiftEnum[2],
                     ) as string
                   }
+                  defaultListLesson={defaultListLesson}
                   listLesson={listLesson}
                   listInterval={intervalList}
                   turma={label}
@@ -317,6 +332,7 @@ export const BoardContainer: React.FC<IntfcBoard> = ({
                       ShiftEnum[2],
                     ) as string
                   }
+                  defaultListLesson={defaultListLesson}
                   listLesson={listLesson}
                   listInterval={intervalList}
                   turma={label}
@@ -336,6 +352,7 @@ export const BoardContainer: React.FC<IntfcBoard> = ({
                       ShiftEnum[2],
                     ) as string
                   }
+                  defaultListLesson={defaultListLesson}
                   listLesson={listLesson}
                   listInterval={intervalList}
                   turma={label}
@@ -358,6 +375,7 @@ export const BoardContainer: React.FC<IntfcBoard> = ({
                       ShiftEnum[2],
                     ) as string
                   }
+                  defaultListLesson={defaultListLesson}
                   listLesson={listLesson}
                   listInterval={intervalList}
                   turma={label}
@@ -377,6 +395,7 @@ export const BoardContainer: React.FC<IntfcBoard> = ({
                       ShiftEnum[2],
                     ) as string
                   }
+                  defaultListLesson={defaultListLesson}
                   listLesson={listLesson}
                   listInterval={intervalList}
                   turma={label}
@@ -396,6 +415,7 @@ export const BoardContainer: React.FC<IntfcBoard> = ({
                       ShiftEnum[2],
                     ) as string
                   }
+                  defaultListLesson={defaultListLesson}
                   listLesson={listLesson}
                   listInterval={intervalList}
                   turma={label}
@@ -415,6 +435,7 @@ export const BoardContainer: React.FC<IntfcBoard> = ({
                       ShiftEnum[2],
                     ) as string
                   }
+                  defaultListLesson={defaultListLesson}
                   listLesson={listLesson}
                   listInterval={intervalList}
                   turma={label}
@@ -434,6 +455,7 @@ export const BoardContainer: React.FC<IntfcBoard> = ({
                       ShiftEnum[2],
                     ) as string
                   }
+                  defaultListLesson={defaultListLesson}
                   listLesson={listLesson}
                   listInterval={intervalList}
                   turma={label}
