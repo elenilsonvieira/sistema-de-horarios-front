@@ -81,7 +81,7 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({
       
       let lessonInCard = listLesson.filter((l) => l.uuid !== updateLesson.uuid && l.interval && l.interval.uuid === interval.uuid)[0]
       
-      if (lessonInCard) {
+      if (lessonInCard && lessonInCard.turma.uuid === updateLesson.turma.uuid) {
         if (!updateLesson.interval || updateLesson.turma.uuid === 'default') {
           lessonInCard.turma = {uuid: "default", name: "-1 Periodo Padrao", course_uuid: null}
         }else{
