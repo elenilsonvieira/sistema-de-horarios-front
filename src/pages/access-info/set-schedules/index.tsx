@@ -107,7 +107,7 @@ export const SetSchedules = () => {
         <div className='filters-group'>
           <div>
             <label>
-              <p>Professores</p>
+              <p>Professor</p>
               <select
                 onChange={(e) => handleChangeFilter(e.target.value, 'teacher')}
               >
