@@ -95,7 +95,7 @@ export const SetSchedules = () => {
                 <h2>Filtros</h2>
                 <div>
                     <label>
-                        <p>Professores</p>
+                        <p>Professor</p>
                         <select onChange={(e) => handleChangeFilter(e.target.value, "teacher")}>
                             <option value={"Todos"}>Todos</option>
                             {teacherOptions.map((teacher, k) => (
