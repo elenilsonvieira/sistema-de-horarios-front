@@ -1,5 +1,5 @@
 export interface CurricularComponentModel{
-    uuid:string;
+    uuid: string;
     name: string;
     workload: number;
     course: any;

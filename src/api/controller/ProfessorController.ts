@@ -24,6 +24,16 @@ export class ProfessorController {
             errorMessage('Verifique os campos ou a conexão.')
         }
     }
+
+    public async update(professorModel: ProfessorModel):Promise<void>{
+        try {
+            const response = await httpClient.put(`/professor/${professorModel.uuid}`, professorModel);
+            successMessage('Professor(a) atualizado(a) ao banco.')
+        } catch (error) {
+            errorMessage('Verifique os campos ou a conexão.')
+        }
+    }
+
     public async list(): Promise<ProfessorModel[]> {
         const response = await httpClient.get("/professor");
         return response.data as ProfessorModel[];

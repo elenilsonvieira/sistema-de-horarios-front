@@ -17,13 +17,16 @@ import { curricularComponentReadView } from './curricularComponentReadView';
 import { curricularComponentDeleteControllerView } from './curricularComponentDeleteControllerView';
 import { CourseModel } from '../../../../../api/model/CourseModel';
 import { ModelProps } from '../interfaces';
+import { courseControllerView } from '../../../add-info/models/course/courseControllerView';
+import { CourseController } from '../../../../../api/controller/CourseController';
+import { CurricularComponentController } from '../../../../../api/controller/CurricularComponentController';
 
 export const CurricularComponent: React.FC<ModelProps> = ({
   editMode,
 }: ModelProps) => {
-  const [, setName] = useState<string>();
-  const [, setWorkload] = useState<number>();
-  const [, setCourseUuid] = useState<string>();
+  const [name, setName] = useState<string>('');
+  const [workload, setWorkload] = useState<number>(0);
+  const [course, setCourse] = useState<CourseModel>();
   const [courseModelList, setCourseModelList] = useState<CourseModel[]>();
 
   const [curricularComponentList, setCurricularComponentList] =
@@ -32,14 +35,26 @@ export const CurricularComponent: React.FC<ModelProps> = ({
   const load = async () => {
     try {
       const result = await curricularComponentReadView();
+      const resultCourse = await CourseController.getInstance().list()
       setCurricularComponentList(result);
 
-      setCourseUuid(result[0].uuid);
-      setCourseModelList(result);
+      setCourse(result[0]);
+      setCourseModelList(resultCourse);
     } catch (error) {
       console.log(error);
     }
   };
+
+  function setValues(curricularComponent: CurricularComponentModel) {
+    setName(curricularComponent.name);
+    setWorkload(curricularComponent.workload)
+    setCourse(curricularComponent.course)
+  }
+
+  async function update(uuid: string) {
+    await CurricularComponentController.getInstance().update({ name, uuid, workload, course: course })
+    location.reload()
+  }
 
   useEffect(() => {
     load();
@@ -53,6 +68,7 @@ export const CurricularComponent: React.FC<ModelProps> = ({
             <Row
               key={curricularComponent.uuid}
               propertyName={curricularComponent.name}
+              onClick={() => setValues(curricularComponent)}
             >
               <ExpandDetails className="expand">
                 <div className={editMode ? 'edit-mode' : ''}>
@@ -88,17 +104,18 @@ export const CurricularComponent: React.FC<ModelProps> = ({
                   {editMode ? (
                     <SelectArea
                       id={'c' + index}
+                      value={course?.uuid}
                       change={(event) => {
                         const select = event.target;
                         if (courseModelList) {
-                          const courseUuid =
-                            courseModelList[select.selectedIndex].uuid;
-                          setCourseUuid(courseUuid);
+                          const course =
+                            courseModelList[select.selectedIndex];
+                          setCourse(course);
                         }
                       }}
                     >
-                      {courseModelList?.map((item) => (
-                        <option key={item.uuid}>{item.name}</option>
+                      {courseModelList?.map((item: CourseModel) => (
+                          <option key={item.uuid} value={item.uuid}>{item.name}</option>
                       ))}
                     </SelectArea>
                   ) : (
@@ -124,7 +141,7 @@ export const CurricularComponent: React.FC<ModelProps> = ({
                         }}
                       />
 
-                      <ButtonConcluir />
+                      <ButtonConcluir onClickFunction={() => update(curricularComponent.uuid)} />
                     </EditButtons>
                   )}
                 </ActionContainer>

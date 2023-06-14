@@ -15,9 +15,10 @@ import { CalendarModel } from '../../../../../api/model/CalendarModel';
 import { calendarReadControllerView } from './calendarReadControllerView';
 import { calendarDeleteControllerView } from './calendarDeleteControllerView';
 import { ModelProps } from '../interfaces';
+import { CalendarController } from '../../../../../api/controller/CalendarController';
 
 export const Calendar: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
-  const [, setSemester] = useState<string>();
+  const [semester, setSemester] = useState<string>('');
   const [caledarList, setCaledarList] = useState<CalendarModel[]>();
 
   const load = async () => {
@@ -28,6 +29,16 @@ export const Calendar: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
       console.log(error);
     }
   };
+
+  async function update(uuid: string){
+    await CalendarController.getInstance().update({semester, uuid})
+    location.reload()
+  }
+
+  function setValues(calendar: CalendarModel){
+    setSemester(calendar.semester)
+  }
+
   useEffect(() => {
     load();
   }, []);
@@ -37,7 +48,7 @@ export const Calendar: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
       {caledarList != null ? (
         caledarList.map((calendar, index) => {
           return (
-            <Row key={calendar.uuid} propertyName={calendar.semester}>
+            <Row key={calendar.uuid} propertyName={calendar.semester} onClick={() => setValues(calendar)}>
               <ExpandDetails className="expand">
                 <div className={editMode ? 'edit-mode' : ''}>
                   <span className="title">Semestre:</span>
@@ -68,7 +79,7 @@ export const Calendar: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
                         }}
                       />
 
-                      <ButtonConcluir />
+                      <ButtonConcluir onClickFunction={() => update(calendar.uuid)}/>
                     </EditButtons>
                   )}
                 </ActionContainer>

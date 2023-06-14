@@ -22,6 +22,16 @@ export class ProfileController{
             errorMessage('Verifique os campos ou a conexão.')
         }
     }
+
+    public async update(profile: ProfileModel):Promise<void>{
+        try {
+            const response = await httpClient.put(`/profile/${profile.uuid}`, profile);
+            successMessage('Profile adicionado ao banco.')
+        } catch (error) {
+            errorMessage('Verifique os campos ou a conexão.')
+        }
+    }
+
     public async list(): Promise<ProfileModel[]> {
         const response = await httpClient.get("/profile");
         return response.data as ProfileModel[];

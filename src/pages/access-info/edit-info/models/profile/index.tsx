@@ -13,12 +13,13 @@ import {
 } from '../styles/styles';
 import { ProfileModel } from '../../../../../api/model/ProfileModel';
 import { profileReadView } from './profileReadView';
+import { ProfileController } from '../../../../../api/controller/ProfileController';
 import { profileDeleteControllerView } from './profileDeleteControllerView';
 import { ModelProps } from '../interfaces';
 
 export const Profile: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
-  const [, setField] = useState<string>();
-  const [, setStandard] = useState<number>();
+  const [field, setField] = useState<string>('');
+  const [standard, setStandard] = useState<number>(0);
 
   const [profileList, setProfileList] = useState<ProfileModel[]>();
 
@@ -31,16 +32,26 @@ export const Profile: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
     }
   };
 
+  function setValues(profile: ProfileModel){
+    setField(profile.field)
+    setStandard(profile.standard)
+  }
+
   useEffect(() => {
     load();
   }, []);
+
+  async function update(uuid: string|undefined){
+    await ProfileController.getInstance().update({field, standard, uuid})
+    location.reload()
+  }
 
   return (
     <Main>
       {profileList != null ? (
         profileList.map((profile, index) => {
           return (
-            <Row key={profile.uuid} propertyName={profile.field}>
+            <Row key={profile.uuid} propertyName={profile.field} onClick={() => setValues(profile)}>
               <ExpandDetails className="expand">
                 <div className={editMode ? 'edit-mode' : ''}>
                   <span className="title">Campo:</span>
@@ -87,7 +98,7 @@ export const Profile: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
                         }}
                       />
 
-                      <ButtonConcluir />
+                      <ButtonConcluir onClickFunction={() => update(profile.uuid)}/>
                     </EditButtons>
                   )}
                 </ActionContainer>

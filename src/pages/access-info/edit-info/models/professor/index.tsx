@@ -13,6 +13,7 @@ import {
   EditButtons,
 } from '../styles/styles';
 import { ProfessorModel } from '../../../../../api/model/ProfessorModel';
+import { ProfessorController } from '../../../../../api/controller/ProfessorController';
 import { professorReadControllerView } from './professorReadControllerView';
 import { professorDeleteControllerView } from './professorDeleteControllerView';
 import { ProfileModel } from '../../../../../api/model/ProfileModel';
@@ -21,11 +22,12 @@ import { ModelProps } from '../interfaces';
 
 const profileController = ProfileController.getInstance();
 export const Professor: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
-  const [, setName] = useState<string>();
-  const [, setProfileModel] = useState<ProfileModel>();
+  const [name, setName] = useState<string>('');
+  const [profileModel, setProfileModel] = useState<ProfileModel>();
   const [profileModelList, setProfileModelList] = useState<ProfileModel[]>();
 
   const [professorList, setProfessorList] = useState<ProfessorModel[]>();
+
 
   const load = async () => {
     try {
@@ -44,12 +46,22 @@ export const Professor: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
     load();
   }, []);
 
+  function setValues(teacher: ProfessorModel){
+    setName(teacher.name)
+    setProfileModel(teacher.profile)
+  }
+
+  async function update(uuid: string|undefined) {
+    await ProfessorController.getInstance().update({name: name, profile: profileModel, uuid})
+    location.reload()
+  }
+
   return (
     <Main>
       {professorList != null ? (
         professorList.map((prof, index) => {
           return (
-            <Row key={prof.uuid} propertyName={prof.name}>
+            <Row key={prof.uuid} propertyName={prof.name} onClick={() => setValues(prof)}>
               <ExpandDetails className="expand">
                 <div className={editMode ? 'edit-mode' : ''}>
                   <span className="title">Nome:</span>
@@ -70,6 +82,7 @@ export const Professor: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
                   {editMode ? (
                     <SelectArea
                       id={'c' + index}
+                      value={profileModel?.uuid}
                       change={(event) => {
                         const select = event.target;
                         if (profileModelList) {
@@ -80,7 +93,7 @@ export const Professor: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
                       }}
                     >
                       {profileModelList?.map((item) => (
-                        <option key={item.uuid}>
+                        <option key={item.uuid} value={item.uuid}>
                           {item.field} - {item.standard}
                         </option>
                       ))}
@@ -108,7 +121,7 @@ export const Professor: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
                         }}
                       />
 
-                      <ButtonConcluir />
+                      <ButtonConcluir onClickFunction={() => update(prof.uuid)}/>
                     </EditButtons>
                   )}
                 </ActionContainer>

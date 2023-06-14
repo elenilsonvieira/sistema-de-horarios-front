@@ -4,28 +4,36 @@ import {
   Row,
   ButtonDelete,
   ButtonConcluir,
+  SelectArea,
 } from '../../../../../components';
 import {
   Main,
   ExpandDetails,
   ActionContainer,
-  EditButtons,
+  EditButtons
 } from '../styles/styles';
 import { ClassroomModel } from '../../../../../api/model/ClassroomModel';
 import { classroomReadControllerView } from './classroomReadControllerView';
+import { ClassroomController } from '../../../../../api/controller/ClassroomController';
 import { classroomDeleteControllerView } from './classroomDeleteControllerView';
 import { ModelProps } from '../interfaces';
+import { classroomControllerView } from '../../../add-info/models/classroom/classroomControllerView';
+import { ClassBlockModel } from '../../../../../api/model/ClassBlockModel';
+import ClassBlockController from '../../../../../api/controller/ClassBlockController';
 
 export const Classroom: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
-  const [, setName] = useState<string>();
-  const [, setBlock] = useState<string>();
-  const [, setCapacity] = useState<number>();
+  const [name, setName] = useState<string>('');
+  const [capacity, setCapacity] = useState<string>('');
   const [classroomList, setClassroomList] = useState<ClassroomModel[]>();
+  const [classBlockList, setClassBlockList] = useState<ClassBlockModel[]>([]);
+  const [classBlock, setClassBlock] = useState<ClassBlockModel>();
 
   const load = async () => {
     try {
       const result = await classroomReadControllerView();
+      const resultBlock = await ClassBlockController.getInstance().list()
       setClassroomList(result);
+      setClassBlockList(resultBlock);
     } catch (error) {
       console.log(error);
     }
@@ -35,6 +43,18 @@ export const Classroom: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
     load();
   }, []);
 
+  async function update(uuid: string) {
+    await ClassroomController.getInstance().update({ uuid, capacity, name, classBlockModel: classBlock })
+    location.reload()
+  }
+
+  function setValues(classroom: ClassroomModel) {
+    setName(classroom.name);
+    setCapacity(classroom.capacity)
+    setClassBlock(classroom.classBlockDTO)
+  }
+
+
   return (
     <Main>
       {classroomList != null ? (
@@ -43,6 +63,7 @@ export const Classroom: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
             <Row
               key={classroom.uuid}
               propertyName={`${classroom.name} - ${classroom.classBlockDTO.block}`}
+              onClick={() => setValues(classroom)}
             >
               <ExpandDetails className="expand">
                 <div className={editMode ? 'edit-mode' : ''}>
@@ -60,15 +81,25 @@ export const Classroom: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
                   )}
                 </div>
                 <div className={editMode ? 'edit-mode' : ''}>
-                  <span className="title">Bloco:</span>
                   {editMode ? (
-                    <InputArea
-                      placeholder={classroom.classBlockDTO.block}
-                      id={'b' + index}
+                    <SelectArea
+                      id={'c' + index}
+                      value={classBlock?.uuid}
                       change={(event) => {
-                        setBlock(event.target.value);
+                        const select = event.target;
+                        if (classBlockList) {
+                          const blockSelected: ClassBlockModel =
+                            classBlockList[select.selectedIndex];
+                          setClassBlock(blockSelected);
+                        }
                       }}
-                    ></InputArea>
+                    >
+                      {classBlockList?.map((item) => (
+                        <option key={item.uuid} value={item.uuid}>
+                          {item.block}
+                        </option>
+                      ))}
+                    </SelectArea>
                   ) : (
                     <span className="info">
                       {classroom.classBlockDTO.block}
@@ -105,7 +136,7 @@ export const Classroom: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
                         }}
                       />
 
-                      <ButtonConcluir />
+                      <ButtonConcluir onClickFunction={() => update(classroom.uuid)} />
                     </EditButtons>
                   )}
                 </ActionContainer>

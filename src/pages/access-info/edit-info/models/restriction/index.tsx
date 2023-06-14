@@ -21,27 +21,27 @@ import { WeekDayModel } from '../../../../../api/model/WeekDayModel';
 import { WeekDayController } from '../../../../../api/controller/WeekDayController';
 import { ShiftModel } from '../../../../../api/model/ShiftModel';
 import { ShiftController } from '../../../../../api/controller/ShiftController';
+import { professorReadControllerView } from '../professor/professorReadControllerView';
+import { RestrictionController } from '../../../../../api/controller/RestrictionController';
 
 const professorController = ProfessorController.getInstance();
 const weekDayController = WeekDayController.getInstance();
 const shiftController = ShiftController.getInstance();
 export const Restriction: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
-  const [, setProfessorModel] = useState<ProfessorModel>();
-  const [professorModelList, setProfessorModelList] =
-    useState<ProfessorModel[]>();
-  const [, setWeekDayModel] = useState<WeekDayModel>();
-  const [weekDayModelList, setWeekDayModelList] = useState<WeekDayModel[]>();
-  const [, setShiftModel] = useState<ShiftModel>();
-  const [shiftModelList, setShiftModelList] = useState<ShiftModel[]>();
+  const [professorModel, setProfessorModel] = useState<ProfessorModel>();
+  const [weekDayModel, setWeekDayModel] = useState<WeekDayModel>();
+  const [shiftModel, setShiftModel] = useState<ShiftModel>();
 
+  const [weekDayModelList, setWeekDayModelList] = useState<WeekDayModel[]>();
+  const [shiftModelList, setShiftModelList] = useState<ShiftModel[]>();
+  const [professorModelList, setProfessorModelList] = useState<ProfessorModel[]>();
   const [restrictionList, setRestrictionList] = useState<RestrictionModel[]>();
 
   const load = async () => {
     try {
       const result = await restrictionReadControllerView();
       setRestrictionList(result);
-
-      const professor = await professorController.list();
+      const professor = await professorReadControllerView();
       setProfessorModel(professor[0]);
       setProfessorModelList(professor);
       const weekDay = await weekDayController.list();
@@ -55,6 +55,17 @@ export const Restriction: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
     }
   };
 
+  function setValues(restriction: RestrictionModel) {
+    setProfessorModel(restriction.professorDTO)
+    setWeekDayModel(restriction.weekDayDTO)
+    setShiftModel(restriction.shiftDTO)
+  }
+
+  async function update(uuid: string|undefined) {
+    await RestrictionController.getInstance().update({professor: professorModel, shiftDTO: shiftModel, weekDayDTO: weekDayModel, uuid})
+    location.reload()
+  }
+
   useEffect(() => {
     load();
   }, []);
@@ -62,11 +73,12 @@ export const Restriction: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
   return (
     <Main>
       {restrictionList != null ? (
-        restrictionList.map((restriction, index) => {
+        restrictionList.map((restriction: RestrictionModel, index) => {
           return (
             <Row
+              onClick={() => setValues(restriction)}
               key={restriction.uuid}
-              propertyName={restriction.professor.name}
+              propertyName={restriction.professorDTO.name}
             >
               <ExpandDetails className="expand">
                 <div className={editMode ? 'edit-mode' : ''}>
@@ -74,6 +86,7 @@ export const Restriction: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
                   {editMode ? (
                     <SelectArea
                       id={'c' + index}
+                      value={professorModel?.uuid}
                       change={(event) => {
                         const select = event.target;
                         if (professorModelList) {
@@ -84,11 +97,11 @@ export const Restriction: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
                       }}
                     >
                       {professorModelList?.map((item) => (
-                        <option key={item.uuid}>{item.name}</option>
+                        <option  value={item.uuid} key={item.uuid}>{item.name}</option>
                       ))}
                     </SelectArea>
                   ) : (
-                    <span className="info">{restriction.professor.name}</span>
+                    <span className="info">{restriction.professorDTO.name}</span>
                   )}
                 </div>
                 <div className={editMode ? 'edit-mode' : ''}>
@@ -96,6 +109,7 @@ export const Restriction: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
                   {editMode ? (
                     <SelectArea
                       id={'c' + index}
+                      value={weekDayModel?.uuid}
                       change={(event) => {
                         const select = event.target;
                         if (weekDayModelList) {
@@ -106,7 +120,7 @@ export const Restriction: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
                       }}
                     >
                       {weekDayModelList?.map((item) => (
-                        <option key={item.uuid}>{item.displayName}</option>
+                        <option  value={item.uuid} key={item.uuid}>{item.displayName}</option>
                       ))}
                     </SelectArea>
                   ) : (
@@ -120,6 +134,7 @@ export const Restriction: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
                   {editMode ? (
                     <SelectArea
                       id={'c' + index}
+                      value={shiftModel?.uuid}
                       change={(event) => {
                         const select = event.target;
                         if (shiftModelList) {
@@ -130,7 +145,7 @@ export const Restriction: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
                       }}
                     >
                       {shiftModelList?.map((item) => (
-                        <option key={item.uuid}>{item.displayName}</option>
+                        <option  value={item.uuid} key={item.uuid}>{item.displayName}</option>
                       ))}
                     </SelectArea>
                   ) : (
@@ -156,7 +171,7 @@ export const Restriction: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
                         }}
                       />
 
-                      <ButtonConcluir />
+                      <ButtonConcluir onClickFunction={() => update(restriction.uuid)} />
                     </EditButtons>
                   )}
                 </ActionContainer>

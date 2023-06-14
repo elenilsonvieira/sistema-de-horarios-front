@@ -15,9 +15,10 @@ import { CourseModel } from '../../../../../api/model/CourseModel';
 import { courseReadControllerView } from './courseReadControllerView';
 import { courseDeleteControllerView } from './courseDeleteControllerView';
 import { ModelProps } from '../interfaces';
+import { CourseController } from '../../../../../api/controller/CourseController';
 
 export const Course: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
-  const [, setName] = useState<string>();
+  const [name, setName] = useState<string>('');
   const [courseList, setCourseList] = useState<CourseModel[]>();
 
   const load = async () => {
@@ -28,6 +29,15 @@ export const Course: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
       console.log(error);
     }
   };
+
+  async function update(uuid: string) {
+    await CourseController.getInstance().update({name, uuid})
+  }
+
+  function setValues(course: CourseModel) {
+    setName(course.name)
+  }
+
   useEffect(() => {
     load();
   }, []);
@@ -36,7 +46,7 @@ export const Course: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
       {courseList != null ? (
         courseList.map((course, index) => {
           return (
-            <Row key={course.uuid} propertyName={course.name}>
+            <Row key={course.uuid} propertyName={course.name} onClick={() => setValues(course)}>
               <ExpandDetails className="expand">
                 <div className={editMode ? 'edit-mode' : ''}>
                   <span className="title">Nome:</span>
@@ -67,7 +77,7 @@ export const Course: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
                         }}
                       />
 
-                      <ButtonConcluir />
+                      <ButtonConcluir onClickFunction={() => update(course.uuid)}/>
                     </EditButtons>
                   )}
                 </ActionContainer>
