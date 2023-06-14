@@ -11,12 +11,6 @@ import { errorMessage } from '../../../../../components/libs/Toastr';
 const Course: React.FC = () => {
   const [name, setName] = useState<string>();
 
-  function getDataObject() {
-    return {
-      name,
-    };
-  }
-
   const validate = () => {
     const errors = [];
 
@@ -35,8 +29,11 @@ const Course: React.FC = () => {
         errorMessage(message);
       });
     } else {
-      const data = getDataObject();
-      await courseControllerView(data);
+      await courseControllerView({
+        name,
+      });
+
+      setName('');
     }
   };
 
@@ -50,6 +47,7 @@ const Course: React.FC = () => {
             change={(event: any) => {
               setName(event.target.value);
             }}
+            value={name}
           />
         </InputContent>
       </Form>

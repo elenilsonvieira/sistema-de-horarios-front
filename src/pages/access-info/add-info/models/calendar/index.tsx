@@ -11,11 +11,6 @@ import { errorMessage } from '../../../../../components/libs/Toastr';
 export const Calendar = () => {
   const [semester, setSemester] = useState<string>();
 
-  function getDataObject() {
-    return {
-      semester,
-    };
-  }
   const validate = () => {
     const errors = [];
 
@@ -33,8 +28,8 @@ export const Calendar = () => {
         errorMessage(message);
       });
     } else {
-      const data = getDataObject();
-      await calendarControllerView(data);
+      await calendarControllerView({ semester });
+      setSemester('');
     }
   };
 
@@ -48,6 +43,7 @@ export const Calendar = () => {
             change={(event) => {
               setSemester(event.target.value);
             }}
+            value={semester}
           ></InputArea>
         </InputContent>
       </Form>

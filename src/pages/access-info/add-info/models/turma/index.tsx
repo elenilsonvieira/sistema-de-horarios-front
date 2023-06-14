@@ -18,13 +18,6 @@ export const Turma = () => {
   const [courseList, setCourseList] = useState<CourseModel[]>();
   const [courseUuid, setCourseUuid] = useState<string>();
 
-  function getDataObject() {
-    return {
-      name,
-      course_uuid: courseUuid,
-    } as TurmaModel;
-  }
-
   const load = async () => {
     const courses = await courseController.list();
     setCourseList(courses);
@@ -45,6 +38,7 @@ export const Turma = () => {
             change={(event) => {
               setName(event.target.value);
             }}
+            value={name}
           ></InputArea>
         </InputContent>
         <InputContent labelText="Curso:" htmlFor="Curso-s">
@@ -68,8 +62,11 @@ export const Turma = () => {
       <ButtonAction
         textButton="adicionar turma"
         onClickFunction={async () => {
-          const data = getDataObject();
-          await turmaControllerView(data);
+          await turmaControllerView({
+            name,
+            course_uuid: courseUuid,
+          } as TurmaModel);
+          setName('');
         }}
       />
     </Main>

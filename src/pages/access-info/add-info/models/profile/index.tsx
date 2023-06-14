@@ -11,14 +11,7 @@ import { errorMessage } from '../../../../../components/libs/Toastr';
 
 export const Profile = () => {
   const [field, setField] = useState<string>();
-  const [standard, setStandard] = useState<number>();
-
-  function getDataObject(): any {
-    return {
-      field,
-      standard,
-    };
-  }
+  const [standard, setStandard] = useState<number>(0);
 
   const validate = () => {
     const errors = [];
@@ -40,8 +33,12 @@ export const Profile = () => {
         errorMessage(message);
       });
     } else {
-      const data = getDataObject();
-      await profileControllerView(data);
+      await profileControllerView({
+        field,
+        standard,
+      });
+      setField('');
+      setStandard(0);
     }
   };
 
@@ -55,6 +52,7 @@ export const Profile = () => {
             change={(event) => {
               setField(event.target.value);
             }}
+            value={field}
           ></InputArea>
         </InputContent>
 
@@ -65,6 +63,7 @@ export const Profile = () => {
             change={(event) => {
               setStandard(event.target.value);
             }}
+            value={standard}
           ></InputArea>
         </InputContent>
       </Form>

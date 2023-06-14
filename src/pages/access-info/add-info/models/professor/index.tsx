@@ -18,13 +18,6 @@ export const Professor = () => {
   const [profileList, setProfileList] = useState<ProfileModel[]>();
   const [profileUuid, setProfileUuid] = useState<string>();
 
-  function getDataObject(): any {
-    return {
-      name,
-      profileUuid,
-    };
-  }
-
   const validate = () => {
     const errors = [];
 
@@ -45,8 +38,11 @@ export const Professor = () => {
         errorMessage(message);
       });
     } else {
-      const data = getDataObject();
-      await professorControllerView(data);
+      await professorControllerView({
+        name,
+        profileUuid,
+      });
+      setName('');
     }
   };
 
@@ -70,6 +66,7 @@ export const Professor = () => {
             change={(event: any) => {
               setName(event.target.value);
             }}
+            value={name}
           ></InputArea>
         </InputContent>
 

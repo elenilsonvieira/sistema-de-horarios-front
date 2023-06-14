@@ -15,17 +15,9 @@ const courseController = CourseController.getInstance();
 
 export const CurricularComponent = () => {
   const [name, setName] = useState<string>();
-  const [workload, setWorkload] = useState<number>();
+  const [workload, setWorkload] = useState<number>(0);
   const [courseUuid, setCourseUuid] = useState<string>();
   const [courseModelList, setCourseModelList] = useState<CourseModel[]>();
-
-  function getDataObject(): any {
-    return {
-      name,
-      workload,
-      courseUuid,
-    };
-  }
 
   const validate = () => {
     const errors = [];
@@ -50,8 +42,13 @@ export const CurricularComponent = () => {
         errorMessage(message);
       });
     } else {
-      const data = getDataObject();
-      await curricularComponentControllerView(data);
+      await curricularComponentControllerView({
+        name,
+        workload,
+        courseUuid,
+      });
+      setName('');
+      setWorkload(0);
     }
   };
 
@@ -79,6 +76,7 @@ export const CurricularComponent = () => {
             change={(event) => {
               setName(event.target.value);
             }}
+            value={name}
           ></InputArea>
         </InputContent>
 
@@ -89,6 +87,7 @@ export const CurricularComponent = () => {
             change={(event) => {
               setWorkload(event.target.value);
             }}
+            value={workload}
           ></InputArea>
         </InputContent>
 

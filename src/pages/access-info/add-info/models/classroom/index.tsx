@@ -18,14 +18,6 @@ export const Classroom = () => {
   const [classBlockUuid, setClassBlockUuid] = useState<string>();
   const [capacity, setCapacity] = useState<number>();
 
-  function getDataObject() {
-    return {
-      name,
-      classBlockUuid,
-      capacity,
-    };
-  }
-
   const validate = () => {
     const errors = [];
 
@@ -49,8 +41,14 @@ export const Classroom = () => {
         errorMessage(message);
       });
     } else {
-      const data = getDataObject();
-      await classroomControllerView(data);
+      await classroomControllerView({
+        name,
+        classBlockUuid,
+        capacity,
+      });
+
+      setName('');
+      setCapacity(0);
     }
   };
 
@@ -74,6 +72,7 @@ export const Classroom = () => {
             change={(event) => {
               setName(event.target.value);
             }}
+            value={name}
           ></InputArea>
         </InputContent>
 
@@ -102,6 +101,7 @@ export const Classroom = () => {
             change={(event) => {
               setCapacity(event.target.value);
             }}
+            value={capacity}
           ></InputArea>
         </InputContent>
       </Form>
