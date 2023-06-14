@@ -66,7 +66,7 @@ export const Turma = () => {
       </Form>
 
       <ButtonAction
-        textButton="adicionar calendário"
+        textButton="adicionar turma"
         onClickFunction={async () => {
           const data = getDataObject();
           await turmaControllerView(data);

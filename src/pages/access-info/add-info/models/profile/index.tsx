@@ -69,10 +69,7 @@ export const Profile = () => {
         </InputContent>
       </Form>
 
-      <ButtonAction
-        textButton="adicionar Disciplina"
-        onClickFunction={onSubmit}
-      />
+      <ButtonAction textButton="adicionar Perfil" onClickFunction={onSubmit} />
     </Main>
   );
 };
