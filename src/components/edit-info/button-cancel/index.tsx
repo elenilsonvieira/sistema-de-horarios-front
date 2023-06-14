@@ -1,15 +1,13 @@
-import React from "react";
+import React from 'react';
 
-import {Main} from './styles'
+import { Main } from './styles';
 
 interface ButtonEditProps {
-    onClickFunction?: () => void;
+  onClickFunction?: () => void;
 }
 
-export const ButtonCancel: React.FC<ButtonEditProps> = ({onClickFunction}:ButtonEditProps) => {
-    return (
-        <Main onClick={onClickFunction}>
-            cancelar
-        </Main>
-    )
-}
+export const ButtonCancel: React.FC<ButtonEditProps> = ({
+  onClickFunction,
+}: ButtonEditProps) => {
+  return <Main onClick={onClickFunction}>cancelar</Main>;
+};

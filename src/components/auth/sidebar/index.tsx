@@ -1,28 +1,23 @@
-import React from "react";
-import SessionProvider, { useSessionProviderContext } from "../../../hooks/sessionProvider";
-import {Main, Username, Button, UserData, ButtonsContainer} from './styles';
+import React from 'react';
+import SessionProvider, {
+  useSessionProviderContext,
+} from '../../../hooks/sessionProvider';
+import { Main, Username, Button, UserData, ButtonsContainer } from './styles';
 
 const Sidebar = () => {
+  const { end, loggedUser } = useSessionProviderContext();
 
-    const { end, loggedUser } = useSessionProviderContext(); 
+  return (
+    <Main>
+      <UserData>
+        <Username>{loggedUser.name}</Username>
+      </UserData>
+      <ButtonsContainer>
+        <Button>Meus dados</Button>
+        <Button onClick={end}>Sair</Button>
+      </ButtonsContainer>
+    </Main>
+  );
+};
 
-    return (
-        <Main>
-            <UserData>
-                <Username>
-                    {loggedUser.name}
-                </Username>
-            </UserData>
-            <ButtonsContainer>
-                <Button>
-                    Meus dados
-                </Button>
-                <Button onClick={end}>
-                    Sair
-                </Button>
-            </ButtonsContainer>
-        </Main>
-    )
-}
-
-export {Sidebar};
+export { Sidebar };

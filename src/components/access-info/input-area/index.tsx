@@ -1,17 +1,29 @@
-import React from "react";
+import React from 'react';
 
-import {Main} from './styles';
+import { Main } from './styles';
 
 interface InputAreaProps {
-    type?: string;
-    placeholder: string;
-    id: string;
-    change?: (event:any) => void;
+  type?: string;
+  value: any;
+  placeholder: string;
+  id: string;
+  change?: (event: any) => void;
 }
 
-export const InputArea: React.FC<InputAreaProps> = ({type, placeholder, id, change}: InputAreaProps) => {
-    return (
-        <Main type={type} placeholder={placeholder} id={id} onChange={change} >
-        </ Main>
-    )
-}
+export const InputArea: React.FC<InputAreaProps> = ({
+  type,
+  placeholder,
+  id,
+  value,
+  change,
+}: InputAreaProps) => {
+  return (
+    <Main
+      type={type}
+      placeholder={placeholder}
+      id={id}
+      onChange={change}
+      value={value}
+    ></Main>
+  );
+};

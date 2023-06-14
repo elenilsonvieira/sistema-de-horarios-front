@@ -24,6 +24,16 @@ export class CurricularComponentController {
             errorMessage('Verifique os campos ou a conexão.')
         }
     }
+
+    public async update(curricularComponent: CurricularComponentModel):Promise<void>{
+        try {
+            const response = await httpClient.put(`/curricularComponent/${curricularComponent.uuid}`, curricularComponent);
+            successMessage('Disciplina adicionada ao banco.')
+        } catch (error) {
+            errorMessage('Verifique os campos ou a conexão.')
+        }
+    }
+
     public async list(): Promise<CurricularComponentModel[]> {
         const response = await httpClient.get("/curricularComponent");
         return response.data as CurricularComponentModel[];

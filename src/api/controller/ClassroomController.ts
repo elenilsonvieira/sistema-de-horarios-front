@@ -24,6 +24,16 @@ export class ClassroomController{
             errorMessage('Verifique os campos ou a conexão.')
         }
     }
+
+    public async update(classroom: any):Promise<void>{
+        try {
+            await httpClient.put(`/classroom/${classroom.uuid}`, classroom);
+            successMessage('Sala de aula adicionada ao banco.')
+        } catch (error) {
+            errorMessage('Verifique os campos ou a conexão.')
+        }
+    }
+
     public async list(): Promise<ClassroomModel[]> {
         const response = await httpClient.get("/classroom");
         return response.data as ClassroomModel[];

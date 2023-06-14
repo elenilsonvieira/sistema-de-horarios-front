@@ -20,29 +20,47 @@ export const Main = styled('div')`
 export const Filters = styled('div')`
 background-color: #d9d9d9;
 display: flex;
-flex-direction: row;
+flex-direction: column;
 justify-content: center;
-flex-direction: row;
+align-items:center;
 padding: 1em;
 
+
 div {
+    display: flex;
+    justify-content: center;
     margin: 1em;
+    width: 10em;
+    padding: 1em;
+    border-radius: 0.5em;
+    color: #FFF;
 }
 
 select {
+    display:flex;
     padding: 0.5em;
     justify-self: center;
+    width: 9em;
 }
 
 p{
     font-weight: bold;
+    text-align: center;
     margin-bottom: 0.2em;
 }
 
-div {
-    padding: 1em;
+.filters-group{
+    display:flex;
+    width: fit-content;
+    margin:0;
+    padding: 0;
     background-color: #4ca84e;
-    border-radius: 0.5em;
+}
+
+h2 {
+    padding: 0.5em;
+    border-radius: 0.5em 0.5em 0 0;
+    background-color: #4ca84e;
     color: #FFF;
 }
 `;

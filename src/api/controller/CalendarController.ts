@@ -24,6 +24,16 @@ export class CalendarController {
             errorMessage('Verifique os campos ou a conexão.')
         }
     }
+
+    public async update(calendar: CalendarModel):Promise<void>{
+        try {
+            await httpClient.put(`/calendar/${calendar.uuid}`, calendar);
+            successMessage('Calendário adicionado ao banco.')
+        } catch (error) {
+            errorMessage('Verifique os campos ou a conexão.')
+        }
+    }
+
     public async list(): Promise<CalendarModel[]> {
         const response = await httpClient.get("/calendar");
         return response.data as CalendarModel[];

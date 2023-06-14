@@ -1,11 +1,11 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-import "./main/index.css";
+import './main/index.css';
 import 'toastr/build/toastr.min.js';
 import 'toastr/build/toastr.css';
-import App from "./main/App";
-import { RefreshContextProvider } from "./context/RefreshContextDND";
+import App from './main/App';
+import { RefreshContextProvider } from './context/RefreshContextDND';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -13,5 +13,5 @@ ReactDOM.render(
       <App />
     </RefreshContextProvider>
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById('root'),
 );

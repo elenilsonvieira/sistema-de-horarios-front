@@ -22,10 +22,18 @@ export class TurmaController {
             errorMessage('Verifique os campos ou a conexão.')
         }
     }
+
+    public async update(turma: TurmaModel):Promise<void>{
+        try {
+            const response = await httpClient.put(`/turma/${turma.uuid}`, turma);
+            successMessage('Turma modificada ao banco.')
+        } catch (error) {
+            errorMessage('Verifique os campos ou a conexão.')
+        }
+    }
+
     public async list(): Promise<TurmaModel[]> {
         const response = await httpClient.get("/turma");
-        console.log(response.data);
-        
         return response.data as TurmaModel[];
     }
     public async delete(uuid: string): Promise<void> {

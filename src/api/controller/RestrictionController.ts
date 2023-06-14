@@ -24,6 +24,21 @@ export class RestrictionController{
         }
     }
 
+    public async update(restriction: RestrictionModel):Promise<void>{
+        const restrictionDTO = {
+            uuid: restriction.uuid,
+            professorModel: restriction.professor,
+            weekDayModel: restriction.weekDayDTO,
+            shiftModel: restriction.shiftDTO,
+        }
+        try {
+            await httpClient.put(`/restriction/${restrictionDTO.uuid}`, restrictionDTO);
+            successMessage('Restrição adicionada ao banco.')
+        } catch (error) {
+            errorMessage('Verifique os campos ou a conexão.')
+        }
+    }
+
     public async list(): Promise<RestrictionModel[]> {
         const response = await httpClient.get("/restriction");
         return response.data as RestrictionModel[];

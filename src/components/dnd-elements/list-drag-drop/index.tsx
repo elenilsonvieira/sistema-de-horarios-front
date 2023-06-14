@@ -1,30 +1,43 @@
-import React from "react";
+import React from 'react';
 
-import {Main} from './styles'
+import { Main } from './styles';
 
-import { useDrop } from 'react-dnd';
-import {LessonModel} from "../../../api/model/LessonModel";
-import {CardDND} from "../card-drag-drop/index";
-import { IntervalModel } from "../../../api/model/IntervalModel";
-import { TurmaModel } from "../../../api/model/TurmaModel";
+import { LessonModel } from '../../../api/model/LessonModel';
+import { CardDND } from '../card-drag-drop/index';
+import { IntervalModel } from '../../../api/model/IntervalModel';
+import { ConnectableElement } from 'react-dnd';
 
 interface IntfcContainerDND {
-    listLesson: LessonModel[];
-    lessonModel?:LessonModel;
-    interval?: IntervalModel;
+  listLesson: LessonModel[];
+  lessonModel?: LessonModel;
+  interval?: IntervalModel;
 
-    change?: (event:any) => void;
+  change?: (event: any) => void;
 }
 
-export const ListDND: React.FC<IntfcContainerDND> = ({listLesson, change}: IntfcContainerDND) => {
-
-    return (
-        <Main onChange={change} >
-            {listLesson.map((card) => (
-                card.interval === null
-                ? (<CardDND lesson={card} key={card.uuid}/>)
-                : null
-            ))}   
-        </ Main>
-    )
-}
+export const ListDND: React.FC<IntfcContainerDND> = ({
+  listLesson,
+  change,
+}: IntfcContainerDND) => {
+  return (
+    <Main onChange={change}>
+      {listLesson.map((card) =>
+        card.turma.uuid === 'default' || !card.interval ? (
+          <CardDND
+            lesson={card}
+            key={card.uuid}
+            dropRef={function (
+              elementOrNode: ConnectableElement,
+              options?: any,
+            ): React.ReactElement<
+              any,
+              string | React.JSXElementConstructor<any>
+            > | null {
+              throw new Error('Function not implemented.');
+            }}
+          />
+        ) : null,
+      )}
+    </Main>
+  );
+};

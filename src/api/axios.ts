@@ -1,13 +1,13 @@
-import axios from "axios";
+import axios from 'axios';
 
-import StorageService from "./auth/StorageService";
+import StorageService from './auth/StorageService';
 
 export const LOGGED_USER = 'LOGGED_USER';
 export const TOKEN = 'TOKEN';
 
 export const httpClient = axios.create({
-    baseURL: "http://localhost:8080",
-    headers: { "Content-Type": "application/json" },
+    baseURL: 'http://localhost:8080',
+    headers: { 'Content-Type': 'application/json' },
     withCredentials: false,
 });
 

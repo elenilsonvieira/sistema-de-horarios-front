@@ -47,7 +47,7 @@ export class LessonController {
                 professorUuid: lesson.professor.uuid,
                 intervalUuid: lesson.interval ? lesson.interval.uuid : null
             }
-            console.log(lessonDRO)
+            
             await httpClient.put(`/lesson/${uuid}`, lessonDRO);
             successMessage('Aula atualizada no banco.')
         } catch (error) {

@@ -1,13 +1,13 @@
-import { useState, useMemo, useCallback, useEffect } from "react";
+import { useState, useMemo, useCallback, useEffect } from 'react';
 
-import { Main, BusyCard } from "./styles";
+import { Main, BusyCard } from './styles';
 
-import { useDrop } from "react-dnd";
-import { LessonModel } from "../../../api/model/LessonModel";
-import { CardDND } from "../card-drag-drop";
-import { IntervalModel } from "../../../api/model/IntervalModel";
-import { LessonController } from "../../../api/controller/LessonController";
-import useRefreshContext from "../../../hooks/useRefreshContext";
+import { useDrop } from 'react-dnd';
+import { LessonModel } from '../../../api/model/LessonModel';
+import { CardDND } from '../card-drag-drop';
+import { IntervalModel } from '../../../api/model/IntervalModel';
+import { LessonController } from '../../../api/controller/LessonController';
+import useRefreshContext from '../../../hooks/useRefreshContext';
 
 interface IntfcContainerDND {
   idClass: string;
@@ -19,7 +19,7 @@ interface IntfcContainerDND {
   weekDay: string;
   lessonModel?: LessonModel;
   turma: string;
-
+  defaultListLesson: LessonModel[];
   change?: (event: any) => void;
 }
 
@@ -31,6 +31,7 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({
   shift,
   weekDay,
   listInterval,
+  defaultListLesson,
   turma,
   change,
   idClass,
@@ -43,33 +44,22 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({
   });
 
   const [lesson, setLesson] = useState<LessonModel>();
-  const { refreshBool } = useRefreshContext();
+  const { bool, refreshBool } = useRefreshContext();
 
-  // const assigningInterval = useMemo(() => {
-
-  //   if (listInterval.length > 0) {
-  //     listInterval.forEach((interval) =>
-  //       interval.gapDTO.gap === gap &&
-  //       interval.shiftDTO.shift === shift &&
-  //       interval.weekDayDTO.dayOfWeek === weekDay
-  //         ? setInterval(interval)
-  //         : null
-  //     );
-  //   }
-  // }, []);
-
+  // Mesmo que acuse que o valor nunca é lido, NÃO REMOVA ESSE MÉTODO
+  // Garantirá que a atualização dinâmica dos cards de forma rápida seja feita
   const assigningLesson = useMemo(() => {
     if (listLesson.length > 0) {
       listLesson.forEach((lesson) =>
         interval &&
-        lesson.interval &&
-        lesson.interval.uuid === interval.uuid &&
-        lesson.turma.name === turma
+          lesson.interval &&
+          lesson.interval.uuid === interval.uuid &&
+          lesson.turma.name === turma
           ? setLesson(lesson)
-          : null
+          : null,
       );
     }
-  }, [interval]);
+  }, [interval, bool]);
 
   const updateIntervalInLesson = useCallback(
     (lessonUpdate: LessonModel) => {
@@ -77,21 +67,31 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({
         setLesson(lessonUpdate);
         lessonController.update(lessonUpdate.uuid, lessonUpdate).then(() => {
           refreshBool();
-          location.reload();
         });
       }
     },
-    [lesson, setLesson]
+    [lesson, setLesson, bool],
   );
-
+  
   const [, dropRef] = useDrop({
-    accept: "CARD",
+    accept: 'CARD',
     drop: (item: { lesson: any; uuid: string }, monitor) => {
-      let updateLesson = item.lesson;
-      updateLesson.interval = interval;
+      const updateLesson = item.lesson;
       updateLesson.turma = { name: turma, uuid: idClass };
+      
+      let lessonInCard = listLesson.filter((l) => l.uuid !== updateLesson.uuid && l.interval && l.interval.uuid === interval.uuid)[0]
+      
+      if (lessonInCard && lessonInCard.turma.uuid === updateLesson.turma.uuid) {
+        if (!updateLesson.interval || updateLesson.turma.uuid === 'default') {
+          lessonInCard.turma = {uuid: "default", name: "-1 Periodo Padrao", course_uuid: null}
+        }else{
+          lessonInCard.interval = updateLesson.interval
+        }
+        updateIntervalInLesson(lessonInCard);
+      }
 
-      updateIntervalInLesson(updateLesson);
+      updateLesson.interval = interval;
+      updateIntervalInLesson(updateLesson)
     },
   });
 
@@ -101,18 +101,18 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({
         (ls) =>
           ls.interval != null &&
           ls.interval.uuid === id &&
-          ls.turma.uuid === idClass
-      )[0]
+          ls.turma.uuid === idClass,
+      )[0],
     );
-  }, [listLesson]);
+  }, [listLesson, bool]);
 
   return (
     <Main onChange={change} ref={dropRef}>
       {lesson && listLesson.includes(lesson) ? (
         <CardDND lesson={lesson} key={lesson.uuid} dropRef={dropRef} />
       ) : (
-        lesson &&
-        lesson.turma.uuid === idClass && <BusyCard>Card Ocupado</BusyCard>
+        listLesson.filter((l) => l.uuid === lesson?.uuid)[0] &&
+        lesson?.turma.uuid === idClass && <BusyCard>Card Ocupado</BusyCard>
       )}
     </Main>
   );

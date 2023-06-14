@@ -1,67 +1,74 @@
-import {useEffect, useState} from 'react';
-import {InputArea, ButtonAction, InputContent, SelectArea} from '../../../../../components'
+import { useState } from 'react';
+import {
+  InputArea,
+  ButtonAction,
+  InputContent,
+} from '../../../../../components';
 import { Form, Main } from '../styles/styles';
-import { profileControllerView } from "./profileControllerView";
-import  { ProfileController }  from '../../../../../api/controller/ProfileController';
-import { ProfileModel } from '../../../../../api/model/ProfileModel';
+import { profileControllerView } from './profileControllerView';
 
-import {errorMessage} from '../../../../../components/libs/Toastr';
+import { errorMessage } from '../../../../../components/libs/Toastr';
 
 export const Profile = () => {
+  const [field, setField] = useState<string>();
+  const [standard, setStandard] = useState<number>(0);
 
-    const [field, setField] = useState<string>();
-    const [standard, setStandard] = useState<number>();
+  const validate = () => {
+    const errors = [];
 
-    function getDataObject(): any{
-        return {
-            field,
-            standard
-        }
+    if (!field) {
+      errors.push('Área é obrigatório');
     }
-
-    const validate = () => {
-        const errors = [];
-
-        if (!field) {
-            errors.push('Área é obrigatório');
-        }
-        if (!standard) {
-            errors.push('Padrão é obrigatória');
-        }
-        return errors;
+    if (!standard) {
+      errors.push('Padrão é obrigatória');
     }
+    return errors;
+  };
 
-    const onSubmit = async () => {
-        const errors = validate();
+  const onSubmit = async () => {
+    const errors = validate();
 
-        if(errors.length > 0) {
-            errors.forEach((message) => {
-                errorMessage(message);
-            })
-        } else {
-            const data = getDataObject();
-            await profileControllerView(data);
-        }
+    if (errors.length > 0) {
+      errors.forEach((message) => {
+        errorMessage(message);
+      });
+    } else {
+      await profileControllerView({
+        field,
+        standard,
+      });
+      setField('');
+      setStandard(0);
     }
+  };
 
-    return (
-        <Main>
-            <Form>
-                <InputContent labelText='Área:' htmlFor="area">
-                    <InputArea placeholder="Área de formação" id="nome" change={(event) => {
-                        setField(event.target.value)
-                    }}></InputArea>
-                </InputContent>
+  return (
+    <Main>
+      <Form>
+        <InputContent labelText="Área:" htmlFor="area">
+          <InputArea
+            placeholder="Área de formação"
+            id="nome"
+            change={(event) => {
+              setField(event.target.value);
+            }}
+            value={field}
+          ></InputArea>
+        </InputContent>
 
-                <InputContent labelText='Padrão' htmlFor="padrão">
-                    <InputArea placeholder="Ex: 1" id="padrão" change={(event) => {
-                        setStandard(event.target.value);
-                    }}></InputArea>
-                </InputContent>
-                </Form>
+        <InputContent labelText="Padrão" htmlFor="padrão">
+          <InputArea
+            placeholder="Ex: 1"
+            id="padrão"
+            change={(event) => {
+              setStandard(event.target.value);
+            }}
+            value={standard}
+          ></InputArea>
+        </InputContent>
+      </Form>
 
-            <ButtonAction textButton="adicionar Disciplina" onClickFunction={onSubmit}/>
-        </ Main>
-    );
-}
-
+      <ButtonAction textButton="adicionar Perfil" onClickFunction={onSubmit} />
+    </Main>
+  );
+};
