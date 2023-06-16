@@ -37,13 +37,11 @@ const models = [
     id: 'hhh',
     type: 'profile',
     title: 'Perfil',
-    checked: true,
   },
   {
     id: 'iii',
     type: 'restriction',
     title: 'Restrição',
-    checked: true,
   },
   {
     id: 'bbb',
