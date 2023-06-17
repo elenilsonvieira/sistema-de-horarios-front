@@ -61,6 +61,7 @@ export const Home = () => {
                 change={(event) => {
                   setEnrollment(event.target.value);
                 }}
+                value={enrollment}
               />
             </InputContent>
             <InputContent labelText="Senha:" htmlFor="pass">
@@ -71,6 +72,7 @@ export const Home = () => {
                 change={(event) => {
                   setPassword(event.target.value);
                 }}
+                value={password}
               />
             </InputContent>
             <ButtonAction

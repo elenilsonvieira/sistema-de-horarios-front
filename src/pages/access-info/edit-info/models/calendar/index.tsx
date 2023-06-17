@@ -30,13 +30,13 @@ export const Calendar: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
     }
   };
 
-  async function update(uuid: string){
-    await CalendarController.getInstance().update({semester, uuid})
-    location.reload()
+  async function update(uuid: string) {
+    await CalendarController.getInstance().update({ semester, uuid });
+    location.reload();
   }
 
-  function setValues(calendar: CalendarModel){
-    setSemester(calendar.semester)
+  function setValues(calendar: CalendarModel) {
+    setSemester(calendar.semester);
   }
 
   useEffect(() => {
@@ -48,7 +48,11 @@ export const Calendar: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
       {caledarList != null ? (
         caledarList.map((calendar, index) => {
           return (
-            <Row key={calendar.uuid} propertyName={calendar.semester} onClick={() => setValues(calendar)}>
+            <Row
+              key={calendar.uuid}
+              propertyName={calendar.semester}
+              onClick={() => setValues(calendar)}
+            >
               <ExpandDetails className="expand">
                 <div className={editMode ? 'edit-mode' : ''}>
                   <span className="title">Semestre:</span>
@@ -59,6 +63,7 @@ export const Calendar: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
                       change={(event) => {
                         setSemester(event.target.value);
                       }}
+                      value={semester}
                     />
                   ) : (
                     <span className="info">{calendar.semester}</span>
@@ -79,7 +84,9 @@ export const Calendar: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
                         }}
                       />
 
-                      <ButtonConcluir onClickFunction={() => update(calendar.uuid)}/>
+                      <ButtonConcluir
+                        onClickFunction={() => update(calendar.uuid)}
+                      />
                     </EditButtons>
                   )}
                 </ActionContainer>
