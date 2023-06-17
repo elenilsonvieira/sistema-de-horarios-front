@@ -26,7 +26,7 @@ export class ProfileController{
     public async update(profile: ProfileModel):Promise<void>{
         try {
             const response = await httpClient.put(`/profile/${profile.uuid}`, profile);
-            successMessage('Profile adicionado ao banco.')
+            successMessage('Profile atualizado ao banco.')
         } catch (error) {
             errorMessage('Verifique os campos ou a conexão.')
         }

@@ -28,7 +28,7 @@ export class CurricularComponentController {
     public async update(curricularComponent: CurricularComponentModel):Promise<void>{
         try {
             const response = await httpClient.put(`/curricularComponent/${curricularComponent.uuid}`, curricularComponent);
-            successMessage('Disciplina adicionada ao banco.')
+            successMessage('Disciplina atualizada ao banco.')
         } catch (error) {
             errorMessage('Verifique os campos ou a conexão.')
         }

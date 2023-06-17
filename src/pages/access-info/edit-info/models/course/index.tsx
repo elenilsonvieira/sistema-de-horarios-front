@@ -32,6 +32,7 @@ export const Course: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
 
   async function update(uuid: string) {
     await CourseController.getInstance().update({name, uuid})
+    // location.reload()
   }
 
   function setValues(course: CourseModel) {

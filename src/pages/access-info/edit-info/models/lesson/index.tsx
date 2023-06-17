@@ -66,7 +66,7 @@ export const Lesson: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
 
   async function update(uuid: string) {
     await lessonUpdateControllerView({ uuid, course, turma: classModel, calendar, classroom, curricularComponent, professor: teacher, interval })
-    location.reload()
+    // location.reload()
   }
 
   function setValues(lesson: LessonModel) {
@@ -198,26 +198,7 @@ export const Lesson: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
                 </div>
                 <div className={editMode ? 'edit-mode' : ''}>
                   <span className="title">Turma:</span>
-                  {editMode ? (
-                    <SelectArea
-                      id={'c' + index}
-                      value={classModel?.uuid}
-                      change={(event) => {
-                        const select = event.target;
-                        if (classModelList) {
-                          const classModelSelected =
-                            classModelList[select.selectedIndex];
-                          setClassModel(classModelSelected);
-                        }
-                      }}
-                    >
-                      {classModelList?.map((item: TurmaModel) => (
-                        <option value={item.uuid} key={item.uuid}>{item.name}</option>
-                      ))}
-                    </SelectArea>
-                  ) : (
-                    <span className="info">{lesson.turma.name}</span>
-                  )}
+                  <span className="info">{lesson.turma.uuid === 'default' ? 'Não definida' : lesson.turma.name}</span>
                 </div>
                 <div className={editMode ? 'edit-mode' : ''}>
                   <span className="title">Curso:</span>

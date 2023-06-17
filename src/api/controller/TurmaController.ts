@@ -26,7 +26,7 @@ export class TurmaController {
     public async update(turma: TurmaModel):Promise<void>{
         try {
             const response = await httpClient.put(`/turma/${turma.uuid}`, turma);
-            successMessage('Turma modificada ao banco.')
+            successMessage('Turma ataulizada ao banco.')
         } catch (error) {
             errorMessage('Verifique os campos ou a conexão.')
         }

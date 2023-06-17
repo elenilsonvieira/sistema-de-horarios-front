@@ -28,7 +28,7 @@ export class CalendarController {
     public async update(calendar: CalendarModel):Promise<void>{
         try {
             await httpClient.put(`/calendar/${calendar.uuid}`, calendar);
-            successMessage('Calendário adicionado ao banco.')
+            successMessage('Calendário atualizado ao banco.')
         } catch (error) {
             errorMessage('Verifique os campos ou a conexão.')
         }

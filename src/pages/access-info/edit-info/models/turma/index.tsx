@@ -44,7 +44,7 @@ export const Turma: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
 
   async function update(uuid: string|undefined){
     await TurmaController.getInstance().update({name, uuid, courseModel: courseModelList?.filter((c) => c.uuid === courseUuid)[0]})
-    location.reload()
+    // location.reload()
   }
 
   useEffect(() => {

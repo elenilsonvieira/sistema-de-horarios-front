@@ -33,7 +33,7 @@ export class RestrictionController{
         }
         try {
             await httpClient.put(`/restriction/${restrictionDTO.uuid}`, restrictionDTO);
-            successMessage('Restrição adicionada ao banco.')
+            successMessage('Restrição atualizada ao banco.')
         } catch (error) {
             errorMessage('Verifique os campos ou a conexão.')
         }

@@ -45,7 +45,7 @@ export const Classroom: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
 
   async function update(uuid: string) {
     await ClassroomController.getInstance().update({ uuid, capacity, name, classBlockModel: classBlock })
-    location.reload()
+    // location.reload()
   }
 
   function setValues(classroom: ClassroomModel) {

@@ -28,7 +28,7 @@ export class ClassroomController{
     public async update(classroom: any):Promise<void>{
         try {
             await httpClient.put(`/classroom/${classroom.uuid}`, classroom);
-            successMessage('Sala de aula adicionada ao banco.')
+            successMessage('Sala de aula atualizada ao banco.')
         } catch (error) {
             errorMessage('Verifique os campos ou a conexão.')
         }

@@ -53,7 +53,7 @@ export const Professor: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
 
   async function update(uuid: string|undefined) {
     await ProfessorController.getInstance().update({name: name, profile: profileModel, uuid})
-    location.reload()
+    // location.reload()
   }
 
   return (

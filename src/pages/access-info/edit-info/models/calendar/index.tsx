@@ -32,7 +32,7 @@ export const Calendar: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
 
   async function update(uuid: string){
     await CalendarController.getInstance().update({semester, uuid})
-    location.reload()
+    // location.reload()
   }
 
   function setValues(calendar: CalendarModel){

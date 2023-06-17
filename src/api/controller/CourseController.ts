@@ -28,7 +28,7 @@ export class CourseController {
     public async update(course: CourseModel):Promise<void>{
         try {
             const response = await httpClient.put(`/course/${course.uuid}`, course);
-            successMessage('Curso alterado ao banco.')
+            successMessage('Curso atualizado ao banco.')
         } catch (error) {
             errorMessage('Verifique os campos ou a conexão.')
         }
