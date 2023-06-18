@@ -32,18 +32,18 @@ export const Profile: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
     }
   };
 
-  function setValues(profile: ProfileModel){
-    setField(profile.field)
-    setStandard(profile.standard)
+  function setValues(profile: ProfileModel) {
+    setField(profile.field);
+    setStandard(profile.standard);
   }
 
   useEffect(() => {
     load();
   }, []);
 
-  async function update(uuid: string|undefined){
-    await ProfileController.getInstance().update({field, standard, uuid})
-    location.reload()
+  async function update(uuid: string | undefined) {
+    await ProfileController.getInstance().update({ field, standard, uuid });
+    location.reload();
   }
 
   return (
@@ -51,7 +51,11 @@ export const Profile: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
       {profileList != null ? (
         profileList.map((profile, index) => {
           return (
-            <Row key={profile.uuid} propertyName={profile.field} onClick={() => setValues(profile)}>
+            <Row
+              key={profile.uuid}
+              propertyName={profile.field}
+              onClick={() => setValues(profile)}
+            >
               <ExpandDetails className="expand">
                 <div className={editMode ? 'edit-mode' : ''}>
                   <span className="title">Campo:</span>
@@ -62,6 +66,7 @@ export const Profile: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
                       change={(event) => {
                         setField(event.target.value);
                       }}
+                      value={field}
                     ></InputArea>
                   ) : (
                     <span className="info">{profile.field}</span>
@@ -76,6 +81,7 @@ export const Profile: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
                       change={(event) => {
                         setStandard(event.target.value);
                       }}
+                      value={standard}
                     ></InputArea>
                   ) : (
                     <span className="info">{profile.standard}</span>
@@ -98,7 +104,9 @@ export const Profile: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
                         }}
                       />
 
-                      <ButtonConcluir onClickFunction={() => update(profile.uuid)}/>
+                      <ButtonConcluir
+                        onClickFunction={() => update(profile.uuid)}
+                      />
                     </EditButtons>
                   )}
                 </ActionContainer>

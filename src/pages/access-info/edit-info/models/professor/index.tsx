@@ -28,7 +28,6 @@ export const Professor: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
 
   const [professorList, setProfessorList] = useState<ProfessorModel[]>();
 
-
   const load = async () => {
     try {
       const result = await professorReadControllerView();
@@ -46,14 +45,18 @@ export const Professor: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
     load();
   }, []);
 
-  function setValues(teacher: ProfessorModel){
-    setName(teacher.name)
-    setProfileModel(teacher.profile)
+  function setValues(teacher: ProfessorModel) {
+    setName(teacher.name);
+    setProfileModel(teacher.profile);
   }
 
-  async function update(uuid: string|undefined) {
-    await ProfessorController.getInstance().update({name: name, profile: profileModel, uuid})
-    location.reload()
+  async function update(uuid: string | undefined) {
+    await ProfessorController.getInstance().update({
+      name: name,
+      profile: profileModel,
+      uuid,
+    });
+    location.reload();
   }
 
   return (
@@ -61,7 +64,11 @@ export const Professor: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
       {professorList != null ? (
         professorList.map((prof, index) => {
           return (
-            <Row key={prof.uuid} propertyName={prof.name} onClick={() => setValues(prof)}>
+            <Row
+              key={prof.uuid}
+              propertyName={prof.name}
+              onClick={() => setValues(prof)}
+            >
               <ExpandDetails className="expand">
                 <div className={editMode ? 'edit-mode' : ''}>
                   <span className="title">Nome:</span>
@@ -72,6 +79,7 @@ export const Professor: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
                       change={(event) => {
                         setName(event.target.value);
                       }}
+                      value={name}
                     ></InputArea>
                   ) : (
                     <span className="info">{prof.name}</span>
@@ -121,7 +129,9 @@ export const Professor: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
                         }}
                       />
 
-                      <ButtonConcluir onClickFunction={() => update(prof.uuid)}/>
+                      <ButtonConcluir
+                        onClickFunction={() => update(prof.uuid)}
+                      />
                     </EditButtons>
                   )}
                 </ActionContainer>

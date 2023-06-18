@@ -21,30 +21,34 @@ import { CourseController } from '../../../../../api/controller/CourseController
 import { TurmaController } from '../../../../../api/controller/TurmaController';
 
 export const Turma: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
-  const [name, setName] = useState<string>('')
-  const [courseUuid, setCourseUuid] = useState<string|undefined>('')
+  const [name, setName] = useState<string>('');
+  const [courseUuid, setCourseUuid] = useState<string | undefined>('');
   const [turmaList, setTurmaList] = useState<TurmaModel[]>();
-  const [courseModelList, setCourseModelList] = useState<CourseModel[]>()
+  const [courseModelList, setCourseModelList] = useState<CourseModel[]>();
 
   const load = async () => {
     try {
       const result = await turmaReadControllerView();
-      const resultCourse = await CourseController.getInstance().list()
+      const resultCourse = await CourseController.getInstance().list();
       setTurmaList(result.filter((turma) => turma.uuid !== 'default'));
-      setCourseModelList(resultCourse)
+      setCourseModelList(resultCourse);
     } catch (error) {
       console.log(error);
     }
   };
 
-  function setValues(classModel: TurmaModel){
-    setName(classModel.name)
-    setCourseUuid(classModel.course_uuid)
+  function setValues(classModel: TurmaModel) {
+    setName(classModel.name);
+    setCourseUuid(classModel.course_uuid);
   }
 
-  async function update(uuid: string|undefined){
-    await TurmaController.getInstance().update({name, uuid, courseModel: courseModelList?.filter((c) => c.uuid === courseUuid)[0]})
-    location.reload()
+  async function update(uuid: string | undefined) {
+    await TurmaController.getInstance().update({
+      name,
+      uuid,
+      courseModel: courseModelList?.filter((c) => c.uuid === courseUuid)[0],
+    });
+    location.reload();
   }
 
   useEffect(() => {
@@ -55,7 +59,11 @@ export const Turma: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
       {turmaList != null ? (
         turmaList.map((turma, index) => {
           return (
-            <Row key={turma.uuid} propertyName={`${turma.name}`} onClick={() => setValues(turma)}>
+            <Row
+              key={turma.uuid}
+              propertyName={`${turma.name}`}
+              onClick={() => setValues(turma)}
+            >
               <ExpandDetails className="expand">
                 <div className={editMode ? 'edit-mode' : ''}>
                   <span className="title">Nome:</span>
@@ -66,6 +74,7 @@ export const Turma: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
                       change={(event) => {
                         setName(event.target.value);
                       }}
+                      value={name}
                     ></InputArea>
                   ) : (
                     <span className="info">{turma.name}</span>
@@ -84,17 +93,22 @@ export const Turma: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
                             courseModelList[select.selectedIndex].uuid;
                           setCourseUuid(courseSelectedUuid);
                         }
-                        
                       }}
                     >
-
                       {courseModelList?.map((item: CourseModel) => (
-                          <option value={item.uuid} key={item.uuid}>{item.name}</option>
+                        <option value={item.uuid} key={item.uuid}>
+                          {item.name}
+                        </option>
                       ))}
                     </SelectArea>
                   ) : (
                     <span className="info">
-                      {courseModelList?.filter((course: CourseModel) => course.uuid === turma.course_uuid)[0].name}
+                      {
+                        courseModelList?.filter(
+                          (course: CourseModel) =>
+                            course.uuid === turma.course_uuid,
+                        )[0].name
+                      }
                     </span>
                   )}
                 </div>
@@ -115,7 +129,9 @@ export const Turma: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
                         }}
                       />
 
-                      <ButtonConcluir onClickFunction={() => update(turma.uuid)}/>
+                      <ButtonConcluir
+                        onClickFunction={() => update(turma.uuid)}
+                      />
                     </EditButtons>
                   )}
                 </ActionContainer>

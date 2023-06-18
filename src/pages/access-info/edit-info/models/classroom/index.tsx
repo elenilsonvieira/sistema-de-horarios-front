@@ -10,7 +10,7 @@ import {
   Main,
   ExpandDetails,
   ActionContainer,
-  EditButtons
+  EditButtons,
 } from '../styles/styles';
 import { ClassroomModel } from '../../../../../api/model/ClassroomModel';
 import { classroomReadControllerView } from './classroomReadControllerView';
@@ -31,7 +31,7 @@ export const Classroom: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
   const load = async () => {
     try {
       const result = await classroomReadControllerView();
-      const resultBlock = await ClassBlockController.getInstance().list()
+      const resultBlock = await ClassBlockController.getInstance().list();
       setClassroomList(result);
       setClassBlockList(resultBlock);
     } catch (error) {
@@ -44,16 +44,20 @@ export const Classroom: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
   }, []);
 
   async function update(uuid: string) {
-    await ClassroomController.getInstance().update({ uuid, capacity, name, classBlockModel: classBlock })
-    location.reload()
+    await ClassroomController.getInstance().update({
+      uuid,
+      capacity,
+      name,
+      classBlockModel: classBlock,
+    });
+    location.reload();
   }
 
   function setValues(classroom: ClassroomModel) {
     setName(classroom.name);
-    setCapacity(classroom.capacity)
-    setClassBlock(classroom.classBlockDTO)
+    setCapacity(classroom.capacity);
+    setClassBlock(classroom.classBlockDTO);
   }
-
 
   return (
     <Main>
@@ -75,6 +79,7 @@ export const Classroom: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
                       change={(event) => {
                         setName(event.target.value);
                       }}
+                      value={name}
                     ></InputArea>
                   ) : (
                     <span className="info">{classroom.name}</span>
@@ -116,6 +121,7 @@ export const Classroom: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
                       change={(event) => {
                         setCapacity(event.target.value);
                       }}
+                      value={capacity}
                     ></InputArea>
                   ) : (
                     <span className="info">{classroom.capacity}</span>
@@ -136,7 +142,9 @@ export const Classroom: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
                         }}
                       />
 
-                      <ButtonConcluir onClickFunction={() => update(classroom.uuid)} />
+                      <ButtonConcluir
+                        onClickFunction={() => update(classroom.uuid)}
+                      />
                     </EditButtons>
                   )}
                 </ActionContainer>

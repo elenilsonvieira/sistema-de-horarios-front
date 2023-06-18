@@ -35,7 +35,7 @@ export const CurricularComponent: React.FC<ModelProps> = ({
   const load = async () => {
     try {
       const result = await curricularComponentReadView();
-      const resultCourse = await CourseController.getInstance().list()
+      const resultCourse = await CourseController.getInstance().list();
       setCurricularComponentList(result);
 
       setCourse(result[0]);
@@ -47,13 +47,18 @@ export const CurricularComponent: React.FC<ModelProps> = ({
 
   function setValues(curricularComponent: CurricularComponentModel) {
     setName(curricularComponent.name);
-    setWorkload(curricularComponent.workload)
-    setCourse(curricularComponent.course)
+    setWorkload(curricularComponent.workload);
+    setCourse(curricularComponent.course);
   }
 
   async function update(uuid: string) {
-    await CurricularComponentController.getInstance().update({ name, uuid, workload, course: course })
-    location.reload()
+    await CurricularComponentController.getInstance().update({
+      name,
+      uuid,
+      workload,
+      course: course,
+    });
+    location.reload();
   }
 
   useEffect(() => {
@@ -80,6 +85,7 @@ export const CurricularComponent: React.FC<ModelProps> = ({
                       change={(event) => {
                         setName(event.target.value);
                       }}
+                      value={name}
                     ></InputArea>
                   ) : (
                     <span className="info">{curricularComponent.name}</span>
@@ -94,6 +100,7 @@ export const CurricularComponent: React.FC<ModelProps> = ({
                       change={(event) => {
                         setWorkload(event.target.value);
                       }}
+                      value={workload}
                     ></InputArea>
                   ) : (
                     <span className="info">{curricularComponent.workload}</span>
@@ -108,14 +115,15 @@ export const CurricularComponent: React.FC<ModelProps> = ({
                       change={(event) => {
                         const select = event.target;
                         if (courseModelList) {
-                          const course =
-                            courseModelList[select.selectedIndex];
+                          const course = courseModelList[select.selectedIndex];
                           setCourse(course);
                         }
                       }}
                     >
                       {courseModelList?.map((item: CourseModel) => (
-                          <option key={item.uuid} value={item.uuid}>{item.name}</option>
+                        <option key={item.uuid} value={item.uuid}>
+                          {item.name}
+                        </option>
                       ))}
                     </SelectArea>
                   ) : (
@@ -141,7 +149,9 @@ export const CurricularComponent: React.FC<ModelProps> = ({
                         }}
                       />
 
-                      <ButtonConcluir onClickFunction={() => update(curricularComponent.uuid)} />
+                      <ButtonConcluir
+                        onClickFunction={() => update(curricularComponent.uuid)}
+                      />
                     </EditButtons>
                   )}
                 </ActionContainer>
