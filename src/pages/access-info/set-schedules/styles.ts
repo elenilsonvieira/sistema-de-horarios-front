@@ -5,7 +5,7 @@ export const Main = styled('div')`
     background-color: #d9d9d9;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-around;
     width: 100%;
     & > .list-items {
         width: 100%;

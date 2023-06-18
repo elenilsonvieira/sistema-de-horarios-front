@@ -25,7 +25,7 @@ export const SetSchedules = () => {
   const [defaultListLesson, setDefaultListLesson] = useState<LessonModel[]>();
   const [defaultListClass, setDefaultListClass] = useState<TurmaModel[]>();
 
-  const [teacherOptions, setTeacherOptions] = useState<string[]>(['Todos']);
+  const [teacherOptions, setTeacherOptions] = useState<string[]>([]);
   // const [classOptions, setClassOptions] = useState<string[]>(["Todos"])
 
   const { bool } = useRefreshContext();
@@ -38,10 +38,7 @@ export const SetSchedules = () => {
     classList = classList.filter((c) => c.uuid !== 'default');
     setDefaultListClass(classList);
 
-    const uuid: string = courses.filter(
-      (course) => course.uuid === classList[0].course_uuid,
-    )[0].uuid;
-    classList = classList.filter((classs) => classs.course_uuid === uuid);
+    classList = classList.filter((classs) => classs.course_uuid === courses[0].uuid);
 
     setClassList(classList);
     setDefaultListLesson(lessons);
