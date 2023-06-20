@@ -43,7 +43,7 @@ export const Profile: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
 
   async function update(uuid: string|undefined){
     await ProfileController.getInstance().update({field, standard, uuid})
-    // location.reload()
+    location.reload()
   }
 
   return (

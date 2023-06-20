@@ -53,7 +53,7 @@ export const CurricularComponent: React.FC<ModelProps> = ({
 
   async function update(uuid: string) {
     await CurricularComponentController.getInstance().update({ name, uuid, workload, course: course })
-    // location.reload()
+    location.reload()
   }
 
   useEffect(() => {

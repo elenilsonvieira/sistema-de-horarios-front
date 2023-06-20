@@ -66,7 +66,7 @@ export const Lesson: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
 
   async function update(uuid: string) {
     await lessonUpdateControllerView({ uuid, course, turma: classModel, calendar, classroom, curricularComponent, professor: teacher, interval })
-    // location.reload()
+    location.reload()
   }
 
   function setValues(lesson: LessonModel) {

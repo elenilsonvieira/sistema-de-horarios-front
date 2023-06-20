@@ -63,7 +63,7 @@ export const Restriction: React.FC<ModelProps> = ({ editMode }: ModelProps) => {
 
   async function update(uuid: string|undefined) {
     await RestrictionController.getInstance().update({professor: professorModel, shiftDTO: shiftModel, weekDayDTO: weekDayModel, uuid})
-    // location.reload()
+    location.reload()
   }
 
   useEffect(() => {
