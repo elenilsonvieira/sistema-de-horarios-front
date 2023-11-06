@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ButtonAction, InputContent, SelectArea } from '../../../../components';
-import { Form, Main } from './styles';
+import Modal from 'react-modal'; // Importe o Modal do react-modal
+import { Form, Main,ConfirmationButton, ConfirmationMessage, ConfirmationModalWrapper, CancelButton } from './styles';
 import { CalendarModel } from '../../../../api/model/CalendarModel';
 import { CalendarController } from '../../../../api/controller/CalendarController';
 import { ClassroomModel } from '../../../../api/model/ClassroomModel';
@@ -26,11 +27,13 @@ const curricularComponentController =
 const courseController = CourseController.getInstance();
 const professorController = ProfessorController.getInstance();
 
+Modal.setAppElement('#root'); 
+
 export const LessonModal: React.FC<IntfcModal> = ({
   lessonModal,
 }: IntfcModal) => {
   const [lessonModel, setLessonModel] = useState<LessonModel>(lessonModal);
-
+  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
   const [calendarList, setCalendarList] = useState<CalendarModel[]>();
   const [classroomList, setClassroomList] = useState<ClassroomModel[]>();
   const [curricularComponentList, setCurricularComponentList] =
@@ -53,18 +56,38 @@ export const LessonModal: React.FC<IntfcModal> = ({
   const [professorValue, setProfessorValue] = useState(
     lessonModel.professor.name,
   );
+  const [action, setAction] = useState('');
 
-  const onSubmit = async () => {
-    console.log(lessonModel);
-    await lessonUpdateControllerView(lessonModel).then(() =>
-      alert('Deu certo'),
-    );
+  const onSubmit = () => {
+    setAction('editar');
+    setIsConfirmationModalOpen(true);
+  };
+  
+  const deleteSubmit = () => {
+    setAction('deletar');
+    setIsConfirmationModalOpen(true);
   };
 
-  const deleteSubmit = async () => {
+  const handleEditConfirmation = async () => {
+    await lessonUpdateControllerView(lessonModel).then(() => {
+      setIsConfirmationModalOpen(false); 
+    });
+  };
+
+  const handleDeleteConfirmation = async () => {
     await lessonDeleteControllerView(lessonModel.uuid).then(() => {
+      setIsConfirmationModalOpen(false);
       window.location.reload();
     });
+  };
+
+  const handleConfirmation = () => {
+    if (action === 'editar') {
+      handleEditConfirmation();
+    } else if (action === 'deletar') {
+      handleDeleteConfirmation();
+    }
+    setIsConfirmationModalOpen(false);
   };
 
   const loadingLessonValues = async () => {
@@ -89,14 +112,13 @@ export const LessonModal: React.FC<IntfcModal> = ({
 
   return (
     <Main>
-      <Form>
+        <Form>
         <InputContent labelText="Calendário:" htmlFor="calendario-s">
           <SelectArea
             id="calendario-s"
             value={calendarValue}
             change={(event) => {
               const select = event.target;
-              console.log(calendarValue);
               if (calendarList) {
                 lessonModel.calendar = calendarList[select.selectedIndex];
                 setCalendarValue(lessonModel.calendar.semester);
@@ -188,8 +210,33 @@ export const LessonModal: React.FC<IntfcModal> = ({
         </InputContent>
       </Form>
 
+
       <ButtonAction textButton="Editar aula" onClickFunction={onSubmit} />
       <ButtonAction textButton="Deletar aula" onClickFunction={deleteSubmit} />
+
+      <Modal
+        isOpen={isConfirmationModalOpen}
+        onRequestClose={() => setIsConfirmationModalOpen(false)}
+        contentLabel="Confirmação"
+        style={{
+          content: {
+            width: '300px',
+            height: '90px',
+            margin: 'auto',
+          },
+        }}
+      >
+        <ConfirmationModalWrapper>
+          <ConfirmationMessage>
+            {action === 'editar'
+              ? 'Deseja realmente editar a aula?'
+              : 'Deseja realmente deletar a aula?'}
+          </ConfirmationMessage>
+          <ConfirmationButton onClick={handleConfirmation}>Confirmar</ConfirmationButton>
+          <CancelButton onClick={() => setIsConfirmationModalOpen(false)}>Cancelar</CancelButton>
+        </ConfirmationModalWrapper>
+      </Modal>
     </Main>
   );
 };
+export default LessonModal;
