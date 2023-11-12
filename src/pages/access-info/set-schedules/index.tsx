@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
 
+// Importe os estilos, modelos e controladores necessários
 import { Main, Filters } from './styles';
 import { LessonModel } from '../../../api/model/LessonModel';
 import { lessonReadControllerView } from './lessonReadControllerView';
@@ -18,45 +19,61 @@ import { courseReadControllerView } from '../edit-info/models/course/courseReadC
 export const SetSchedules = () => {
   const [lessonList, setLessonList] = useState<LessonModel[]>();
   const [backupLessonList, setBackupLessonList] = useState<LessonModel[]>();
-
   const [intervalList, setListInterval] = useState<IntervalModel[]>();
   const [classList, setClassList] = useState<TurmaModel[]>();
   const [courseList, setCourseList] = useState<CourseModel[]>();
   const [defaultListLesson, setDefaultListLesson] = useState<LessonModel[]>();
   const [defaultListClass, setDefaultListClass] = useState<TurmaModel[]>();
-
   const [teacherOptions, setTeacherOptions] = useState<string[]>([]);
-  // const [classOptions, setClassOptions] = useState<string[]>(["Todos"])
+  const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
 
   const { bool } = useRefreshContext();
-
+  
   const load = async () => {
-    let lessons = await lessonReadControllerView();
-    const intervals = await intervalReadControllerView();
-    let classList = await turmaReadControllerView();
-    const courses = await courseReadControllerView();
-    classList = classList.filter((c) => c.uuid !== 'default');
-    setDefaultListClass(classList);
-
-    classList = classList.filter((classs) => classs.course_uuid === courses[0].uuid);
-
-    setClassList(classList);
-    setDefaultListLesson(lessons);
-    lessons = lessons.filter((lesson) => lesson.course.name === courses[0].name)
-    setLessonList(lessons)
-    setBackupLessonList(lessons);
-    setListInterval(intervals);
-    setCourseList(courses);
-
-    prepareDefaultOptions(lessons);
+    try {
+      let lessons = await lessonReadControllerView();
+      const intervals = await intervalReadControllerView();
+      let classList = await turmaReadControllerView();
+      const courses = await courseReadControllerView();
+  
+      classList = classList.filter((c) => c.uuid !== 'default');
+      setDefaultListClass(classList);
+      setCourseList(courses);
+  
+      if (selectedCourse) {
+        const selectedCourseObject = courseList?.find((course) => course.name === selectedCourse);
+  
+        if (selectedCourseObject) {
+          classList = classList.filter((classs) => classs.course_uuid === selectedCourseObject.uuid);
+          lessons = lessons.filter((lesson) => lesson.course.name === selectedCourseObject.name);
+        } else {
+          console.error('Selected course not found:', selectedCourse);
+        }
+      } else {
+        classList = classList.filter((classs) => classs.course_uuid === courses[0].uuid);
+        lessons = lessons.filter((lesson) => lesson.course.name === courses[0].name);
+      }
+  
+      console.log('Filtered Course List:', classList);
+      console.log('Filtered Lesson List:', lessons);
+  
+      setClassList(classList);
+      setDefaultListLesson(lessons);
+      setLessonList(lessons);
+      setBackupLessonList(lessons);
+      setListInterval(intervals);
+  
+      // Atualizando as opções de professores com base nas lições filtradas
+      prepareDefaultOptions(lessons);
+    } catch (error) {
+      console.error('Error loading data:', error);
+    }
   };
+  
 
   function prepareDefaultOptions(arr: LessonModel[]) {
     const optsTeacher = arr.map((lesson: LessonModel) => lesson.professor.name);
-    // const optsClass = arr.map((lesson: LessonModel) => lesson.turma.name)
-
     setTeacherOptions(filterNames(optsTeacher));
-    // setClassOptions(filterNames(optsClass))
   }
 
   function filterNames(arr: string[]): string[] {
@@ -68,25 +85,23 @@ export const SetSchedules = () => {
 
   useEffect(() => {
     load();
-  }, [bool]);
+  }, [bool, selectedCourse]);
 
   function handleChangeFilter(value: string, type: string) {
     if (type === 'course') {
-      const uuid: string | undefined = courseList?.filter(
-        (course) => course.name === value,
-      )[0]?.uuid;
-      setClassList(
-        defaultListClass?.filter((classs) => classs.course_uuid === uuid),
-      );
-      const listLesson = defaultListLesson?.filter((lesson) => lesson.course.name === value)
-      setLessonList(listLesson);
+      setSelectedCourse(value);
 
-      prepareDefaultOptions(listLesson)
+      const uuid: string | undefined = courseList?.find(
+        (course) => course.name === value,
+      )?.uuid;
+
+      console.log('Selected Course:', value);
+      console.log('UUID:', uuid);
     }
+
     if (type === 'teacher') {
       if (value === 'Todos') {
         setLessonList(defaultListLesson);
-        return;
       } else {
         setLessonList(
           defaultListLesson?.filter(
@@ -120,9 +135,7 @@ export const SetSchedules = () => {
           <div>
             <label>
               <p>Curso</p>
-              <select
-                onChange={(e) => handleChangeFilter(e.target.value, 'course')}
-              >
+              <select onChange={(e) => handleChangeFilter(e.target.value, 'course')}>
                 {courseList?.map((course, k) => (
                   <option key={k} value={course.name}>
                     {course.name}
