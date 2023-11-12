@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ButtonAction, InputContent, SelectArea } from '../../../../components';
-import Modal from 'react-modal'; // Importe o Modal do react-modal
-import { Form, Main,ConfirmationButton, ConfirmationMessage, ConfirmationModalWrapper, CancelButton } from './styles';
+import Modal from 'react-modal'; 
+import { Form, Main, ConfirmationButton, ConfirmationMessage, ConfirmationModalWrapper, CancelButton } from './styles';
 import { CalendarModel } from '../../../../api/model/CalendarModel';
 import { CalendarController } from '../../../../api/controller/CalendarController';
 import { ClassroomModel } from '../../../../api/model/ClassroomModel';
@@ -33,6 +33,7 @@ export const LessonModal: React.FC<IntfcModal> = ({
   lessonModal,
 }: IntfcModal) => {
   const [lessonModel, setLessonModel] = useState<LessonModel>(lessonModal);
+  const [tempLessonModel, setTempLessonModel] = useState<LessonModel>(lessonModal);
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
   const [calendarList, setCalendarList] = useState<CalendarModel[]>();
   const [classroomList, setClassroomList] = useState<ClassroomModel[]>();
@@ -40,7 +41,6 @@ export const LessonModal: React.FC<IntfcModal> = ({
     useState<CurricularComponentModel[]>();
   const [courseList, setCourseList] = useState<CourseModel[]>();
   const [professorList, setProfessorList] = useState<ProfessorModel[]>();
-
   const [calendarValue, setCalendarValue] = useState(
     lessonModel.calendar.semester,
   );
@@ -83,6 +83,7 @@ export const LessonModal: React.FC<IntfcModal> = ({
 
   const handleConfirmation = () => {
     if (action === 'editar') {
+      setLessonModel(tempLessonModel);
       handleEditConfirmation();
     } else if (action === 'deletar') {
       handleDeleteConfirmation();
@@ -112,7 +113,7 @@ export const LessonModal: React.FC<IntfcModal> = ({
 
   return (
     <Main>
-        <Form>
+      <Form>
         <InputContent labelText="Calendário:" htmlFor="calendario-s">
           <SelectArea
             id="calendario-s"
@@ -120,8 +121,10 @@ export const LessonModal: React.FC<IntfcModal> = ({
             change={(event) => {
               const select = event.target;
               if (calendarList) {
-                lessonModel.calendar = calendarList[select.selectedIndex];
-                setCalendarValue(lessonModel.calendar.semester);
+                const updatedTempLessonModel = { ...tempLessonModel };
+                updatedTempLessonModel.calendar = calendarList[select.selectedIndex];
+                setTempLessonModel(updatedTempLessonModel);
+                setCalendarValue(updatedTempLessonModel.calendar.semester);
               }
             }}
           >
@@ -137,11 +140,13 @@ export const LessonModal: React.FC<IntfcModal> = ({
             change={(event) => {
               const select = event.target;
               if (classroomList) {
-                lessonModel.classroom = classroomList[select.selectedIndex];
+                const updatedTempLessonModel = { ...tempLessonModel };
+                updatedTempLessonModel.classroom = classroomList[select.selectedIndex];
+                setTempLessonModel(updatedTempLessonModel);
                 setClassroomValue(
-                  lessonModel.classroom.name +
+                  updatedTempLessonModel.classroom.name +
                     ' - ' +
-                    lessonModel.classroom.classBlockDTO.block,
+                    updatedTempLessonModel.classroom.classBlockDTO.block,
                 );
               }
             }}
@@ -160,10 +165,12 @@ export const LessonModal: React.FC<IntfcModal> = ({
             change={(event) => {
               const select = event.target;
               if (curricularComponentList) {
-                lessonModel.curricularComponent =
+                const updatedTempLessonModel = { ...tempLessonModel };
+                updatedTempLessonModel.curricularComponent =
                   curricularComponentList[select.selectedIndex];
+                setTempLessonModel(updatedTempLessonModel);
                 setCurricularComponentValue(
-                  lessonModel.curricularComponent.name,
+                  updatedTempLessonModel.curricularComponent.name,
                 );
               }
             }}
@@ -180,8 +187,10 @@ export const LessonModal: React.FC<IntfcModal> = ({
             change={(event) => {
               const select = event.target;
               if (courseList) {
-                lessonModel.course = courseList[select.selectedIndex];
-                setCourseValue(lessonModel.course.name);
+                const updatedTempLessonModel = { ...tempLessonModel };
+                updatedTempLessonModel.course = courseList[select.selectedIndex];
+                setTempLessonModel(updatedTempLessonModel);
+                setCourseValue(updatedTempLessonModel.course.name);
               }
             }}
           >
@@ -197,9 +206,10 @@ export const LessonModal: React.FC<IntfcModal> = ({
             change={(event) => {
               const select = event.target;
               if (professorList) {
-                console.log(professorList[select.selectedIndex]);
-                lessonModel.professor = professorList[select.selectedIndex];
-                setProfessorValue(lessonModel.professor.name);
+                const updatedTempLessonModel = { ...tempLessonModel };
+                updatedTempLessonModel.professor = professorList[select.selectedIndex];
+                setTempLessonModel(updatedTempLessonModel);
+                setProfessorValue(updatedTempLessonModel.professor.name);
               }
             }}
           >
@@ -209,7 +219,6 @@ export const LessonModal: React.FC<IntfcModal> = ({
           </SelectArea>
         </InputContent>
       </Form>
-
 
       <ButtonAction textButton="Editar aula" onClickFunction={onSubmit} />
       <ButtonAction textButton="Deletar aula" onClickFunction={deleteSubmit} />
@@ -239,4 +248,5 @@ export const LessonModal: React.FC<IntfcModal> = ({
     </Main>
   );
 };
+
 export default LessonModal;
