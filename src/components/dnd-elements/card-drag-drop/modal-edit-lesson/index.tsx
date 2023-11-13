@@ -33,7 +33,7 @@ export const LessonModal: React.FC<IntfcModal> = ({
   lessonModal,
 }: IntfcModal) => {
   const [lessonModel, setLessonModel] = useState<LessonModel>(lessonModal);
-  const [tempLessonModel, setTempLessonModel] = useState<LessonModel>(lessonModal);
+const [tempLessonModel, setTempLessonModel] = useState<LessonModel>(lessonModal);
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
   const [calendarList, setCalendarList] = useState<CalendarModel[]>();
   const [classroomList, setClassroomList] = useState<ClassroomModel[]>();
@@ -46,8 +46,8 @@ export const LessonModal: React.FC<IntfcModal> = ({
   );
   const [classroomValue, setClassroomValue] = useState(
     lessonModel.classroom.name +
-      ' - ' +
-      lessonModel.classroom.classBlockDTO.block,
+    ' - ' +
+    lessonModel.classroom.classBlockDTO.block,
   );
   const [curricularComponentValue, setCurricularComponentValue] = useState(
     lessonModel.curricularComponent.name,
@@ -76,7 +76,7 @@ export const LessonModal: React.FC<IntfcModal> = ({
 
   const handleDeleteConfirmation = async () => {
     await lessonDeleteControllerView(lessonModel.uuid).then(() => {
-      setIsConfirmationModalOpen(false);
+setIsConfirmationModalOpen(false);
       window.location.reload();
     });
   };
@@ -120,7 +120,7 @@ export const LessonModal: React.FC<IntfcModal> = ({
             value={calendarValue}
             change={(event) => {
               const select = event.target;
-              if (calendarList) {
+                            if (calendarList) {
                 const updatedTempLessonModel = { ...tempLessonModel };
                 updatedTempLessonModel.calendar = calendarList[select.selectedIndex];
                 setTempLessonModel(updatedTempLessonModel);
