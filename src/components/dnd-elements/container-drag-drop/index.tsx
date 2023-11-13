@@ -1,7 +1,5 @@
-import { useState, useMemo, useCallback, useEffect } from 'react';
-
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { Main, BusyCard } from './styles';
-
 import { useDrop } from 'react-dnd';
 import { LessonModel } from '../../../api/model/LessonModel';
 import { CardDND } from '../card-drag-drop';
@@ -24,6 +22,7 @@ interface IntfcContainerDND {
 }
 
 const lessonController = LessonController.getInstance();
+
 export const ContainerDND: React.FC<IntfcContainerDND> = ({
   id,
   listLesson,
@@ -46,8 +45,6 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({
   const [lesson, setLesson] = useState<LessonModel>();
   const { bool, refreshBool } = useRefreshContext();
 
-  // Mesmo que acuse que o valor nunca é lido, NÃO REMOVA ESSE MÉTODO
-  // Garantirá que a atualização dinâmica dos cards de forma rápida seja feita
   const assigningLesson = useMemo(() => {
     if (listLesson.length > 0) {
       listLesson.forEach((lesson) =>
@@ -72,28 +69,31 @@ export const ContainerDND: React.FC<IntfcContainerDND> = ({
     },
     [lesson, setLesson, bool],
   );
-  
   const [, dropRef] = useDrop({
     accept: 'CARD',
     drop: (item: { lesson: any; uuid: string }, monitor) => {
       const updateLesson = item.lesson;
       updateLesson.turma = { name: turma, uuid: idClass };
-      
-      let lessonInCard = listLesson.filter((l) => l.uuid !== updateLesson.uuid && l.interval && l.interval.uuid === interval.uuid)[0]
-      
-      if (lessonInCard && lessonInCard.turma.uuid === updateLesson.turma.uuid) {
-        if (!updateLesson.interval || updateLesson.turma.uuid === 'default') {
-          lessonInCard.turma = {uuid: "default", name: "-1 Periodo Padrao", course_uuid: null}
-        }else{
-          lessonInCard.interval = updateLesson.interval
-        }
-        updateIntervalInLesson(lessonInCard);
+  
+      // Verifica se há uma aula já agendada para o mesmo intervalo de tempo e turma
+      const lessonInSameSlot = listLesson.find(
+        (l) =>
+          l.interval?.uuid === interval.uuid &&
+          l.turma.uuid === updateLesson.turma.uuid
+      );
+  
+      if (lessonInSameSlot) {
+        alert('Conflito de horário! Aula já agendada para este intervalo de tempo e turma.');
+        console.log('Conflito de horário! Aula já agendada para este intervalo de tempo e turma.');
+        return;
       }
-
+  
+      // Restante do código para atualizar a aula, se não houver conflito
       updateLesson.interval = interval;
-      updateIntervalInLesson(updateLesson)
+      updateIntervalInLesson(updateLesson);
     },
   });
+  
 
   useEffect(() => {
     setLesson(
