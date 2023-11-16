@@ -115,7 +115,8 @@ export const SetSchedules = () => {
   return (
     <DndProvider backend={HTML5Backend}>
       <Filters>
-        <h2>Filtros</h2>
+        <h2>Filtro</h2>
+      <img src="src/assets/img/filtro.png" alt="Ícone de Filtro" />
         <div className='filters-group'>
           <div>
             <label>
