@@ -1,8 +1,10 @@
 import styled from 'styled-components';
+import Campus from '../../../assets/img/ifpbmonteiro.png';
+
 
 export const Main = styled.div`
     padding: 25px;
-    background-color: #d9d9d9;
+    background-image: url(${Campus});
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -34,7 +36,7 @@ export const Main = styled.div`
 `;
 
 export const WrapperContainer = styled('div')`
-    background-color: #656565;
+    background-color: #3FA14C;
     padding: 0 50px;
     max-width: 940px;
     width: 100%;
@@ -72,15 +74,15 @@ export const TypesContainer = styled('div')`
     input[type="radio"]:checked+label{
         transition: 0.5s all ease-out;
         font-size: 25px;
-        color: #FF5559;
+        color: #01670C ;
 
         & > div {
-            border-bottom: solid 1px #FF5559;
+            border-bottom: solid 1px #01670C ;
         }
 
         & > span {
             :hover {
-                color: #FF5559;
+                color: #01670C;
             }
         }
     }
@@ -111,7 +113,7 @@ export const TypeLabel = styled('label')`
         cursor: pointer;
 
         :hover{
-            color: #3FA14C;
+            color:#1CE631 ;
         }
     }
 
@@ -132,7 +134,7 @@ export const Tab = styled('div')`
     padding-left: 20px;
     display: flex;
     align-items: center;
-    color: #797979;
-    border-radius: 5px 5px 0 0;
+    color: #01670C;
+    border-radius: 50px 50px 0 0;
 `;
 

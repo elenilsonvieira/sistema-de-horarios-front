@@ -9,6 +9,7 @@ export const Main = styled.div`
     align-items: center;
     height: 100%;
     justify-content: space-between;
+
 `;
 
 export const Form = styled.form`
