@@ -7,10 +7,10 @@ export const Main = styled.button`
     background: #3FA14C;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
     border: 0;
-    border-radius: 20px;
+    border-radius: 100px;
     font-size: 30px;
     text-transform: uppercase;
-    height: 95px;
+    height: 80px;
     cursor: pointer;
     
     & > a {

@@ -19,6 +19,7 @@ export const AccessInfo = () => {
                 icon={AddInfo}
                 discription="Ex: Turma, salas, disciplinas, professores..."
                 to={'/add-info'}
+                className="description"
               />
               <ButtonMenu
                 tittle="MONTAR HORÁRIOS"
@@ -26,6 +27,7 @@ export const AccessInfo = () => {
                 discription="De acordo com as informações inseridas
                                 no sistema."
                 to={'/set-schedules'}
+                className="description"
               />
             </Col>
             <Col>
@@ -34,6 +36,7 @@ export const AccessInfo = () => {
                 icon={Editar}
                 discription="Editar ou excluir dados."
                 to={'/edit-info'}
+                className="description"
               />
             </Col>
           </Container>

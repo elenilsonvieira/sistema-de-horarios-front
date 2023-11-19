@@ -1,10 +1,11 @@
 import styled from 'styled-components';
+import Campus from '../../assets/img/ifpbmonteiro.png';
 
 export const Main = styled.div`
-    background-color: #d9d9d9;
     display: flex;
     min-height: calc(100vh - 200px);
     width: 100vw;
+    background-image: url(${Campus});
 
     @media screen and (max-width: 600px){
         flex-direction: column-reverse;
@@ -17,7 +18,7 @@ export const SuperDiv = styled.div`
 `;
 
 export const Container = styled.div`
-    width: 100%;
+    width: 150%;
     max-width: 920px;
     display: flex;
     flex-direction: column;
@@ -33,8 +34,8 @@ export const Col = styled.div`
 `;
 
 export const Menu = styled.div`
-    width: 100%;
-    justify-content: center;
+    width: 1000%;
+    justify-content: right;
     display: flex;
     height: 100%;
 `;

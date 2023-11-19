@@ -1,6 +1,6 @@
-import AddInfo from './adicionar-documento.svg';
-import Horario from './calendario.svg';
-import Editar from './editar.svg';
+import AddInfo from './adicionar-contato.png';
+import Horario from './calendario.png';
+import Editar from './editar.png';
 import Ver from './olho.svg';
 import Expandir from './acento-circunflexo.svg'
 
