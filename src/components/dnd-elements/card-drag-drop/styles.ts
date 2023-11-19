@@ -31,6 +31,7 @@ export const Main = styled.div`
 
     p {
         display: flex;
+        font-size: 14px;
         font-weight: bold;
         justify-content: center;
         align-items:center;
@@ -40,9 +41,9 @@ export const Main = styled.div`
         display: flex;
         width: 30%;
         justify-content: center;
-        align-items: center;
+        ::after        
         border: none;
-        border-radius: 3px;
+        border-radius: 15px;
         background-color: #4ca84e;
         color: #FFF;
         font-weight: bold;
@@ -53,8 +54,9 @@ export const Main = styled.div`
     }
 
     button:hover{
-        background-color: #3E7F3F;
-        transition: 0.2s;
+        background-color: #61C73D;
+        transition: 0.3s;
+        color: #3E7F3F;
     }
 
     ${(props: any) => props.isDragging && css`

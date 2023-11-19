@@ -30,7 +30,7 @@ export const TextButton= styled.div`
     justify-content: center;
     align-items: flex-start;
     flex-direction: column;
-    color: white;
+    color: #3FA14C;
     padding-left: 5px;
 
     > b {
@@ -42,7 +42,7 @@ export const TextButton= styled.div`
     }
 
     :hover {
-        color: #CF3034;
+        color: #70C229;
     }
 
 `;

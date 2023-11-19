@@ -2,11 +2,11 @@ import styled from 'styled-components';
 
 export const Main = styled.div`
     padding: 2px;
-    margin: 1px;
-    width: 190px;
-    height: 88px;
-    border-radius: 5px;
-    background: #A9A9A9;
+    margin: 10px;
+    width: 180px;
+    height: 108px;
+    border-radius: 10px;
+    background: #3FA14C;
 
     & + div {
         border-left: 1px solid rgba(0, 0, 0, 0.05);
@@ -16,7 +16,8 @@ export const Main = styled.div`
         display: flex;
         justify-content: space-between;
         align-items: center;
-        height: 42px;
+        height: 5px;
+
 
         h2 {
             font-weight: 500;
@@ -39,5 +40,4 @@ export const BusyCard = styled.div`
     font-weight: bold;
     align-items: center;
     justify-content: center;
-    background-color: #cc3535;
 `;
