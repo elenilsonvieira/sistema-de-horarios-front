@@ -3,14 +3,12 @@ import Campus from '../../assets/img/ifpbmonteiro.png';
 
 export const Main = styled.div`
     padding: 25px;
-    //background-color: #d9d9d9;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     color: white;
     min-height: calc(100vh - 200px);
-    padding: 50px;
 
     background-image: url(${Campus});
     background-repeat: no-repeat;
@@ -23,8 +21,9 @@ export const Main = styled.div`
 `;
 
 export const LoginSpan = styled.span`
-    text-decoration: none;
-    color: white;
+    color: green; //cor karol e sair
+    margin: 30px;
+    font-size: 20px;
     cursor: pointer;
 
     :hover{
@@ -33,10 +32,12 @@ export const LoginSpan = styled.span`
     }
 
     &.user {
+        font-size: 25px;
+        color: green;
         cursor: default;
         :hover{
             transition: none;
-            color: white; 
+            color: black; //karol
         }
     }
 `;
@@ -47,6 +48,7 @@ export const Form = styled.form`
     display: flex;
     align-items: center;
     flex-direction: column;
+    background-color: red;
     
     & > button {
         margin-top: 20px;
@@ -54,9 +56,12 @@ export const Form = styled.form`
 `;
 
 export const Container = styled.div`
+    background-color: #c8c8c8;
+    opacity: 90%;
+    border-radius: 70px;
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 550px;
     justify-content: center;
     align-items: center;
 `;
