@@ -10,34 +10,33 @@ export const Main = styled.div`
     color: white;
     min-height: calc(100vh - 200px);
 
-    background-image: url(${Campus});
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.9)), url(${Campus});
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
 
-    @media screen and (max-width: 600px){
+    @media screen and (max-width: 600px) {
         padding: 15px;
     }
 `;
 
 export const LoginSpan = styled.span`
-    color: green; //cor karol e sair
-    margin: 30px;
+    color: white; /* cor verde */
+    margin: 10px;
     font-size: 20px;
     cursor: pointer;
 
-    :hover{
+    :hover {
         transition: 0.3s all ease;
-        color: #CF3034;
+        color: #CF3034; /* cor vermelha */
     }
 
     &.user {
         font-size: 25px;
-        color: green;
+        color: white; /* cor verde */
         cursor: default;
-        :hover{
+        :hover {
             transition: none;
-            color: black; //karol
         }
     }
 `;
@@ -48,20 +47,31 @@ export const Form = styled.form`
     display: flex;
     align-items: center;
     flex-direction: column;
-    background-color: red;
-    
+
     & > button {
         margin-top: 20px;
+        background-color: #4CAF50; /* cor verde */
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+
+        :hover {
+            background-color: #45a049; /* tom mais escuro de verde */
+        }
     }
 `;
 
 export const Container = styled.div`
-    background-color: #c8c8c8;
-    opacity: 90%;
-    border-radius: 70px;
+    background-color: rgba(100, 200, 100, 0.2); /* Cor com 90% de opacidade */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 1); /* Adiciona uma leve sombra */
+
+    border-radius: 80px; /* Reduz o raio do border-radius para uma aparência mais moderna */
     display: flex;
     flex-direction: column;
     width: 550px;
+    height: 350px;
     justify-content: center;
     align-items: center;
 `;

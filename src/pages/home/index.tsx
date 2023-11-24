@@ -83,10 +83,10 @@ export const Home = () => {
         </Container>
       ) : (
         <Container>
-          <LoginSpan className="user">{loggedUser.name}</LoginSpan>
           <ButtonHome />
           {isAuthenticated ? (
             <>
+            <LoginSpan className="user">{loggedUser.name}</LoginSpan>
               <LoginSpan onClick={end}>Sair</LoginSpan>
             </>
           ) : (
