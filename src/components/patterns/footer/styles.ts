@@ -30,7 +30,7 @@ export const Nav = styled.nav`
                 text-decoration: none;
 
                 :hover{
-                    color: #CF3034;
+                    color: greenyellow;
                 }
             }
         }

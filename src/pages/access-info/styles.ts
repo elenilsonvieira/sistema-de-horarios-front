@@ -5,7 +5,11 @@ export const Main = styled.div`
     display: flex;
     min-height: calc(100vh - 200px);
     width: 100vw;
-    background-image: url(${Campus});
+    
+    background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.9)), url(${Campus});
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 
     @media screen and (max-width: 600px){
         flex-direction: column-reverse;

@@ -4,7 +4,7 @@ export const Main = styled.div`
     width: 60px;
     height: 60px;
     padding:150px;
-    background-color: #E0E0E0;
+    background-color: rgba(200, 200, 200, 0.8);
     display: flex;
     flex-direction: column;
     align-items: center;
