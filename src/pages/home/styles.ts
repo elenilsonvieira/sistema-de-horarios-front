@@ -32,7 +32,7 @@ export const LoginSpan = styled.span`
     }
 
     &.user {
-        font-size: 25px;
+        font-size: 22px;
         color: white; /* cor verde */
         cursor: default;
         :hover {
@@ -73,8 +73,8 @@ export const Container = styled.div`
     border-radius: 80px; /* Reduz o raio do border-radius para uma aparência mais moderna */
     display: flex;
     flex-direction: column;
-    width: 550px;
-    height: 350px;
+    width: 480px;
+    height: 320px;
     justify-content: center;
     align-items: center;
 `;
