@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Main = styled.div`
     padding: 5px 0;
     width: 100%;
-    color: #797979;
+    color: white;
     display: flex;
     flex-direction: column;
     align-items: center;

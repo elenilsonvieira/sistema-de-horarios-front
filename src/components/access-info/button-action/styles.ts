@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Main = styled.button`
     width: 100%;
     max-width: 200px;
-    background-color: #3FA14C;
+    background-color: #277e1c;
     color: white;
     padding: 14px;
     border: 0;
@@ -14,8 +14,8 @@ export const Main = styled.button`
     text-transform: uppercase;
     margin-bottom: 10px;
 
-    :hover{
-        transition: 0.5s all ease;
-        background-color: #656565;
+    &:hover {
+        background-color: rgba(112, 194, 41, 0.9); /* Verde mais opaco com opacidade ao passar o mouse */
+        box-shadow: 5px 5px 15px rgba(255, 255, 255, 0.2); /* Adiciona uma box-shadow branca durante a transição */
     }
 `;
