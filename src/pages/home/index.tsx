@@ -54,7 +54,7 @@ export const Home = () => {
       {showLogin ? (
         <Container>
           <Form>
-            <InputContent labelText="Matrícula:" htmlFor="enrollment">
+            <InputContent labelText="" htmlFor="enrollment">
               <InputArea
                 placeholder="Matrícula"
                 id="enrollment"
@@ -63,7 +63,7 @@ export const Home = () => {
                 }}
               />
             </InputContent>
-            <InputContent labelText="Senha:" htmlFor="pass">
+            <InputContent labelText="" htmlFor="pass">
               <InputArea
                 type="password"
                 placeholder="Senha"

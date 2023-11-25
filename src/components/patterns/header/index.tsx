@@ -1,5 +1,4 @@
 import { CampusLogo } from '../../../assets/img';
-
 import { Main, Logo, Nav, Divisor } from './styles';
 
 export const Header = () => {

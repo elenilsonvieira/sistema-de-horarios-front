@@ -23,7 +23,7 @@ export const Main = styled.div`
 export const LoginSpan = styled.span`
     color: white; /* cor verde */
     margin: 10px;
-    font-size: 20px;
+    font-size: 17px;
     cursor: pointer;
 
     :hover {
@@ -49,16 +49,19 @@ export const Form = styled.form`
     flex-direction: column;
 
     & > button {
-        margin-top: 20px;
+        margin-top: 30px;
         background-color: #4CAF50; /* cor verde */
         color: white;
         padding: 10px 20px;
         border: none;
-        border-radius: 5px;
+        border-radius: 20px;
         cursor: pointer;
 
         :hover {
-            background-color: #45a049; /* tom mais escuro de verde */
+            transition: 1s all ease;
+            background: linear-gradient(to right, #299920, #1E6F1E); /* Gradiente de verde para um tom mais escuro no hover */
+            box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.25), inset 0px 0px 10px rgba(255, 255, 255, 0.1); /* Sombra sutil no hover */
+            color: greenyellow;
         }
     }
 `;

@@ -1,21 +1,32 @@
 import styled from 'styled-components';
 
 export const Main = styled.input`
-    background: #FFF;
-    border: 2px solid #797979;
-    box-shadow: 5px 5px 10px rgba(1, 1, 1, 0.22);
-    border-radius: 5px;
-    width:100%;
-    min-width: 150px;
-    padding: 8px;
+    border: none;
+    background-color: transparent; /* Torna o fundo totalmente transparente */
+    border-bottom: 2px solid #ddd; /* Cor da borda inferior */
+    width: auto;
+    padding: 10px;
     font-size: 16px;
-    color: #797979;
+    color: #ddd;
+    display: inline-block;
+    transition: border-color 0.3s ease-in-out, padding 0.3s ease-in-out;
 
     :focus {
         outline: 0;
+        border-bottom: 2px solid greenyellow; /* Cor da borda inferior ao focar */
+        padding: 20px; /* Ajuste o valor conforme necessário */
     }
 
-    &#capacidade {
-        max-width: 180px;
+    ::placeholder {
+        color: #ddd;
+    }
+
+    :hover {
+        border-bottom: 2px solid greenyellow; /* Cor da borda inferior ao passar o mouse */
+    }
+
+    :disabled {
+        border-bottom: 2px solid greenyellow; /* Cor da borda inferior quando desativado */
+        cursor: not-allowed;
     }
 `;

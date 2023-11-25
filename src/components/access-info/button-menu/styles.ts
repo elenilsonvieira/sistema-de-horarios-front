@@ -18,6 +18,11 @@ export const StyledButton = styled.button`
     width: 350px;
     cursor: pointer;
 
+    &:hover {
+        background-color: rgba(112, 194, 41, 0.7); /* Verde mais opaco com opacidade ao passar o mouse */
+        box-shadow: 5px 5px 15px rgba(255, 255, 255, 0.5); /* Adiciona uma box-shadow branca durante a transição */
+    }
+
     > a {
         display: flex;
         text-decoration: none;
@@ -30,7 +35,7 @@ export const TextButton= styled.div`
     justify-content: center;
     align-items: flex-start;
     flex-direction: column;
-    color: #3FA14C;
+    color: #4CA84E;
     padding-left: 5px;
 
     > b {
@@ -42,7 +47,7 @@ export const TextButton= styled.div`
     }
 
     :hover {
-        color: #70C229;
+        color: white;
     }
 
 `;

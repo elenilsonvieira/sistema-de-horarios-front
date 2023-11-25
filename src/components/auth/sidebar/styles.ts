@@ -61,11 +61,12 @@ export const Button = styled.button`
     border: 0;
     border-radius:150px;
     margin-top: 10px;
-    transition: background-color 0.3s, color 0.3s; /* Adiciona uma transição suave de 0.3 segundos */
 
     :hover {
-        color: #006600;
-        background-color: #66FF66; /* Altera a cor de fundo no hover */
+        color: greenyellow;
+        transition: 1s all ease;
+        background: linear-gradient(to right, #299920, #1E6F1E); /* Gradiente de verde para um tom mais escuro no hover */
+        box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.25), inset 0px 0px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil no hover */
     }
 
     @media screen and (max-width: 600px) {
