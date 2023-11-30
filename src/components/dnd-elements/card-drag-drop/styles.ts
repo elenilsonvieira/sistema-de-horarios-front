@@ -9,7 +9,7 @@ export const Main = styled.div`
     cursor: grab;
     place-items: center;
     padding: 0.5em;
-    margin-bottom: 1em;
+    margin-bottom: 0em;
     span {
         display: flex;
         justify-content: space-between;
@@ -18,11 +18,13 @@ export const Main = styled.div`
     header h2 {
         display: flex;
         width: 100%;
+        font-size: 14px;
         padding: 0;
-        font-size: larger;
     }
 
     header {
+        font-size: 14px;
+        width: 100%;
         display: flex;
         width: fit-content;
         height: 100%;
@@ -31,7 +33,7 @@ export const Main = styled.div`
 
     p {
         display: flex;
-        font-size: 14px;
+        font-size: 12px;
         font-weight: bold;
         justify-content: center;
         align-items:center;
@@ -41,7 +43,6 @@ export const Main = styled.div`
         display: flex;
         width: 30%;
         justify-content: center;
-        ::after        
         border: none;
         border-radius: 15px;
         background-color: #4ca84e;

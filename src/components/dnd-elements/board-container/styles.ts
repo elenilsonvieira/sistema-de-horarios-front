@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Main = styled.div`
-    padding-left: 290px;
+    padding-left: 320px;
     padding-top: 40px;
     
     th {

@@ -1,12 +1,18 @@
 import styled from 'styled-components';
+import Campus from '../../../assets/img/ifpbmonteiro.png';
 
 export const Main = styled.div`
-    min-height: calc(100vh - 200px);
-    background-color: white;
+    min-height: calc(100vh - 20px);
+
+    background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.9)), url(${Campus}); //problema = parece que a tela nao é inteira
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
     display: group;
     flex-direction: column;
     justify-content: overflow;
-    width: 90%;
+    width: 100%;
     overflow: styled;
 
     & > .list-items {

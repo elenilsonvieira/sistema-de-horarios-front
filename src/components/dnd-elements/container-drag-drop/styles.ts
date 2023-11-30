@@ -3,10 +3,11 @@ import styled from 'styled-components';
 export const Main = styled.div`
     padding: 2px;
     margin: 10px;
-    width: 180px;
-    height: 108px;
+    width: 200px;
+    height: 100px;
     border-radius: 10px;
-    background: #3FA14C;
+    background-color: rgba(50, 150, 50, 0.7);  /* Modificado para verde mais escuro */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); 
 
     & + div {
         border-left: 1px solid rgba(0, 0, 0, 0.05);
