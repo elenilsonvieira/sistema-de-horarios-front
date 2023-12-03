@@ -40,10 +40,12 @@ export const ButtonsContainer = styled.div`
 
 
 export const Username = styled.span`
-    text-align: center;
-    font-size: 24px;
-    padding-bottom: 20px;
-    color: #4ca84e;
+  text-align: center;
+  font-size: 28px;
+  border-radius: 50%;
+  padding-bottom: 20px;
+  color: #4ca84e;
+  font-weight: bold;
 
     @media screen and (max-width: 600px){
         font-size: 18px;
