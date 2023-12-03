@@ -26,8 +26,7 @@ export const SetSchedules = () => {
   const [defaultListClass, setDefaultListClass] = useState<TurmaModel[]>();
   const [teacherOptions, setTeacherOptions] = useState<string[]>([]);
   const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
-  const [currentClassIndex, setCurrentClassIndex] = useState<number>(0);
-  const [selectedLessonIndex, setSelectedLessonIndex] = useState<number>(0);
+
   const { bool } = useRefreshContext();
   
   const load = async () => {
@@ -64,6 +63,7 @@ export const SetSchedules = () => {
       setBackupLessonList(lessons);
       setListInterval(intervals);
   
+      // Atualizando as opções de professores com base nas lições filtradas
       prepareDefaultOptions(lessons);
     } catch (error) {
       console.error('Error loading data:', error);
@@ -111,14 +111,6 @@ export const SetSchedules = () => {
       }
     }
   }
-  const handleNextButtonClick = () => {
-    if (classList && classList.length > 0) {
-      setCurrentClassIndex((prevIndex) => (prevIndex + 1) % classList.length);
-      setSelectedLessonIndex(0);
-    }
-  };
-
-
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -158,21 +150,20 @@ export const SetSchedules = () => {
       <Main>
         {lessonList && intervalList && classList ? (
           <>
-           <div>
+            <div>
               <BoardList label={'Aulas Livres'} listLesson={lessonList} />
             </div>
-
             <div>
-              {classList.length > 0 && (
+              {classList.map((classs: TurmaModel, k) => (
                 <BoardContainer
-                  label={classList[currentClassIndex].name}
-                  idClass={classList[currentClassIndex].uuid as string}
+                  key={k}
+                  label={classs.name}
+                  idClass={classs.uuid as string}
                   listLesson={lessonList}
                   defaultListLesson={backupLessonList}
                   intervalList={intervalList}
-                  selectedLessonIndex={selectedLessonIndex}
                 />
-              )}
+              ))}
             </div>
           </>
         ) : (
