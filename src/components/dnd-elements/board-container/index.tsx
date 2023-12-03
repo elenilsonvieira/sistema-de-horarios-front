@@ -38,7 +38,7 @@ export const BoardContainer: React.FC<IntfcBoard> = ({
     <Main onChange={change}>
       <div>
         <header>
-          <h2 className="center">{label}</h2>
+          <h2 className="h2">{label}</h2>
         </header>
         <br />
         <table>

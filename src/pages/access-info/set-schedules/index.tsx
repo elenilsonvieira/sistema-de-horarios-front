@@ -158,9 +158,10 @@ export const SetSchedules = () => {
       <Main>
         {lessonList && intervalList && classList ? (
           <>
-            <div>
+           <div>
               <BoardList label={'Aulas Livres'} listLesson={lessonList} />
             </div>
+
             <div>
               {classList.length > 0 && (
                 <BoardContainer
@@ -173,7 +174,6 @@ export const SetSchedules = () => {
                 />
               )}
             </div>
-            <button onClick={handleNextButtonClick}>Próximo</button>
           </>
         ) : (
           <p>Não há itens</p>

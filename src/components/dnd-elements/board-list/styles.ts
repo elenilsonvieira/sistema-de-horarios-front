@@ -2,12 +2,13 @@ import styled from 'styled-components';
 
 export const Main = styled.div`
     padding: 5px;
-    margin: 35px; /* Aumentei a margem para uma aparência mais espaçada */
+    margin: 40px; /* Aumentei a margem para uma aparência mais espaçada */
     margin-top:  70px;
     width: 200px;
     height: fit-content;
     position: absolute;
-    background-color: rgba( 0, 0, 0, 0.1);
+    background-color: rgba(50, 150, 50, 0.1);  /* Modificado para verde mais escuro */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); 
     border: px solid #C2C2C2;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Adicionada uma sombra mais sutil */
     display: flex;
@@ -18,7 +19,7 @@ export const Main = styled.div`
     header {
         margin-bottom: 1em;
     }
-
+   
 
     /* Estilizando a Barra de Rolagem */
     ::-webkit-scrollbar {

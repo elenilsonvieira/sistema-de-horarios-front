@@ -6,9 +6,20 @@ export const Main = styled.div`
     
     th {
         vertical-align: middle;
+        color: white;
+        font-size: 18px;
     }
 
     .center{
+        text-align: center;
+        color: white;
+        font-size: 18px;
+
+
+    }
+
+    .h2{
+        color: white;
         text-align: center;
     }
 `;
